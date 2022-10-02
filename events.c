@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/02 15:10:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/02 16:53:42 by masamoil         ###   ########.fr       */
+/*   Created: 2022/10/02 16:00:08 by masamoil          #+#    #+#             */
+/*   Updated: 2022/10/02 16:52:48 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_error(void)
+int	handle_keypress(int keysym, t_data *data)
 {
-	perror("Error:");
+	if (keysym == XK_Escape)
+	{
+		ft_red_cross(data);
+	}
+	return (0);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_red_cross(t_data *data)
 {
-	if (!s)
-		return ;
-	while (*s)
-	{
-		write(fd, s, 1);
-		s++;
-	}
+	ft_free_n_destroy(data);
+	ft_putstr_fd("That's all, folks!\n", 1);
+	exit (0);
 }

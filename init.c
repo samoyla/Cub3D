@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:07:48 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/02 15:09:53 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/02 17:53:27 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,13 @@ t_data	*init_data(t_data *data, char *name)
 		free(data->mlx_ptr);
 		ft_error();
 	}
+	return (data);
+}
+
+t_data	*init_image(t_data *data)
+{
+	data->img.img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
+			&data->img.line_len, &data->img.endian);
 	return (data);
 }

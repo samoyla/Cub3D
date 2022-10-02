@@ -6,15 +6,13 @@
 #    By: masamoil <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/10/02 15:15:44 by masamoil         ###   ########.fr        #
+#    Updated: 2022/10/02 17:20:07 by masamoil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-SRCS	= cub3d.c\
-	init.c\
-	utils.c 
+SRCS	= cub3d.c init.c utils.c events.c free.c draw.c
 			
 OBJS = ${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/02 15:14:40 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/02 17:56:48 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,44 @@
 #define WIDTH 1200
 #define	HEIGHT 800
 #define MLX_ERROR 1
-
+#define PIXEL 0x07E0
 typedef struct s_pos
 {
 	float	x;
 	float	y;
 }	t_pos;
 
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int	bpp;
+	int	line_len;
+	int	endian;
+}t_img;
+
 typedef struct	s_data 
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
-}	t_data;
+	t_img	img;
+}t_data;
+
 
 //init.c
 t_data	*init_data(t_data *data, char *name);
+t_data	*init_image(t_data *data);
 //utils.c
 void	ft_error(void);
+void	ft_putstr_fd(char *s, int fd);
+//events.c
+int	handle_keypress(int keysem, t_data *data);
+int	ft_red_cross(t_data *data);
+//free.c
+void	ft_free_n_destroy(t_data *data);
+//draw.c
+int	render(t_data *data);
+void	img_pix_put(t_img *img, int x, int y, int color);
+void	render_background(t_img *img, int color);
 
 #endif
