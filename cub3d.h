@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/05 18:21:09 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/06 18:31:24 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@
 #define MLX_ERROR 1
 #define PIXEL 0x07E0
 #define BUFFER_SIZE 1
+
+typedef struct s_map
+{
+	char	**wmap;
+	char	**smap;
+	char	**tx;
+}t_map;
+
+
 typedef struct s_pos
 {
 	float	x;
@@ -61,6 +70,7 @@ typedef struct	s_data
 //init.c
 t_data	*init_data(t_data *data, char *name);
 t_data	*init_image(t_data *data);
+void	init_map(t_map *map);
 //utils.c
 void	ft_error(void);
 void	ft_putstr_fd(char *s, int fd);
@@ -79,6 +89,9 @@ int	if_file_exists(char *pathname);
 int	if_dir(char *pathname);
 int	check_ext(char *name);
 //gnl.c
-char *get_next_line(int fd);
-
+char	*get_next_line(int fd);
+//read_map.c
+void	tab_from_map(char *pathname, t_map *map);
+//parse_map.c
+void	second_parse(t_map *map);
 #endif

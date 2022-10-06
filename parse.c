@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:02:20 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/05 18:43:22 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/06 13:27:56 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	if_dir(char *pathname)
 		close(fd);
 		return (FAILURE);
 	}
-	close(fd);
 	return (SUCCESS);
 }
 
