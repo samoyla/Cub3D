@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:10:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/02 16:53:42 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/05 13:54:00 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,10 @@ void	ft_putstr_fd(char *s, int fd)
 		s++;
 	}
 }
+
+void	ft_exit(void)
+{
+	printf("euh, wrong number of arguments\n");
+	exit(FAILURE);
+}
+
