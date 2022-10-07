@@ -12,7 +12,56 @@
 
 #include "cub3d.h"
 
-static int	map_height(t_map *map)
+static int	check_line_tx(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] > 32)
+			return (SUCCESS);
+		i++;
+	}
+	return (FAILURE);
+}
+
+int	tab_texture(char *pathname, t_map *map)
+{
+	int		count;
+	int		fd;
+	int		i;
+	int		j;
+
+	count = 0;
+	i = 0;
+	j = 0;
+	fd = open(pathname, O_RDONLY);
+	if (fd < 0)
+		ft_error();
+	map->tx = malloc(sizeof(char *) * 6 + 1);
+	while (map->whole[j] != NULL)
+	{
+		if (check_line_tx(map->whole[j]) == SUCCESS)
+		{
+			if (i <= 5)
+			{	
+				map->tx[j] = strdup(map->whole[j]);
+				//printf("%s\n", map->tx[j]);
+				i++;
+			}
+		}
+		else
+			count++;
+		j++;
+	}
+	close(fd);
+	map->ret = i + count;
+	printf("%d\n", map->ret);
+	return (map->ret);
+}
+
+/*static int	map_height(t_map *map)
 {
 	int	i;
 	int	j;
@@ -20,16 +69,17 @@ static int	map_height(t_map *map)
 
 	count = 0;
 	j = 0;
-	while(map->wmap[j] != NULL)
+	while (map->whole[j] != NULL)
 	{
 		i = 0;
-		while(map->wmap[j][i] != '\0')
+		while (map->whole[j][i] != '\0')
 		{
-			if (map->wmap[j][i] == '1' || map->wmap[j][i] == '0' || map->wmap[j][i] == 'N'
-				|| map->wmap[j][i] == 'S' || map->wmap[j][i] == 'W' || map->wmap[j][i] == 'E')
+			if (map->whole[j][i] == '1' || map->whole[j][i] == '0'
+				|| map->whole[j][i] == 'N' || map->whole[j][i] == 'S'
+				|| map->whole[j][i] == 'W' || map->whole[j][i] == 'E')
 			{	
-				count++;	
-				break;
+				count++;
+				break ;
 			}
 			else
 				i++;
@@ -37,42 +87,32 @@ static int	map_height(t_map *map)
 		j++;
 	}
 	return (count);
-}
+}*/
 
-void	print_tab(char	**tab)
-{
-	int	i;
-	
-	i = 0;
-	while (tab[i])
-	{
-		printf("tab[%d]%s\n", i, tab[i]);
-		i++;
-	}
-}
-
-void	second_parse(t_map *map)
+void	tab_map(t_map *map, char *pathname)
 {
 	int	i;
 	int	j;
+	int	a;
 	int	size;
 
-
-	j = 0;
 	i = 0;
-	size = map_height(map);
-	map->smap = malloc(sizeof(char**) * size + 1);
-	while(map->wmap[j] != NULL)
+	j = map->ret;
+	a = map_size(pathname);
+	size = a - map->ret;
+	printf("size = %d\n", size);
+	map->map = malloc(sizeof(char **) * size + 1);
+	while (map->whole[j] != NULL)
 	{
-		if (strchr(map->wmap[j], '1') || strchr(map->wmap[j], '0')
-			|| strchr(map->wmap[j], 'N') ||strchr(map->wmap[j], 'S')
-			||strchr(map->wmap[j], 'W') || strchr(map->wmap[j], 'E'))
+		if (strchr(map->whole[j], '1') || strchr(map->whole[j], '0')
+			|| strchr(map->whole[j], 'N') || strchr(map->whole[j], 'S')
+			||strchr(map->whole[j], 'W') || strchr(map->whole[j], 'E'))
 		{
-			map->smap[i] = strdup(map->wmap[j]);
+			map->map[i] = strdup(map->whole[j]);
 			i++;
 		}
 		j++;
 	}
-	map->smap[i] = 0;
-	print_tab(map->smap);
+	map->map[i] = 0;
+	print_tab(map->map);
 }

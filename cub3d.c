@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/06 16:41:46 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/07 18:52:54 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 	t_map	map;
-		
-	init_map(&map);	
+
+	init_map(&map);
 	if (ac != 2)
 		ft_exit();
 	if (if_dir(av[1]) == FAILURE)
 	{
 		printf("It's a dirtectory");
-	 	exit(FAILURE);        		
+		exit(FAILURE);
 	}
 	if (if_file_exists(av[1]) == FAILURE)
 	{
@@ -35,8 +35,10 @@ int	main(int ac, char **av)
 		printf("wrong file extension\n");
 		exit(FAILURE);
 	}
-	tab_from_map(av[1], &map);
-	second_parse(&map);
+	tab_whole_map(av[1], &map);
+	tab_texture(av[1], &map);
+	tab_map(&map, av[1]);
+	get_tx(&map);
 	init_data(&data, "Cub3D");
 	init_image(&data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);

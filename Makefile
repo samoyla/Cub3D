@@ -6,14 +6,14 @@
 #    By: masamoil <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/10/06 16:26:02 by masamoil         ###   ########.fr        #
+#    Updated: 2022/10/07 18:54:05 by masamoil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
 SRCS	= cub3d.c init.c utils.c events.c free.c draw.c parse.c\
-	gnl.c read_map.c parse_map.c
+	gnl.c read_map.c parse_map.c map_tx.c split.c
 			
 OBJS = ${SRCS:.c=.o}
 
@@ -21,7 +21,7 @@ CC = clang
 
 RM = rm -f
 
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
 
 FL_MLX = -ldl -lmlx -Lmlx -lm -lXext -lX11 -lz
 
@@ -36,10 +36,10 @@ $(NAME) : $(OBJS)
 
 clean :
 	${RM} ${OBJS}
-
+	
 fclean : clean
 	${RM} ${NAME}
-
+	
 re : fclean all
 
 .PHONY : clean fclean re

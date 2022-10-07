@@ -6,14 +6,14 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 18:54:54 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/06 18:43:07 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/07 13:30:58 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 
-static char	*s_n_r(char *str, char c, char ac)
+char	*s_n_r(char *str, char c, char ac)
 {
 	int	i;
 
@@ -22,18 +22,18 @@ static char	*s_n_r(char *str, char c, char ac)
 	{
 		while (str[i] == c)
 			str[i] = ac;
-		i++; 
+		i++;
 	}
 	return (str);
 }
 
-static int	map_size(char *pathname)
+int	map_size(char *pathname)
 {
-	int	i;
+	int		i;
 	char	*line;
-	int	fd;
-	
-	i = 0; 
+	int		fd;
+
+	i = 0;
 	line = NULL;
 	fd = open(pathname, O_RDONLY);
 	line = get_next_line(fd);
@@ -50,28 +50,28 @@ static int	map_size(char *pathname)
 	return (i);
 }
 
-void	tab_from_map(char *pathname, t_map *map)
+void	tab_whole_map(char *pathname, t_map *map)
 {
-	int	fd;
-	int	i;
-	int	size;
+	int		fd;
+	int		i;
+	int		size;
 	char	*line;
-		
+
 	i = 0;
 	fd = open(pathname, O_RDONLY);
 	line = get_next_line(fd);
 	size = map_size(pathname);
-	map->wmap = malloc(sizeof(char*) * size + 1);
+	map->whole = malloc(sizeof(char *) * size + 1);
 	while (i < size)
 	{
 		s_n_r(line, '\n', '\0');
-		map->wmap[i] = strdup(line);
+		map->whole[i] = strdup(line);
 		//printf("%s\n", map->wmap[i]);
 		free(line);
 		i++;
 		line = get_next_line(fd);
 	}
 	close(fd);
-	map->wmap[i] = 0;
+	map->whole[i] = 0;
 	free(line);
 }

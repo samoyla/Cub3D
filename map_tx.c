@@ -1,47 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   map_tx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/02 15:10:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/05 13:54:00 by masamoil         ###   ########.fr       */
+/*   Created: 2022/10/07 18:34:56 by masamoil          #+#    #+#             */
+/*   Updated: 2022/10/07 18:50:32 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_error(void)
-{
-	perror("Error:");
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (!s)
-		return ;
-	while (*s)
-	{
-		write(fd, s, 1);
-		s++;
-	}
-}
-
-void	ft_exit(void)
-{
-	printf("euh, wrong number of arguments\n");
-	exit(FAILURE);
-}
-
-void	print_tab(char	**tab)
+void	get_tx(t_map *map)
 {
 	int	i;
-
+	
 	i = 0;
-	while (tab[i])
-	{
-		printf("tab[%d]%s\n", i, tab[i]);
-		i++;
-	}
+	//while(map->tx[i] && i < 6)
+	//{
+	map->wind_rose = ft_split(map->tx[i], ' ');
+	//}
+	print_tab(map->wind_rose);
 }
