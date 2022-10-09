@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:07:48 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/07 18:49:40 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/09 12:19:39 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	init_map(t_map *map)
 	map->map = NULL;
 	map->tx = NULL;
 	map->ret = 0;
-	map->wind_rose = NULL;
 	map->so = NULL;
 	map->no = NULL;
 	map->ea = NULL;

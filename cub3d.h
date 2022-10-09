@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/07 18:51:42 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/09 13:04:43 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	ft_error(void);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_exit(void);
 void	print_tab(char	**tab);
+void	free_tab(char **tab);
 //events.c
 int		handle_keypress(int keysem, t_data *data);
 int		ft_red_cross(t_data *data);

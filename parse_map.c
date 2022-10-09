@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 16:07:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/06 18:45:04 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/09 15:59:25 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ int	tab_texture(char *pathname, t_map *map)
 	fd = open(pathname, O_RDONLY);
 	if (fd < 0)
 		ft_error();
-	map->tx = malloc(sizeof(char *) * 6 + 1);
+	map->tx = calloc(6 + 1, sizeof(char *));
+	if (map->tx == NULL)
+		return(0);
 	while (map->whole[j] != NULL)
 	{
 		if (check_line_tx(map->whole[j]) == SUCCESS)
@@ -56,8 +58,10 @@ int	tab_texture(char *pathname, t_map *map)
 		j++;
 	}
 	close(fd);
+	printf("i = %d\n and count = %d\n", i, count);
 	map->ret = i + count;
-	printf("%d\n", map->ret);
+	printf("size till the 01map = %d\n", map->ret);
+	print_tab(map->tx);
 	return (map->ret);
 }
 
@@ -101,7 +105,7 @@ void	tab_map(t_map *map, char *pathname)
 	a = map_size(pathname);
 	size = a - map->ret;
 	printf("size = %d\n", size);
-	map->map = malloc(sizeof(char **) * size + 1);
+	map->map = calloc(size + 1, sizeof(char *));
 	while (map->whole[j] != NULL)
 	{
 		if (strchr(map->whole[j], '1') || strchr(map->whole[j], '0')
@@ -113,6 +117,6 @@ void	tab_map(t_map *map, char *pathname)
 		}
 		j++;
 	}
-	map->map[i] = 0;
+	map->map[i] = 0; 
 	print_tab(map->map);
 }

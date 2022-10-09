@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 18:54:54 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/07 13:30:58 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/09 15:37:51 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ void	tab_whole_map(char *pathname, t_map *map)
 	fd = open(pathname, O_RDONLY);
 	line = get_next_line(fd);
 	size = map_size(pathname);
-	map->whole = malloc(sizeof(char *) * size + 1);
+	printf("whole map size = %d\n", size);
+	map->whole = calloc(size +1, sizeof(char *));
 	while (i < size)
 	{
 		s_n_r(line, '\n', '\0');
 		map->whole[i] = strdup(line);
-		//printf("%s\n", map->wmap[i]);
 		free(line);
 		i++;
 		line = get_next_line(fd);

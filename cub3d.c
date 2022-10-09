@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/07 18:52:54 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/09 15:58:33 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int ac, char **av)
 	tab_whole_map(av[1], &map);
 	tab_texture(av[1], &map);
 	tab_map(&map, av[1]);
-	get_tx(&map);
+	//get_tx(&map);
 	init_data(&data, "Cub3D");
 	init_image(&data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
