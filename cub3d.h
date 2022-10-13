@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/09 13:04:43 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:23:57 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define FAILURE 1
 # define SUCCESS 0
 
-# define WIDTH 1200
-# define HEIGHT 800
+# define WIDTH 500
+# define HEIGHT 300
 # define MLX_ERROR 1
 # define PIXEL 0x07E0
 # define BUFFER_SIZE 1
@@ -41,16 +41,29 @@
 typedef struct s_map
 {
 	char	**whole;
+	char	**decor;
 	char	**map;
-	char	**tx;
-	int	ret;
-	char 	**wind_rose;
 	char	*so;
 	char	*no;
 	char	*ea;
 	char	*we;
+	int		f_red;
+	int		f_green;
+	int		f_blue;
+	int		c_red;
+	int		c_green;
+	int		c_blue;
 }t_map;
 
+typedef struct s_check
+{
+	int	c;
+	int	f;
+	int	no;
+	int	so;
+	int	we;
+	int	ea;
+}t_check;
 
 typedef struct s_pos
 {
@@ -74,16 +87,55 @@ typedef struct s_data
 	t_img	img;
 }t_data;
 
+//check_map_file.c
+int		check_args(int ac);
+int		check_file(char *s);
 //init.c
+void	init_map(t_map *map);
+void	init_check(t_check *check);
 t_data	*init_data(t_data *data, char *name);
 t_data	*init_image(t_data *data);
-void	init_map(t_map *map);
+//get_map_info.c
+void	create_tab_elements(char *pathname, t_map *map);
+//get_whole_map.c
+char	*s_n_r(char *str, char c, char ac);
+void	tab_whole_map(char *pathname, t_map *map);
+int		map_size(char *pathname);
+//map_elements.c
+void	tab_map(char *pathname, t_map *map);
+int		check_line_space(char *str);
+void	tab_texture(char *pathname, t_map *map);
+int	if_not_spaces(char *str);
+
+//map_texture.c
+int	get_texture(t_map *map);
+//map_colors.c
+void	get_color(t_map *map);
+
+//control_variables.c
+int		check_doubles(t_check *check);
+int	check_doubles_troubles(t_check *check);
+//map_analysis.c
+int	check_decor_lines(char **split, t_check *check);
+int		decor_analysis(t_map *map, t_check *check);
+//check_wind_rose.c
+int	check_north(t_check *check, char **split);
+int	check_south(t_check *check, char **split);
+int	check_west(t_check *check, char **split);
+int	check_east(t_check *check, char **split);
 //utils.c
 void	ft_error(void);
-void	ft_putstr_fd(char *s, int fd);
-void	ft_exit(void);
 void	print_tab(char	**tab);
 void	free_tab(char **tab);
+int	if_digit(char *s);
+int	digit_size(int nb);
+//gnl.c
+char	*get_next_line(int fd);
+//trim.c
+char	*ft_strtrim(char const *s1, char const *set);
+//split.c
+char	**ft_split(char	*s, char c);
+//MLX
 //events.c
 int		handle_keypress(int keysem, t_data *data);
 int		ft_red_cross(t_data *data);
@@ -93,22 +145,4 @@ void	ft_free_n_destroy(t_data *data);
 int		render(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	render_background(t_img *img, int color);
-//parse.c
-int		if_file_exists(char *pathname);
-int		if_dir(char *pathname);
-int		check_ext(char *name);
-//gnl.c
-char	*get_next_line(int fd);
-//read_map.c
-char	*s_n_r(char *str, char c, char ac);
-void	tab_whole_map(char *pathname, t_map *map);
-int		map_size(char *pathname);
-//parse_map.c
-void	tab_map(t_map *map, char *pathname);
-//map_content.c
-int		tab_texture(char *pathname, t_map *map);
-//split.c
-char	**ft_split(char	*s, char c);
-//map_tx.c
-void	get_tx(t_map *map);
 #endif

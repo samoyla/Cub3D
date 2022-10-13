@@ -6,12 +6,41 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:07:48 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/09 12:19:39 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:47:29 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+//Map
+void	init_map(t_map *map)
+{	
+	map->whole = NULL;
+	map->decor = NULL;
+	map->map = NULL;
+	map->so = NULL;
+	map->no = NULL;
+	map->ea = NULL;
+	map->we = NULL;
+	map->f_red = 0;
+	map->f_green = 0;
+	map->f_blue = 0;
+	map->c_red = 0;
+	map->c_green = 0;
+	map->c_blue = 0;
+}
+
+void	init_check(t_check *check)
+{
+	check->f = 0;
+	check->c = 0;
+	check->no = 0;
+	check->so = 0;
+	check->we = 0;
+	check->ea = 0;
+}
+
+//MLX
 t_data	*init_data(t_data *data, char *name)
 {
 	data->mlx_ptr = mlx_init();
@@ -36,16 +65,4 @@ t_data	*init_image(t_data *data)
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
 	return (data);
-}
-
-void	init_map(t_map *map)
-{	
-	map->whole = NULL;
-	map->map = NULL;
-	map->tx = NULL;
-	map->ret = 0;
-	map->so = NULL;
-	map->no = NULL;
-	map->ea = NULL;
-	map->we = NULL;
 }

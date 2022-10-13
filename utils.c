@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:10:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/09 13:31:22 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:23:30 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,6 @@
 void	ft_error(void)
 {
 	perror("Error:");
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (!s)
-		return ;
-	while (*s)
-	{
-		write(fd, s, 1);
-		s++;
-	}
-}
-
-void	ft_exit(void)
-{
-	printf("euh, wrong number of arguments\n");
-	exit(FAILURE);
 }
 
 void	print_tab(char	**tab)
@@ -57,5 +40,26 @@ void	free_tab(char **tab)
 		i++;
 	}
 	free(tab);
-	tab = NULL; 
+	tab = NULL;
+}
+
+int	if_digit(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] < '0' || s[i] > '9')
+			return (FAILURE);
+		i++;
+	}
+	return (SUCCESS);
+}
+
+int	digit_size(int nb)
+{
+	if (nb > 255 || nb < 0)
+		return (FAILURE);
+	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/09 15:58:33 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/13 11:22:38 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,23 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 	t_map	map;
+	t_check	check;
 
 	init_map(&map);
-	if (ac != 2)
-		ft_exit();
-	if (if_dir(av[1]) == FAILURE)
-	{
-		printf("It's a dirtectory");
-		exit(FAILURE);
-	}
-	if (if_file_exists(av[1]) == FAILURE)
-	{
-		printf("File does not exist\n");
-		exit(FAILURE);
-	}
-	if (check_ext(av[1]) == FAILURE)
-	{
-		printf("wrong file extension\n");
-		exit(FAILURE);
-	}
-	tab_whole_map(av[1], &map);
-	tab_texture(av[1], &map);
-	tab_map(&map, av[1]);
-	//get_tx(&map);
+	init_check(&check);
+	if (check_args(ac) == FAILURE)
+		return (FAILURE);
+	if (check_file(av[1]) == FAILURE)
+		return (FAILURE);
+	create_tab_elements(av[1], &map);
+	if (decor_analysis(&map, &check) == FAILURE)
+		return (FAILURE);
+	if (get_texture(&map) == FAILURE)
+		return (FAILURE);
+	get_color(&map);
+
+//---------------------------------------------------------------------
+//mlx part
 	init_data(&data, "Cub3D");
 	init_image(&data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
@@ -47,4 +41,5 @@ int	main(int ac, char **av)
 	mlx_loop(data.mlx_ptr);
 	free(data.mlx_ptr);
 	ft_free_n_destroy(&data);
+	return (SUCCESS);
 }

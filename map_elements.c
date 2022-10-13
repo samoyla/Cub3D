@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   map_elements.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 16:07:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/09 15:59:25 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/13 11:28:36 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	check_line_tx(char *str)
+int	check_line_space(char *str)
 {
 	int	i;
 
@@ -26,74 +26,84 @@ static int	check_line_tx(char *str)
 	return (FAILURE);
 }
 
-int	tab_texture(char *pathname, t_map *map)
+void	tab_texture(char *pathname, t_map *map)
+{
+	int		fd;
+	int		i;
+	char	*line;
+
+	i = 0;
+	fd = open(pathname, O_RDONLY);
+	if (fd < 0)
+		ft_error();
+	line = get_next_line(fd);
+	map->decor = calloc(6 + 1, sizeof(char *));
+	if (map->decor == NULL)
+		return ;
+	while (line != NULL)
+	{
+		if (check_line_space(line) == SUCCESS)
+		{
+			if (i <= 5)
+			{	
+				s_n_r(line, '\n', '\0');
+				map->decor[i] = strdup(line);
+				i++;
+			}
+		}
+		free(line);
+		line = get_next_line(fd);
+	}
+	print_tab(map->decor);
+	free(line);
+	close(fd);
+}
+
+int	if_not_spaces(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i]) >= 32)
+			return (SUCCESS);
+		else
+			return (FAILURE);
+		i++;
+	}
+	return (SUCCESS);
+}
+
+static int	size_void(char *pathname)
 {
 	int		count;
 	int		fd;
 	int		i;
-	int		j;
+	char	*line;
 
 	count = 0;
 	i = 0;
-	j = 0;
 	fd = open(pathname, O_RDONLY);
-	if (fd < 0)
-		ft_error();
-	map->tx = calloc(6 + 1, sizeof(char *));
-	if (map->tx == NULL)
-		return(0);
-	while (map->whole[j] != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
-		if (check_line_tx(map->whole[j]) == SUCCESS)
+		if (check_line_space(line) == SUCCESS)
 		{
 			if (i <= 5)
-			{	
-				map->tx[j] = strdup(map->whole[j]);
-				//printf("%s\n", map->tx[j]);
 				i++;
-			}
 		}
 		else
 			count++;
-		j++;
+		free(line);
+		line = get_next_line(fd);
 	}
+	free(line);
 	close(fd);
-	printf("i = %d\n and count = %d\n", i, count);
-	map->ret = i + count;
-	printf("size till the 01map = %d\n", map->ret);
-	print_tab(map->tx);
-	return (map->ret);
+	return (i + count);
 }
 
-/*static int	map_height(t_map *map)
-{
-	int	i;
-	int	j;
-	int	count;
-
-	count = 0;
-	j = 0;
-	while (map->whole[j] != NULL)
-	{
-		i = 0;
-		while (map->whole[j][i] != '\0')
-		{
-			if (map->whole[j][i] == '1' || map->whole[j][i] == '0'
-				|| map->whole[j][i] == 'N' || map->whole[j][i] == 'S'
-				|| map->whole[j][i] == 'W' || map->whole[j][i] == 'E')
-			{	
-				count++;
-				break ;
-			}
-			else
-				i++;
-		}
-		j++;
-	}
-	return (count);
-}*/
-
-void	tab_map(t_map *map, char *pathname)
+void	tab_map(char *pathname, t_map *map)
 {
 	int	i;
 	int	j;
@@ -101,10 +111,11 @@ void	tab_map(t_map *map, char *pathname)
 	int	size;
 
 	i = 0;
-	j = map->ret;
 	a = map_size(pathname);
-	size = a - map->ret;
-	printf("size = %d\n", size);
+	j = size_void(pathname);
+	printf("a = %d\nj = %d\n", a, j);
+	size = a - j;
+	printf("size of map = %d\n", size);
 	map->map = calloc(size + 1, sizeof(char *));
 	while (map->whole[j] != NULL)
 	{
@@ -117,6 +128,6 @@ void	tab_map(t_map *map, char *pathname)
 		}
 		j++;
 	}
-	map->map[i] = 0; 
+	map->map[i] = 0;
 	print_tab(map->map);
 }

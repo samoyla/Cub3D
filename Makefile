@@ -6,14 +6,30 @@
 #    By: masamoil <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/10/07 18:54:05 by masamoil         ###   ########.fr        #
+#    Updated: 2022/10/13 12:24:40 by masamoil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-SRCS	= cub3d.c init.c utils.c events.c free.c draw.c parse.c\
-	gnl.c read_map.c parse_map.c map_tx.c split.c
+SRCS	= cub3d.c\
+	check_map_file.c\
+ 	init.c\
+	utils.c\
+	events.c\
+	free.c\
+	draw.c\
+	get_map_info.c\
+	get_whole_map.c\
+	map_elements.c\
+	gnl.c\
+	map_texture.c\
+	map_colors.c\
+	split.c\
+	trim.c\
+	control_variables.c\
+	map_analysis.c\
+	check_wind_rose.c	
 			
 OBJS = ${SRCS:.c=.o}
 
