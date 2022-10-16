@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/16 12:51:47 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/16 16:24:38 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,19 +105,22 @@ void	tab_map(char *pathname, t_map *map);
 int		check_line_space(char *str);
 void	tab_texture(char *pathname, t_map *map);
 int		if_not_spaces(char *str);
-
-//map_texture.c
-int		get_texture(t_map *map);
-//map_colors.c
+//map_devision.c
+void	get_texture(t_map *map);
 void	get_color(t_map *map);
-
 //control_variables.c
 int		check_doubles(t_check *check);
-//map_analysis.c
+//decor.c
 int		decor_analysis(t_map *map, t_check *check);
 //check_wind_rose_and colors.c
 int		check_windrose(t_check *check, char **split);
 int		check_nb(char *str);
+//map.c
+int	map_analysis(t_map *map);
+int	forbidden_wall_ch(t_map *map);
+int	check_player_nb(t_map *map);
+int	check_if_inside(t_map *map);
+
 //utils.c
 void	check_fd(int fd);
 void	print_tab(char	**tab);

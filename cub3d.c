@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/16 14:15:17 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/16 15:25:37 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ int	main(int ac, char **av)
 	create_tab_elements(av[1], &map);
 	if (decor_analysis(&map, &check) == FAILURE)
 		return (FAILURE);
-	if (get_texture(&map) == FAILURE)
+	if (map_analysis(&map) == FAILURE)
 		return (FAILURE);
-	get_color(&map);
+//	get_texture(&map);
+//	get_color(&map);
+
 
 //---------------------------------------------------------------------
 //mlx part

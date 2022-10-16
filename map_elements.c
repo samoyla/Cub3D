@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 16:07:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/14 16:41:10 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/16 15:04:22 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,17 +113,15 @@ void	tab_map(char *pathname, t_map *map)
 	i = 0;
 	a = map_size(pathname);
 	j = size_void(pathname);
-	printf("a = %d\nj = %d\n", a, j);
 	size = a - j;
-	printf("size of map = %d\n", size);
 	map->map = ft_calloc(size + 1, sizeof(char *));
 	if (!map->map)
 		return ;
 	while (map->whole[j] != NULL)
 	{
-		if (strchr(map->whole[j], '1') || strchr(map->whole[j], '0')
-			|| strchr(map->whole[j], 'N') || strchr(map->whole[j], 'S')
-			||strchr(map->whole[j], 'W') || strchr(map->whole[j], 'E'))
+		if (ft_strchr(map->whole[j], '1') || ft_strchr(map->whole[j], '0')
+			|| ft_strchr(map->whole[j], 'N') || ft_strchr(map->whole[j], 'S')
+			|| ft_strchr(map->whole[j], 'W') || ft_strchr(map->whole[j], 'E'))
 		{
 			map->map[i] = ft_strdup(map->whole[j]);
 			i++;

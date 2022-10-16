@@ -6,13 +6,13 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:27:24 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/16 14:28:32 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/16 14:49:30 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	get_texture(t_map *map)
+void	get_texture(t_map *map)
 {
 	int		i;
 	char	**wind_rose;
@@ -20,26 +20,19 @@ int	get_texture(t_map *map)
 	i = -1;
 	while (map->decor[++i] && i < 6)
 	{
-		if (if_not_spaces(map->decor[i]) == SUCCESS)
-		{
-			map->decor[i] = ft_strtrim(map->decor[i], " ");
-			printf("trim = %s\n", map->decor[i]);
-			wind_rose = ft_split(map->decor[i], ' ');
-			if (ft_strcmp(wind_rose[0], "NO") == 0)
-				map->no = ft_strdup(wind_rose[1]);
-			else if (ft_strcmp(wind_rose[0], "SO") == 0)
-				map->so = ft_strdup(wind_rose[1]);
-			else if (ft_strcmp(wind_rose[0], "WE") == 0)
-				map->we = ft_strdup(wind_rose[1]);
-			else if (ft_strcmp(wind_rose[0], "EA") == 0)
-				map->ea = ft_strdup(wind_rose[1]);
-			free_tab(wind_rose);
-		}
-		else
-			return (FAILURE);
+		map->decor[i] = ft_strtrim(map->decor[i], " ");
+		wind_rose = ft_split(map->decor[i], ' ');
+		if (ft_strncmp(wind_rose[0], "NO", 2) == 0)
+			map->no = ft_strdup(wind_rose[1]);
+		else if (ft_strncmp(wind_rose[0], "SO", 2) == 0)
+			map->so = ft_strdup(wind_rose[1]);
+		else if (ft_strncmp(wind_rose[0], "WE", 2) == 0)
+			map->we = ft_strdup(wind_rose[1]);
+		else if (ft_strncmp(wind_rose[0], "EA", 2) == 0)
+			map->ea = ft_strdup(wind_rose[1]);
+		free_tab(wind_rose);
 	}
 	printf("%s\n%s\n%s\n%s\n", map->no, map->so, map->we, map->ea);
-	return (SUCCESS);
 }
 
 void	get_color(t_map *map)
