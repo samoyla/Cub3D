@@ -13,24 +13,14 @@
 #include "cub3d.h"
 
 
-int	check_top_n_bottom(t_map *map)
+int	check_all_walls(t_map *map, int i, int j)
 {
-	int	i;
-	int	size;
-
-	i = -1
-	size = ft_strlen();
-	while (map->map[0][++i])
-	{	
-		
-	}
-}
-
-int	check_all_walls(t_map *map)
-{
-	if (check_top_n_bottom(map) == FAILURE)
-		return(FAILURE);
-	//check_left_wall(map);
-	//check_right_wall(map);
+	if (i == 0 || map->map[i + 1] == NULL)
+	      return (FAILURE);
+	else if (j == 0 || map->map[j + 1] == '\0')
+		return (FAILURE);
+	else if (map->map[i - 1][j] == ' ' || map->map[i + 1][j] == ' '
+			|| map->map[i][j - 1] == ' ' || map->map[i][j + 1] == ' ')
+		return (FAILURE);
 	return (SUCCESS);
 }

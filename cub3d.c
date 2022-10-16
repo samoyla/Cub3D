@@ -18,6 +18,7 @@ int	main(int ac, char **av)
 	t_map	map;
 	t_check	check;
 
+	(void)data;
 	init_map(&map);
 	init_check(&check);
 	if (check_args(ac) == FAILURE)
@@ -35,13 +36,13 @@ int	main(int ac, char **av)
 
 //---------------------------------------------------------------------
 //mlx part
-	init_data(&data, "Cub3D");
+	/*init_data(&data, "Cub3D");
 	init_image(&data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.win_ptr, 17, 0L, &ft_red_cross, &data);
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 	mlx_loop(data.mlx_ptr);
 	free(data.mlx_ptr);
-	ft_free_n_destroy(&data);
+	ft_free_n_destroy(&data);*/
 	return (SUCCESS);
 }

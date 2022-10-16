@@ -18,8 +18,8 @@ int	map_analysis(t_map *map)
 		return (FAILURE);
 	if (check_player_nb(map) == FAILURE)
 		return (FAILURE);
-	if (check_all_walls(map) == FAILURE)
-		return (FAILURE);
+	//if (check_all_walls(map) == FAILURE)
+	//	return (FAILURE);
 	return (SUCCESS);
 }
 
