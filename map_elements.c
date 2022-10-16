@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 16:07:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/13 11:28:36 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/14 16:41:10 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	tab_texture(char *pathname, t_map *map)
 
 	i = 0;
 	fd = open(pathname, O_RDONLY);
-	if (fd < 0)
-		ft_error();
+	check_fd(fd);
 	line = get_next_line(fd);
 	map->decor = calloc(6 + 1, sizeof(char *));
 	if (map->decor == NULL)
@@ -54,7 +53,7 @@ void	tab_texture(char *pathname, t_map *map)
 		free(line);
 		line = get_next_line(fd);
 	}
-	print_tab(map->decor);
+	print_tab(map->decor);//supprimer
 	free(line);
 	close(fd);
 }
@@ -66,7 +65,7 @@ int	if_not_spaces(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if ((str[i]) >= 32)
+		if (str[i] >= 32)
 			return (SUCCESS);
 		else
 			return (FAILURE);
@@ -85,6 +84,7 @@ static int	size_void(char *pathname)
 	count = 0;
 	i = 0;
 	fd = open(pathname, O_RDONLY);
+	check_fd(fd);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -116,18 +116,20 @@ void	tab_map(char *pathname, t_map *map)
 	printf("a = %d\nj = %d\n", a, j);
 	size = a - j;
 	printf("size of map = %d\n", size);
-	map->map = calloc(size + 1, sizeof(char *));
+	map->map = ft_calloc(size + 1, sizeof(char *));
+	if (!map->map)
+		return ;
 	while (map->whole[j] != NULL)
 	{
 		if (strchr(map->whole[j], '1') || strchr(map->whole[j], '0')
 			|| strchr(map->whole[j], 'N') || strchr(map->whole[j], 'S')
 			||strchr(map->whole[j], 'W') || strchr(map->whole[j], 'E'))
 		{
-			map->map[i] = strdup(map->whole[j]);
+			map->map[i] = ft_strdup(map->whole[j]);
 			i++;
 		}
 		j++;
 	}
 	map->map[i] = 0;
-	print_tab(map->map);
+	print_tab(map->map);//supprimer
 }

@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/13 15:23:57 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/16 12:51:47 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include "mlx/mlx.h"
-//# include "Libft/libft.h"
+# include "./Libft/libft.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
@@ -97,44 +97,35 @@ t_data	*init_data(t_data *data, char *name);
 t_data	*init_image(t_data *data);
 //get_map_info.c
 void	create_tab_elements(char *pathname, t_map *map);
-//get_whole_map.c
 char	*s_n_r(char *str, char c, char ac);
-void	tab_whole_map(char *pathname, t_map *map);
 int		map_size(char *pathname);
+void	tab_whole_map(char *pathname, t_map *map);
 //map_elements.c
 void	tab_map(char *pathname, t_map *map);
 int		check_line_space(char *str);
 void	tab_texture(char *pathname, t_map *map);
-int	if_not_spaces(char *str);
+int		if_not_spaces(char *str);
 
 //map_texture.c
-int	get_texture(t_map *map);
+int		get_texture(t_map *map);
 //map_colors.c
 void	get_color(t_map *map);
 
 //control_variables.c
 int		check_doubles(t_check *check);
-int	check_doubles_troubles(t_check *check);
 //map_analysis.c
-int	check_decor_lines(char **split, t_check *check);
 int		decor_analysis(t_map *map, t_check *check);
-//check_wind_rose.c
-int	check_north(t_check *check, char **split);
-int	check_south(t_check *check, char **split);
-int	check_west(t_check *check, char **split);
-int	check_east(t_check *check, char **split);
+//check_wind_rose_and colors.c
+int		check_windrose(t_check *check, char **split);
+int		check_nb(char *str);
 //utils.c
-void	ft_error(void);
+void	check_fd(int fd);
 void	print_tab(char	**tab);
 void	free_tab(char **tab);
-int	if_digit(char *s);
-int	digit_size(int nb);
+int		if_str_digit(char *s);
+int		digit_size(char *s);
 //gnl.c
 char	*get_next_line(int fd);
-//trim.c
-char	*ft_strtrim(char const *s1, char const *set);
-//split.c
-char	**ft_split(char	*s, char c);
 //MLX
 //events.c
 int		handle_keypress(int keysem, t_data *data);
@@ -145,4 +136,5 @@ void	ft_free_n_destroy(t_data *data);
 int		render(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	render_background(t_img *img, int color);
+
 #endif

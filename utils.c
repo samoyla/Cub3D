@@ -6,15 +6,17 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:10:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/13 15:23:30 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/16 12:50:49 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_error(void)
+void	check_fd(int fd)
 {
-	perror("Error:");
+	if (fd < 0)
+		ft_putstr_fd("Erro\nFile doesn't exist\n", 2);
+
 }
 
 void	print_tab(char	**tab)
@@ -43,23 +45,24 @@ void	free_tab(char **tab)
 	tab = NULL;
 }
 
-int	if_digit(char *s)
+int	if_str_digit(char *s)
 {
 	int	i;
 
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] < '0' || s[i] > '9')
+	i = -1;
+	while (s[++i])
+		if (ft_isdigit(s[i]) == 0)
 			return (FAILURE);
-		i++;
-	}
 	return (SUCCESS);
 }
 
-int	digit_size(int nb)
+int	digit_size(char *s)
 {
-	if (nb > 255 || nb < 0)
-		return (FAILURE);
+	int	i;
+
+	i = -1;
+	while (s[++i])
+		if (ft_atoi(&s[i]) > 255 || ft_atoi(&s[i]) < 0)
+			return (FAILURE);
 	return (SUCCESS);
 }

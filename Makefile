@@ -6,11 +6,11 @@
 #    By: masamoil <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/10/13 12:24:40 by masamoil         ###   ########.fr        #
+#    Updated: 2022/10/16 14:29:05 by masamoil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME = cub3D
 
 SRCS	= cub3d.c\
 	check_map_file.c\
@@ -20,16 +20,12 @@ SRCS	= cub3d.c\
 	free.c\
 	draw.c\
 	get_map_info.c\
-	get_whole_map.c\
 	map_elements.c\
 	gnl.c\
-	map_texture.c\
-	map_colors.c\
-	split.c\
-	trim.c\
+	map_devision.c\
 	control_variables.c\
 	map_analysis.c\
-	check_wind_rose.c	
+	check_wind_rose_n_colors.c	
 			
 OBJS = ${SRCS:.c=.o}
 
@@ -37,24 +33,29 @@ CC = clang
 
 RM = rm -f
 
+INCLUDES = Libft/libft.a
+
 CFLAGS = -Wall -Wextra -Werror -g
 
 FL_MLX = -ldl -lmlx -Lmlx -lm -lXext -lX11 -lz
 
 all : ${NAME}
 
-$(NAME) : $(OBJS)
-	make -s -C ./mlx
-	${CC} ${CFLAGS} -Imlx ${SRCS} -o ${NAME} $(FL_MLX)
+${NAME} : ${OBJS}
+	make -C ./Libft
+	make -s -C ./mlx 
+	${CC} ${CFLAGS} -Imlx ${SRCS} ${INCLUDES} -o ${NAME} ${FL_MLX}
 
 %.o:%.c
 	${CC} ${CFLAGS} -Imlx -Ibass -o $@ -c $<
 
 clean :
 	${RM} ${OBJS}
+	make clean -C ./Libft
 	
 fclean : clean
 	${RM} ${NAME}
+	make fclean -C ./Libft
 	
 re : fclean all
 
