@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/17 14:52:24 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:03:30 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,17 @@ int	main(int ac, char **av)
 	get_color(&map);
 
 
-//---------------------------------------------------------------------
-//mlx part
+// PRINT MAP
+	int i = -1;
+	while (map.map[++i])
+		printf("|%s|\n", map.map[i]);
+	printf("pi:%f and FOV:%f\n", PI, FOV);
+// MLX
+
+	resize_width_height(&data);
 	init_data(&data, "Cub3D");
 	init_image(&data);
+
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.win_ptr, 17, 0L, &ft_red_cross, &data);
 	mlx_loop_hook(data.mlx_ptr, &render, &data);

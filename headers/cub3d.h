@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/17 14:53:21 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:03:10 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@
 # define FAILURE 1
 # define SUCCESS 0
 
-# define WIDTH 500
-# define HEIGHT 300
+# define WIDTH 1280
+# define HEIGHT 720
 # define MLX_ERROR 1
 # define PIXEL 0x07E0
 # define BUFFER_SIZE 1
+
+# define PI 3.1415926
+# define FOV PI/3
 
 typedef struct s_map
 {
@@ -82,8 +85,11 @@ typedef struct s_img
 
 typedef struct s_data
 {
+	void	*mlx_ptr_size;
 	void	*mlx_ptr;
 	void	*win_ptr;
+	int		width;
+	int		height;
 	t_img	img;
 }t_data;
 
@@ -121,6 +127,8 @@ int		check_all_walls(t_map *map, int i, int j);
 int		forbidden_map_ch(t_map *map);
 int		check_player(t_map *map);
 int		check_if_inside(t_map *map);
+
+void	resize_width_height(t_data *data);
 
 //utils.c
 void	check_fd(int fd);

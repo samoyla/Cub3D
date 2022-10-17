@@ -6,7 +6,7 @@
 #    By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/10/17 14:56:45 by iguscett         ###   ########.fr        #
+#    Updated: 2022/10/17 16:39:03 by iguscett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ CSRCS		=	cub3d.c \
 				decor.c \
 				map.c \
 				check_wind_rose_n_colors.c \
+				resize_width_height.c \
 
 SRCS		=	$(addprefix $(SRCS_DIR), $(CSRCS))
 

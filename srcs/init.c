@@ -6,11 +6,11 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:07:48 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/17 14:13:52 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/17 16:55:02 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/cub3d.h"
+#include "cub3d.h"
 
 //Map
 void	init_map(t_map *map)
@@ -43,12 +43,12 @@ void	init_check(t_check *check)
 //MLX
 t_data	*init_data(t_data *data, char *name)
 {
+	data->mlx_ptr = NULL;
 	data->mlx_ptr = mlx_init();
 	if (data->mlx_ptr == NULL)
-	{
 		free(data->mlx_ptr);
-	}
-	data->win_ptr = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, name);
+	data->win_ptr = NULL;
+	data->win_ptr = mlx_new_window(data->mlx_ptr, data->width, data->height, name);
 	if (data->win_ptr == NULL)
 	{
 		free(data->win_ptr);
