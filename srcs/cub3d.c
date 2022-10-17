@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/16 15:25:37 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:40:58 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ int	main(int ac, char **av)
 		return (FAILURE);
 	if (map_analysis(&map) == FAILURE)
 		return (FAILURE);
+
+
+
 //	get_texture(&map);
 //	get_color(&map);
 
@@ -44,5 +47,10 @@ int	main(int ac, char **av)
 	mlx_loop(data.mlx_ptr);
 	free(data.mlx_ptr);
 	ft_free_n_destroy(&data);*/
+
+
+
+
+
 	return (SUCCESS);
 }
