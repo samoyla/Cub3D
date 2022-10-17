@@ -6,12 +6,11 @@
 #    By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/10/17 14:39:51 by iguscett         ###   ########.fr        #
+#    Updated: 2022/10/17 14:53:51 by iguscett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3D
-
+NAME		=	cub3D
 
 SRCS_DIR	=	srcs/
 

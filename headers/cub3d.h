@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/17 13:39:56 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:53:21 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,18 +108,19 @@ int		if_not_spaces(char *str);
 //map_devision.c
 void	get_texture(t_map *map);
 void	get_color(t_map *map);
-//control_variables.c
-int		check_doubles(t_check *check);
 //decor.c
 int		decor_analysis(t_map *map, t_check *check);
 //check_wind_rose_and colors.c
+int		check_doubles(t_check check);
+int		check_exist(t_check check);
 int		check_windrose(t_check *check, char **split);
 int		check_nb(char *str);
 //map.c
-int	map_analysis(t_map *map);
-int	forbidden_wall_ch(t_map *map);
-int	check_player_nb(t_map *map);
-int	check_if_inside(t_map *map);
+int		map_analysis(t_map *map);
+int		check_all_walls(t_map *map, int i, int j);
+int		forbidden_map_ch(t_map *map);
+int		check_player(t_map *map);
+int		check_if_inside(t_map *map);
 
 //utils.c
 void	check_fd(int fd);

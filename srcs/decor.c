@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_analysis.c                                     :+:      :+:    :+:   */
+/*   decor.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 15:12:05 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/16 14:08:40 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:34:24 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ static int	check_color_lines(char **split, t_check *check)
 	if (ft_strncmp(split[0], "F", 2) == 0)
 	{
 		check->f++;
-		if (check_doubles(check) == FAILURE || check_nb(split[1]) == FAILURE)
+		if (check_doubles(*check) == FAILURE || check_nb(split[1]) == FAILURE)
 			return (FAILURE);
 	}
 	if (ft_strncmp(split[0], "C", 2) == 0)
 	{
 		check->c++;
-		if (check_doubles(check) == FAILURE || check_nb(split[1]) == FAILURE)
+		if (check_doubles(*check) == FAILURE || check_nb(split[1]) == FAILURE)
 			return (FAILURE);
 	}
 	return (SUCCESS);
@@ -107,5 +107,7 @@ int	decor_analysis(t_map *map, t_check *check)
 			return (FAILURE);
 		}
 	}
+	if (check_exist(*check) ==  FAILURE)
+			return (FAILURE);
 	return (SUCCESS);
 }
