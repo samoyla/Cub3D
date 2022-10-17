@@ -6,7 +6,7 @@
 #    By: masamoil <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/10/16 15:30:45 by masamoil         ###   ########.fr        #
+#    Updated: 2022/10/17 10:35:17 by masamoil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,9 @@ SRCS	= cub3d.c\
 	map_elements.c\
 	gnl.c\
 	map_devision.c\
-	control_variables.c\
 	decor.c\
 	map.c\
-	check_wind_rose_n_colors.c
+	check_wind_rose_n_colors.c\
 			
 OBJS = ${SRCS:.c=.o}
 
