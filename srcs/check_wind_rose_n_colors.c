@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 12:08:51 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 17:12:59 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:43:22 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	check_nb(char *str)
 	split_nb = ft_split(str, ',');
 	if (split_nb == NULL)
 		return (FAILURE);
+	print_tab(split_nb);
 	i = -1;
 	while (split_nb[++i])
 	{

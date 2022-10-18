@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:27:24 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/16 14:49:30 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:35:54 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	get_color(t_map *map)
 			map->f_blue = ft_atoi(rgb[2]);
 			free_tab(rgb);
 		}
-		else if (ft_strncmp(color_line[0], "C", 2) == 0)
+		if (ft_strncmp(color_line[0], "C", 2) == 0)
 		{
 			rgb = ft_split(color_line[1], ',');
 			map->c_red = ft_atoi(rgb[0]);
@@ -62,7 +62,6 @@ void	get_color(t_map *map)
 			map->c_blue = ft_atoi(rgb[2]);
 			free_tab(rgb);
 		}
-		i++;
 	}
 	printf("-----------------------\n");
 	printf("f_r = %d\nf_g = %d\nf_b = %d\n", map->f_red, map->f_green, map->f_blue);

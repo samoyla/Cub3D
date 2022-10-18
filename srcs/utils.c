@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:10:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 10:16:39 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:39:07 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,13 @@ int	if_str_digit(char *s)
 {
 	int	i;
 
-	i = -1;
-	while (s[++i])
+	i = 0;
+	while (s[i])
+	{
 		if (ft_isdigit(s[i]) == 0)
 			return (FAILURE);
+		i++;
+	}
 	return (SUCCESS);
 }
 
@@ -60,9 +63,12 @@ int	digit_size(char *s)
 {
 	int	i;
 
-	i = -1;
-	while (s[++i])
+	i = 0;
+	while (s[i])
+	{
 		if (ft_atoi(&s[i]) > 255 || ft_atoi(&s[i]) < 0)
 			return (FAILURE);
+		i++;
+	}
 	return (SUCCESS);
 }
