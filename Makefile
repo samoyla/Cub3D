@@ -69,7 +69,7 @@ $(NAME):		$(OBJS)
 				@$(CC) -I$(DEPS_DIR) $(CFLAGS) -Imlx $(OBJS) $(LIBFT) -o $(NAME) $(FL_MLX)
 
 clean:
-				@$(RM) -r $(OBJS)
+				rm -rf $(OBJS_DIR)
 				@make clean -sC ./libft
 				@make clean -sC ./mlx
 

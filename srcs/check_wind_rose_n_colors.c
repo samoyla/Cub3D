@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 12:08:51 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/17 14:00:08 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:12:59 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,18 @@ int	check_exist(t_check check)
 	return (SUCCESS);
 }
 
+static int	path_ext(char *name)
+{
+	int	i;
+
+	i = ft_strlen(name);
+	while (name[i] != '.')
+		i--;
+	if (ft_strcmp(&name[i + 1], "xpm") != 0)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 int	check_windrose(t_check *check, char **split)
 {
 	int	fd;
@@ -46,7 +58,12 @@ int	check_windrose(t_check *check, char **split)
 	if (fd < 0)
 	{
 		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("texture path is not valid\n", 2);
+		ft_putstr_fd("path of texture is not valid\n", 2);
+		return (FAILURE);
+	}
+	if (path_ext(split[1]) == FAILURE)
+	{
+		ft_putstr_fd("Error\nwrong texture extention\n", 2);
 		return (FAILURE);
 	}
 	close(fd);
@@ -67,7 +84,7 @@ int	check_nb(char *str)
 		if (if_str_digit(split_nb[i]) == FAILURE
 			|| digit_size(split_nb[i]) == FAILURE)
 		{
-			ft_putstr_fd("is not digit or too long\n", 2);
+			ft_putstr_fd("is not a positive digit or too long\n", 2);
 			return (FAILURE);
 		}
 	}

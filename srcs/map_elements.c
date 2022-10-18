@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 16:07:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 15:12:24 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:36:58 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static int	decor_size(char *pathname)
 	return (i + count);
 }
 
-void	tab_map(char *pathname, t_map *map)
+int	tab_map(char *pathname, t_map *map)
 {
 	int	i;
 	int	j;
@@ -115,10 +115,13 @@ void	tab_map(char *pathname, t_map *map)
 	a = map_size(pathname);
 	j = decor_size(pathname);
 	size = a - j;
+	printf("a = %d\nj = %d\nsize = %d\n", a, j, size);
+	if (size == 0)
+		return (FAILURE);
 	size_max = max_width(&map->whole[j]);
 	map->map = ft_calloc(size + 1, sizeof(char *));
 	if (!map->map)
-		return ;
+		return (FAILURE);
 	while (map->whole[j] != NULL)
 	{
 		if (ft_strchr(map->whole[j], '1') || ft_strchr(map->whole[j], '0')
@@ -131,5 +134,6 @@ void	tab_map(char *pathname, t_map *map)
 		j++;
 	}
 	map->map[i] = 0;
-	print_tab(map->map);//supprimer
+	print_tab(map->map);//supprimeri
+	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 10:32:36 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 15:11:27 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:38:09 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ int	create_tab_elements(char *pathname, t_map *map, t_check *check)
 	tab_texture(pathname, map);
 	if (decor_analysis(map, check) == FAILURE)
 		return (FAILURE);
-	tab_map(pathname, map);
+	if (tab_map(pathname, map) == FAILURE)
+	{
+		ft_putstr_fd("Error\nmap doesn't exist\n", 2);
+		return (FAILURE);
+	}
 	if (map_analysis(map) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
