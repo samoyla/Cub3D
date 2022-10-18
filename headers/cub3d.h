@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 15:10:40 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:34:58 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*s_n_r(char *str, char c, char ac);
 int		map_size(char *pathname);
 void	tab_whole_map(char *pathname, t_map *map);
 //map_elements.c
-void	tab_map(char *pathname, t_map *map);
+int	tab_map(char *pathname, t_map *map);
 int		check_line_space(char *str);
 void	tab_texture(char *pathname, t_map *map);
 int		if_not_spaces(char *str);

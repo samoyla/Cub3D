@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 12:08:51 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 16:55:54 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:12:59 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	check_nb(char *str)
 		if (if_str_digit(split_nb[i]) == FAILURE
 			|| digit_size(split_nb[i]) == FAILURE)
 		{
-			ft_putstr_fd("is not digit or too long\n", 2);
+			ft_putstr_fd("is not a positive digit or too long\n", 2);
 			return (FAILURE);
 		}
 	}
