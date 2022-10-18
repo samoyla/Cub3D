@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events.c                                           :+:      :+:    :+:   */
+/*   map_size.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/02 16:00:08 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 11:28:39 by iguscett         ###   ########.fr       */
+/*   Created: 2022/10/18 12:17:42 by iguscett          #+#    #+#             */
+/*   Updated: 2022/10/18 12:25:09 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	handle_keypress(int keysym, t_data *data)
+void get_map_size(t_map *map)
 {
-	if (keysym == XK_Escape)
-		ft_red_cross(data);
-	else
-		printf("Key pressed:%d\n", keysym);
-	return (0);
-}
+	int y;
+	int x;
 
-int	ft_red_cross(t_data *data)
-{
-	ft_free_n_destroy(data);
-	exit (0);
+	y = -1;
+	if (map->map[0])
+		x = ft_strlen(map->map[0]);
+	while (map->map[++y])
+	{
+		if (ft_strlen(map->map[y]) > x)
+			x = ft_strlen(map->map[y]);
+	}
+	map->xsize = x;
+	map->ysize = y;
 }

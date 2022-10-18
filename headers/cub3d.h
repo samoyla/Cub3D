@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/17 17:03:10 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:36:52 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,32 @@
 # define FAILURE 1
 # define SUCCESS 0
 
-# define WIDTH 1280
-# define HEIGHT 720
-# define MLX_ERROR 1
-# define PIXEL 0x07E0
-# define BUFFER_SIZE 1
+# define WIDTH				1280
+# define HEIGHT				720
+# define MLX_ERROR 			1
+# define BUFFER_SIZE		1
+# define HUD_SIZE_FACTOR	4
 
-# define PI 3.1415926
-# define FOV PI/3
+# define PI					3.1415926
+# define FOV				PI/3
 
-typedef struct s_map
+# define BLUE				0x07E0
+# define STRONG_BLUE		0x004D98
+# define YELLOW				0xFFFF00
+# define WHITE				0xFFFFFF
+# define GREY				0x9C9C9C
+# define BLACK				0x000000
+
+static double angles[17] = {0, PI * 0.16667, PI * 0.25, PI * 0.33334, PI * 0.5, PI * 0.66667, PI * 0.75, PI * 0.83334,
+							PI, PI * 1.16667, PI * 1.25, PI * 1.33334, PI * 1.5, PI * 1.66667, PI * 1.75, PI * 1.83334, -1};
+
+typedef struct	s_map
 {
 	char	**whole;
 	char	**decor;
 	char	**map;
+	int		xsize;
+	int		ysize;
 	char	*so;
 	char	*no;
 	char	*ea;
@@ -56,7 +68,7 @@ typedef struct s_map
 	int		c_red;
 	int		c_green;
 	int		c_blue;
-}t_map;
+}				t_map;
 
 typedef struct s_check
 {
@@ -83,15 +95,53 @@ typedef struct s_img
 	int		endian;
 }t_img;
 
-typedef struct s_data
+typedef struct s_posi
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_posi;
+
+typedef struct	s_playr
+{
+	t_posi	pos;
+	double	angle;
+}				t_playr;
+
+typedef struct	s_pt
+{
+	double	x;
+	double	y;
+}				t_pt;
+
+typedef struct	s_tri
+{
+	t_pt	p1;
+	t_pt	p2;
+	t_pt	p3;
+}				t_tri;
+
+typedef struct	s_hud
+{
+	int		xsize;
+	int		ysize;
+	int		xt;
+	int		yt;
+	t_tri	tri;
+}				t_hud;
+
+typedef struct	s_data
 {
 	void	*mlx_ptr_size;
 	void	*mlx_ptr;
 	void	*win_ptr;
 	int		width;
 	int		height;
+	t_map	map;
 	t_img	img;
-}t_data;
+	t_playr	player;
+	t_hud	hud;
+}				t_data;
 
 //check_map_file.c
 int		check_args(int ac);
@@ -106,6 +156,7 @@ void	create_tab_elements(char *pathname, t_map *map);
 char	*s_n_r(char *str, char c, char ac);
 int		map_size(char *pathname);
 void	tab_whole_map(char *pathname, t_map *map);
+void	get_map_size(t_map *map);
 //map_elements.c
 void	tab_map(char *pathname, t_map *map);
 int		check_line_space(char *str);
@@ -127,8 +178,13 @@ int		check_all_walls(t_map *map, int i, int j);
 int		forbidden_map_ch(t_map *map);
 int		check_player(t_map *map);
 int		check_if_inside(t_map *map);
-
 void	resize_width_height(t_data *data);
+
+// PLAYER
+void	init_player(t_data *data);
+
+// HUD
+void	set_hud(t_data *data);
 
 //utils.c
 void	check_fd(int fd);
