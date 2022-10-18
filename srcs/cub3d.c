@@ -6,18 +6,23 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 14:31:51 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:13:08 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **env)
 {
 	t_data	data;
 	t_map	map;
 	t_check	check;
-
+	
+	if (!(*env))
+	{
+		ft_putstr_fd("env doesn't exist\n", 2);
+		exit(FAILURE);
+	}
 	init_map(&map);
 	init_check(&check);
 	if (check_args(ac) == FAILURE)
