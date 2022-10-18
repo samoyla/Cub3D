@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 16:07:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/16 15:04:22 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/18 15:12:24 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	tab_texture(char *pathname, t_map *map)
 			if (i <= 5)
 			{	
 				s_n_r(line, '\n', '\0');
-				map->decor[i] = strdup(line);
+				map->decor[i] = ft_strdup(line);
 				i++;
 			}
 		}
@@ -74,7 +74,7 @@ int	if_not_spaces(char *str)
 	return (SUCCESS);
 }
 
-static int	size_void(char *pathname)
+static int	decor_size(char *pathname)
 {
 	int		count;
 	int		fd;
@@ -109,11 +109,13 @@ void	tab_map(char *pathname, t_map *map)
 	int	j;
 	int	a;
 	int	size;
+	int	size_max;
 
 	i = 0;
 	a = map_size(pathname);
-	j = size_void(pathname);
+	j = decor_size(pathname);
 	size = a - j;
+	size_max = max_width(&map->whole[j]);
 	map->map = ft_calloc(size + 1, sizeof(char *));
 	if (!map->map)
 		return ;
@@ -123,7 +125,7 @@ void	tab_map(char *pathname, t_map *map)
 			|| ft_strchr(map->whole[j], 'N') || ft_strchr(map->whole[j], 'S')
 			|| ft_strchr(map->whole[j], 'W') || ft_strchr(map->whole[j], 'E'))
 		{
-			map->map[i] = ft_strdup(map->whole[j]);
+			map->map[i] = ft_strdup_space(map->whole[j], size_max);
 			i++;
 		}
 		j++;

@@ -6,7 +6,7 @@
 #    By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/10/17 14:53:51 by iguscett         ###   ########.fr        #
+#    Updated: 2022/10/17 17:34:34 by masamoil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,10 @@ CSRCS		=	cub3d.c \
 				map_elements.c \
 				gnl.c \
 				map_devision.c \
-				control_variables.c \
 				decor.c \
 				map.c \
-				check_wind_rose_n_colors.c \
+				check_wind_rose_n_colors.c\
+				fill_map.c
 
 SRCS		=	$(addprefix $(SRCS_DIR), $(CSRCS))
 
@@ -43,8 +43,6 @@ DEPS_DIR	=	headers/
 MLXLIB		=	./mlx/libmlx_Linux.a
 
 LIBFT		=	./libft/libft.a
-
-MLX			=	libmlx.dylib
 
 CC			=	gcc
 
@@ -68,7 +66,6 @@ mlxlib:
 $(NAME):		$(OBJS)
 				@make -sC ./libft
 				@make -sC ./mlx
-				# @mv mlx/$(MLX) .
 				@$(CC) -I$(DEPS_DIR) $(CFLAGS) -Imlx $(OBJS) $(LIBFT) -o $(NAME) $(FL_MLX)
 
 clean:

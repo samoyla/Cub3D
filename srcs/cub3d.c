@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/17 14:52:24 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/18 14:31:51 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ int	main(int ac, char **av)
 		return (FAILURE);
 	if (check_file(av[1]) == FAILURE)
 		return (FAILURE);
-	create_tab_elements(av[1], &map);
-	if (decor_analysis(&map, &check) == FAILURE)
-		return (FAILURE);
-	if (map_analysis(&map) == FAILURE)
+	if (create_tab_elements(av[1], &map, &check) == FAILURE)
 		return (FAILURE);
 	get_texture(&map);
 	get_color(&map);

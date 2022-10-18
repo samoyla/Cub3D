@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:10:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/16 12:50:49 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:16:39 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_tab(char	**tab)
 	i = 0;
 	while (tab[i] != NULL)
 	{
-		printf("tab[%d]%s\n", i, tab[i]);
+		printf("tab %s\n", tab[i]);
 		i++;
 	}
 }

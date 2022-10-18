@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 15:12:05 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/17 14:34:24 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/18 14:28:15 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	split_condition(char **split, t_check *check)
 	if (!split[1] || split[2])
 	{
 		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("wrong number of setting in decor\n", 2);
+		ft_putstr_fd("no decor or setting missing\n", 2);
 		free_tab(split);
 		return (FAILURE);
 	}

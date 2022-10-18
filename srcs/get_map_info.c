@@ -6,17 +6,22 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 10:32:36 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/14 15:42:39 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/18 15:11:27 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	create_tab_elements(char *pathname, t_map *map)
+int	create_tab_elements(char *pathname, t_map *map, t_check *check)
 {
 	tab_whole_map(pathname, map);
 	tab_texture(pathname, map);
+	if (decor_analysis(map, check) == FAILURE)
+		return (FAILURE);
 	tab_map(pathname, map);
+	if (map_analysis(map) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 char	*s_n_r(char *str, char c, char ac)
@@ -69,6 +74,8 @@ void	tab_whole_map(char *pathname, t_map *map)
 	line = get_next_line(fd);
 	size = map_size(pathname);
 	map->whole = ft_calloc(size + 1, sizeof(char *));
+	if (!map->whole)
+		return ;
 	while (i < size)
 	{
 		s_n_r(line, '\n', '\0');

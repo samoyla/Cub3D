@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/17 14:53:21 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/18 15:10:40 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	init_check(t_check *check);
 t_data	*init_data(t_data *data, char *name);
 t_data	*init_image(t_data *data);
 //get_map_info.c
-void	create_tab_elements(char *pathname, t_map *map);
+int	create_tab_elements(char *pathname, t_map *map, t_check *check);
 char	*s_n_r(char *str, char c, char ac);
 int		map_size(char *pathname);
 void	tab_whole_map(char *pathname, t_map *map);
@@ -117,11 +117,9 @@ int		check_windrose(t_check *check, char **split);
 int		check_nb(char *str);
 //map.c
 int		map_analysis(t_map *map);
-int		check_all_walls(t_map *map, int i, int j);
-int		forbidden_map_ch(t_map *map);
-int		check_player(t_map *map);
-int		check_if_inside(t_map *map);
-
+//fill_map.c
+int	max_width(char **map);
+char	*ft_strdup_space(char *s, int size);
 //utils.c
 void	check_fd(int fd);
 void	print_tab(char	**tab);
