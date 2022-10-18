@@ -107,7 +107,7 @@ int	decor_analysis(t_map *map, t_check *check)
 			return (FAILURE);
 		}
 	}
-	if (check_exist(*check) ==  FAILURE)
-			return (FAILURE);
+	if (check_exist(*check) == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
 }
