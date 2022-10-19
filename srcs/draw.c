@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:13:30 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 18:55:31 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:43:05 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,22 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	}
 }
 
-void	render_background(t_img *img, int color)
+void	render_background(t_data *data, int color)
 {
 	int	y;
 	int	x;
 
-	y = -1;
-	while (++y < HEIGHT)
+	y = 0;
+	while (y < HEIGHT)
 	{
-		x = -1;
-		while (++x < WIDTH)
-			img_pix_put(img, x, y, color);
+		x = 0;
+		while (x < WIDTH)
+		{
+			if (y > data->hud.ysize || x > data->hud.xsize)
+				img_pix_put(&data->img, x, y, color);
+			x++;
+		}
+		y++;
 	}
 }
 
@@ -140,13 +145,13 @@ void render_hud(t_data *data, int color)
 	black_edges(data);
 }
 
-double sign(t_data *data, double x, double y, t_pt pa, t_pt pb)
+double sign(t_data *data, double x, double y, t_hpt pa, t_hpt pb)
 {
 	double a;
 	double b;
 
-	a = (x - pb.x * data->hud.xt) * (pa.y * data->hud.yt - pb.y * data->hud.yt);
-	b = (pa.x * data->hud.xt - pb.x * data->hud.xt) * (y - pb.y * data->hud.yt);
+	a = (x - pb.x_hud) * (pa.y_hud - pb.y_hud);
+	b = (pa.x_hud - pb.x_hud) * (y - pb.y_hud);
 	return (a - b);
 }
 
@@ -167,11 +172,9 @@ int is_in_triangle(t_data *data, double x, double y)
 	has_pos = 0;
 	if ((a > 0) || (b > 0) || (c > 0))
 		has_pos = 1;
-	// printf("neg:%d pos:%d -> a:%f b:%f c:%f\n", has_neg, has_pos, a, b, c);
 	if (has_neg && has_pos)
 		return (0);
 	return (1);
-	// return !(has_neg && has_pos);
 }
 
 void render_player(t_data *data, int color)
@@ -180,49 +183,32 @@ void render_player(t_data *data, int color)
 	double y_init;
 
 	x_init = data->player.pos.x * data->hud.xt - 0.25 * data->hud.xt -1;
-
-	// printf("Player x:%f y:%f\n", data->player.pos.x, data->player.pos.y);
-
+	y_init = data->player.pos.y * data->hud.yt - 0.25 * data->hud.yt -1;
 	while (x_init <= data->player.pos.x * data->hud.xt + 0.25 * data->hud.xt)
 	{
 		y_init = data->player.pos.y * data->hud.yt - 0.25 * data->hud.yt -1;
 		while (y_init <= data->player.pos.y * data->hud.yt + 0.25 * data->hud.yt)
 		{
 			if (is_in_triangle(data, x_init, y_init))
-			img_pix_put(&data->img, x_init, y_init, color);
+				img_pix_put(&data->img, x_init, y_init, color);
 			y_init++;
 		}
 		x_init++;
 	}
-
-	// printf("isintri init:%d\n", is_in_triangle(data, x_init, y_init));
-	// printf("isintri main:%d\n", is_in_triangle(data, data->player.pos.x * data->hud.xt, data->player.pos.y * data->hud.yt));
-
-
-
-	// INIT
-	// img_pix_put(&data->img, x_init, y_init, BLUE);
-
-	// // MAIN
-	// img_pix_put(&data->img, data->player.pos.x * data->hud.xt, data->player.pos.y * data->hud.yt, color);
-
-	// // P1
-	// img_pix_put(&data->img, data->hud.tri.p1.x * data->hud.xt, data->hud.tri.p1.y * data->hud.yt, color);
-
-	// // P2
-	// img_pix_put(&data->img, data->hud.tri.p2.x * data->hud.xt, data->hud.tri.p2.y * data->hud.yt, color);
-
-	// // P3
-	// img_pix_put(&data->img, data->hud.tri.p3.x * data->hud.xt, data->hud.tri.p3.y * data->hud.yt, color);
+	// img_pix_put(&data->img, data->player.posh.x, data->player.posh.y, STRONG_BLUE);
+	// printf("______1______\np1(%f, %f)\n", data->hud.tri.p1.x_hud, data->hud.tri.p1.y_hud);
+	// (void)color;
+	// img_pix_put(&data->img, data->hud.tri.p1.x_hud, data->hud.tri.p1.y_hud, YELLOW);
+	// img_pix_put(&data->img, data->hud.tri.p2.x_hud, data->hud.tri.p2.y_hud, YELLOW);
 }
 
 int	render(t_data *data)
 {
 	if (data->win_ptr == NULL)
 		return (1);
-	render_background(&data->img, WHITE);
 	render_hud(data, STRONG_BLUE);
 	render_player(data, YELLOW);
+	render_background(data, WHITE); // a supprimer car inutile
 
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
 

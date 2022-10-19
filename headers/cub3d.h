@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 17:36:52 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:12:47 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
-# define FAILURE 1
-# define SUCCESS 0
+# define FAILURE			1
+# define SUCCESS			0
 
 # define WIDTH				1280
 # define HEIGHT				720
@@ -38,7 +38,7 @@
 # define BUFFER_SIZE		1
 # define HUD_SIZE_FACTOR	4
 
-# define PI					3.1415926
+# define PI					3.1415
 # define FOV				PI/3
 
 # define BLUE				0x07E0
@@ -48,8 +48,10 @@
 # define GREY				0x9C9C9C
 # define BLACK				0x000000
 
-static double angles[17] = {0, PI * 0.16667, PI * 0.25, PI * 0.33334, PI * 0.5, PI * 0.66667, PI * 0.75, PI * 0.83334,
-							PI, PI * 1.16667, PI * 1.25, PI * 1.33334, PI * 1.5, PI * 1.66667, PI * 1.75, PI * 1.83334, -1};
+# define STEP				0.2
+# define ROT				PI * 0.125
+static double angles[17] = {0, PI * 0.125, PI * 0.25, PI * 0.375, PI * 0.5, PI * 0.625, PI * 0.75, PI * 0.875,
+							PI, PI * 1.125, PI * 1.25, PI * 1.375, PI * 1.5, PI * 1.625, PI * 1.75, PI * 1.875, -1};
 
 typedef struct	s_map
 {
@@ -105,26 +107,31 @@ typedef struct s_posi
 typedef struct	s_playr
 {
 	t_posi	pos;
+	t_posi	posh;
 	double	angle;
 }				t_playr;
 
-typedef struct	s_pt
+typedef struct	s_hpt
 {
-	double	x;
-	double	y;
-}				t_pt;
+	double	x_map;
+	double	y_map;
+	double	x_hud;
+	double	y_hud;
+}				t_hpt;
 
 typedef struct	s_tri
 {
-	t_pt	p1;
-	t_pt	p2;
-	t_pt	p3;
+	t_hpt	p1;
+	t_hpt	p2;
+	t_hpt	p3;
 }				t_tri;
 
 typedef struct	s_hud
 {
 	int		xsize;
 	int		ysize;
+	// int		xhsize;
+	// int		yhsize;
 	int		xt;
 	int		yt;
 	t_tri	tri;
@@ -203,6 +210,6 @@ void	ft_free_n_destroy(t_data *data);
 //draw.c
 int		render(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
-void	render_background(t_img *img, int color);
+void	render_background(t_data *data, int color);
 
 #endif

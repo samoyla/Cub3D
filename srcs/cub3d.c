@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 17:04:45 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/19 15:04:49 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,9 @@ int	main(int ac, char **av)
 
 // INIT PLAYER
 	init_player(&data);
-	printf("PLAYER: x:%f y:%f z:%f and angle:%f\n", data.player.ppos.x, data.player.ppos.y, data.player.ppos.z, data.player.pangle);
 
 // MLX
 	resize_width_height(&data);
-	// // HUD
 	set_hud(&data);
 
 	init_data(&data, "Cub3D");

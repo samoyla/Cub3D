@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:36:16 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/18 17:35:49 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/19 14:34:57 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void init_player(t_data *data)
 	data->player.pos.x = 0;
 	data->player.pos.y = 0;
 	data->player.pos.z = 0.5;
+	data->player.posh.z = 0.5;
 	y = -1;
 	while (data->map.map[++y] && !data->player.pos.x)
 	{
