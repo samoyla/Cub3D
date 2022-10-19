@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 15:12:05 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 14:28:15 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:03:47 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	split_condition(char **split, t_check *check)
 	if (!split[1] || split[2])
 	{
 		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("no decor or setting missing\n", 2);
+		ft_putstr_fd("wrong decor setting\n", 2);
 		free_tab(split);
 		return (FAILURE);
 	}
@@ -88,13 +88,14 @@ static int	split_condition(char **split, t_check *check)
 
 int	decor_analysis(t_map *map, t_check *check)
 {
-	int		i;
+	int	i;
 	char	**split;
 
 	i = -1;
 	while (map->decor[++i])
 	{
-		if (if_not_spaces(map->decor[i]) == SUCCESS)
+		map->decor[i] = ft_strtrim(map->decor[i], " \t\n\v\f\r");
+		if (check_space(map->decor[i]) == SUCCESS)
 		{	
 			split = ft_split(map->decor[i], ' ');
 			if (split_condition(split, check) == FAILURE)

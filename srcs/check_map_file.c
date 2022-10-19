@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:32:42 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/14 15:52:21 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/19 11:22:32 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	check_args(int ac)
 {
 	if (ac != 2)
 	{
-		ft_putstr_fd("euh, wrong number of arguments\n", 2);
-		return (FAILURE);
+		ft_putstr_fd("Error\nwrong number of arguments\n", 2);
+		exit(FAILURE);
 	}	
 	return (SUCCESS);
 }
@@ -67,7 +67,7 @@ int	check_file(char *s)
 	if (if_dir(s) == FAILURE)
 	{
 		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("It's a dirtectory\n", 2);
+		ft_putstr_fd("It's a directory\n", 2);
 		return (FAILURE);
 	}
 	if (s[0] == '.')

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_devision.c                                     :+:      :+:    :+:   */
+/*   map_division.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:27:24 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 18:35:54 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/19 13:39:32 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	get_texture(t_map *map)
 	i = -1;
 	while (map->decor[++i] && i < 6)
 	{
-		map->decor[i] = ft_strtrim(map->decor[i], " ");
 		wind_rose = ft_split(map->decor[i], ' ');
 		if (ft_strncmp(wind_rose[0], "NO", 2) == 0)
 			map->no = ft_strdup(wind_rose[1]);
@@ -44,7 +43,6 @@ void	get_color(t_map *map)
 	i = -1;
 	while (map->decor[++i] && i < 6)
 	{
-		map->decor[i] = ft_strtrim(map->decor[i], " ");
 		color_line = ft_split(map->decor[i], ' ');
 		if (ft_strncmp(color_line[0], "F", 2) == 0)
 		{

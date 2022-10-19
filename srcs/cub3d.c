@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 18:13:08 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:47:06 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int ac, char **av, char **env)
 	t_data	data;
 	t_map	map;
 	t_check	check;
-	
+
 	if (!(*env))
 	{
 		ft_putstr_fd("env doesn't exist\n", 2);
@@ -26,15 +26,13 @@ int	main(int ac, char **av, char **env)
 	init_map(&map);
 	init_check(&check);
 	if (check_args(ac) == FAILURE)
-		return (FAILURE);
+		exit (FAILURE);
 	if (check_file(av[1]) == FAILURE)
-		return (FAILURE);
+		exit (FAILURE);
 	if (create_tab_elements(av[1], &map, &check) == FAILURE)
-		return (FAILURE);
-	get_texture(&map);
-	get_color(&map);
-
-
+		exit (FAILURE);
+	get_map(&map);
+	
 //---------------------------------------------------------------------
 //mlx part
 	init_data(&data, "Cub3D");

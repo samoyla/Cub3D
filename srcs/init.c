@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:07:48 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/17 14:13:52 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:32:16 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ void	init_check(t_check *check)
 	check->so = 0;
 	check->we = 0;
 	check->ea = 0;
+}
+
+void	get_map(t_map *map)
+{
+	get_texture(map);
+	get_color(map);
 }
 
 //MLX

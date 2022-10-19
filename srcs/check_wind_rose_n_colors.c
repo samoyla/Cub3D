@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 12:08:51 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 18:43:22 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:24:35 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,14 @@ int	check_windrose(t_check *check, char **split)
 	{
 		ft_putstr_fd("Error\n", 2);
 		ft_putstr_fd("path of texture is not valid\n", 2);
+		free_tab(split);
 		return (FAILURE);
 	}
+	ft_strtrim(split[1], " \t\n\v\f\r");
 	if (path_ext(split[1]) == FAILURE)
 	{
 		ft_putstr_fd("Error\nwrong texture extention\n", 2);
+		free_tab(split);
 		return (FAILURE);
 	}
 	close(fd);
@@ -75,6 +78,7 @@ int	check_nb(char *str)
 	char	**split_nb;
 	int		i;
 
+
 	split_nb = ft_split(str, ',');
 	if (split_nb == NULL)
 		return (FAILURE);
@@ -85,7 +89,7 @@ int	check_nb(char *str)
 		if (if_str_digit(split_nb[i]) == FAILURE
 			|| digit_size(split_nb[i]) == FAILURE)
 		{
-			ft_putstr_fd("is not a positive digit or too long\n", 2);
+			ft_putstr_fd("rgb problem\n", 2);
 			return (FAILURE);
 		}
 	}

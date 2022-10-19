@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:10:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 18:39:07 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:30:27 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void	check_fd(int fd)
 {
 	if (fd < 0)
-		ft_putstr_fd("Erro\nFile doesn't exist\n", 2);
-
+	{
+		perror("fd:");
+		exit(FAILURE);
+	}
 }
 
 void	print_tab(char	**tab)
@@ -50,7 +52,7 @@ int	if_str_digit(char *s)
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 	{
 		if (ft_isdigit(s[i]) == 0)
 			return (FAILURE);

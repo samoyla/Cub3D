@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 16:07:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 17:36:58 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:15:35 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	check_line_space(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (FAILURE);
 	while (str[i])
 	{
 		if (str[i] > 32)
@@ -26,55 +28,48 @@ int	check_line_space(char *str)
 	return (FAILURE);
 }
 
-void	tab_texture(char *pathname, t_map *map)
+void	tab_decor(char *pathname, t_map *map)
 {
-	int		fd;
-	int		i;
-	char	*line;
+	int	i;
+	int	j;
+	int	count;
 
 	i = 0;
-	fd = open(pathname, O_RDONLY);
-	check_fd(fd);
-	line = get_next_line(fd);
-	map->decor = calloc(6 + 1, sizeof(char *));
+	j = 0;
+	count = 0;
+	map->decor = ft_calloc(6 + 1, sizeof(char *));
 	if (map->decor == NULL)
 		return ;
-	while (line != NULL)
+	while (map->whole[i])
 	{
-		if (check_line_space(line) == SUCCESS)
+		if (check_line_space(map->whole[i]) == SUCCESS)
 		{
-			if (i <= 5)
+			if (j <= 5)
 			{	
-				s_n_r(line, '\n', '\0');
-				map->decor[i] = ft_strdup(line);
-				i++;
+				map->decor[j] = ft_strdup(map->whole[i]);
+				j++;
 			}
 		}
-		free(line);
-		line = get_next_line(fd);
+		i++;
 	}
 	print_tab(map->decor);//supprimer
-	free(line);
-	close(fd);
 }
 
-int	if_not_spaces(char *str)
+int	check_space(char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] >= 32)
-			return (SUCCESS);
-		else
+		if (str[i] < 32)
 			return (FAILURE);
 		i++;
 	}
 	return (SUCCESS);
 }
 
-static int	decor_size(char *pathname)
+static int	size_till_map(char *pathname)
 {
 	int		count;
 	int		fd;
@@ -113,9 +108,8 @@ int	tab_map(char *pathname, t_map *map)
 
 	i = 0;
 	a = map_size(pathname);
-	j = decor_size(pathname);
+	j = size_till_map(pathname);
 	size = a - j;
-	printf("a = %d\nj = %d\nsize = %d\n", a, j, size);
 	if (size == 0)
 		return (FAILURE);
 	size_max = max_width(&map->whole[j]);
@@ -134,6 +128,6 @@ int	tab_map(char *pathname, t_map *map)
 		j++;
 	}
 	map->map[i] = 0;
-	print_tab(map->map);//supprimeri
+	print_tab(map->map);//supprimer
 	return (SUCCESS);
 }

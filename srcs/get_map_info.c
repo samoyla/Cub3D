@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 10:32:36 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 17:38:09 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:42:31 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	create_tab_elements(char *pathname, t_map *map, t_check *check)
 {
 	tab_whole_map(pathname, map);
-	tab_texture(pathname, map);
+	tab_decor(pathname, map);
 	if (decor_analysis(map, check) == FAILURE)
 		return (FAILURE);
 	if (tab_map(pathname, map) == FAILURE)
@@ -56,8 +56,8 @@ int	map_size(char *pathname)
 		return (0);
 	while (line != NULL)
 	{
-		free(line);
 		line = get_next_line(fd);
+		free(line);
 		i++;
 	}
 	close(fd);
