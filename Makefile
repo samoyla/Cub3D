@@ -6,7 +6,7 @@
 #    By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/10/19 16:45:58 by masamoil         ###   ########.fr        #
+#    Updated: 2022/10/20 17:41:44 by masamoil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,12 +23,12 @@ CSRCS		=	cub3d.c \
 				draw.c \
 				get_map_info.c \
 				map_elements.c \
-				gnl.c \
 				map_division.c \
 				decor.c \
 				map.c \
 				check_wind_rose_n_colors.c\
-				fill_map.c
+				fill_map.c\
+				gnl.c
 
 SRCS		=	$(addprefix $(SRCS_DIR), $(CSRCS))
 

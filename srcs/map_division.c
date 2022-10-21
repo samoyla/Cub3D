@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:27:24 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/19 13:39:32 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/20 17:00:55 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	get_color(t_map *map)
 			map->c_blue = ft_atoi(rgb[2]);
 			free_tab(rgb);
 		}
+		free_tab(color_line);
 	}
 	printf("-----------------------\n");
 	printf("f_r = %d\nf_g = %d\nf_b = %d\n", map->f_red, map->f_green, map->f_blue);

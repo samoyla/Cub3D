@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 15:12:05 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/19 17:03:47 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:59:05 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ static int	split_condition(char **split, t_check *check)
 	if (split[1])
 	{
 		if (check_decor_lines(split, check) == FAILURE)
+		{
+			free_tab(split);
 			return (FAILURE);
+		}
 	}
 	else
 		free_tab(split);
@@ -92,6 +95,7 @@ int	decor_analysis(t_map *map, t_check *check)
 	char	**split;
 
 	i = -1;
+	split = NULL;
 	while (map->decor[++i])
 	{
 		map->decor[i] = ft_strtrim(map->decor[i], " \t\n\v\f\r");
@@ -110,5 +114,6 @@ int	decor_analysis(t_map *map, t_check *check)
 	}
 	if (check_exist(*check) == FAILURE)
 		return (FAILURE);
+	free_tab(split);
 	return (SUCCESS);
 }

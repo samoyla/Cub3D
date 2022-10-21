@@ -33,20 +33,6 @@ void	print_tab(char	**tab)
 	}
 }
 
-void	free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-	tab = NULL;
-}
-
 int	if_str_digit(char *s)
 {
 	int	i;

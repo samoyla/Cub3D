@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/19 16:55:55 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:51:20 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,15 @@ typedef struct s_data
 	t_img	img;
 }t_data;
 
+typedef struct s_read
+{
+    int        eof;
+    ssize_t    b_read;
+    int        fd;
+    char    *temp;
+
+}            t_read;
+
 //check_map_file.c
 int		check_args(int ac);
 int		check_file(char *s);
@@ -124,17 +133,18 @@ char	*ft_strdup_space(char *s, int size);
 //utils.c
 void	check_fd(int fd);
 void	print_tab(char	**tab);
-void	free_tab(char **tab);
 int		if_str_digit(char *s);
 int		digit_size(char *s);
 //gnl.c
 char	*get_next_line(int fd);
 //MLX
 //events.c
-int		handle_keypress(int keysem, t_data *data);
-int		ft_red_cross(t_data *data);
+int		handle_keypress(int keysem, t_data *data, t_map *map);
+int		ft_red_cross(t_data *data, t_map *map);
 //free.c
 void	ft_free_n_destroy(t_data *data);
+void	free_tab(char **tab);
+int	free_map_struct(t_map *map);
 //draw.c
 int		render(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);

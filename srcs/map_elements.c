@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 16:07:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/19 17:15:35 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/20 17:59:11 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	tab_decor(char *pathname, t_map *map)
 	count = 0;
 	map->decor = ft_calloc(6 + 1, sizeof(char *));
 	if (map->decor == NULL)
-		return ;
+		return ;	
 	while (map->whole[i])
 	{
 		if (check_line_space(map->whole[i]) == SUCCESS)

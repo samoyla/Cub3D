@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/19 16:47:06 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:59:15 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,21 @@ int	main(int ac, char **av, char **env)
 	if (check_file(av[1]) == FAILURE)
 		exit (FAILURE);
 	if (create_tab_elements(av[1], &map, &check) == FAILURE)
+	{
+		//free_map_struct(&map);
 		exit (FAILURE);
-	get_map(&map);
-	
+	}
+	//get_map(&map);
 //---------------------------------------------------------------------
 //mlx part
-	init_data(&data, "Cub3D");
+	/*init_data(&data, "Cub3D");
 	init_image(&data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.win_ptr, 17, 0L, &ft_red_cross, &data);
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 	mlx_loop(data.mlx_ptr);
 	free(data.mlx_ptr);
-	ft_free_n_destroy(&data);
+	ft_free_n_destroy(&data);*/
 
 	return (SUCCESS);
 }
