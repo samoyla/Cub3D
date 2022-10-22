@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:07:48 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/17 14:13:52 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/22 11:25:07 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ void	init_map(t_map *map)
 	map->whole = NULL;
 	map->decor = NULL;
 	map->map = NULL;
+	map->input = NULL;
 	map->so = NULL;
 	map->no = NULL;
 	map->ea = NULL;
 	map->we = NULL;
+	map->size = 0;
+	map->count = 0;
 	map->f_red = 0;
 	map->f_green = 0;
 	map->f_blue = 0;
@@ -38,6 +41,12 @@ void	init_check(t_check *check)
 	check->so = 0;
 	check->we = 0;
 	check->ea = 0;
+}
+
+void	get_map(t_map *map)
+{
+	get_texture(map);
+	get_color(map);
 }
 
 //MLX

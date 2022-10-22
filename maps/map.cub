@@ -6,7 +6,7 @@ SO ./texture/wall.xpm
   
 WE ./texture/wall.xpm
     
-F 220,100,0
+F 220,100,0	
    C          210,30,0
 
 

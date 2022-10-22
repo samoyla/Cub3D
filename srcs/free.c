@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 16:29:42 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/02 17:12:45 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:10:21 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,37 @@ void	ft_free_n_destroy(t_data *data)
 		free(data->mlx_ptr);
 		data->mlx_ptr = NULL;
 	}
+}
+
+void	free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+	tab = NULL;
+}
+
+void	free_map_struct(t_map *map)
+{
+	if (map == NULL)
+		return ;
+	if (map->whole)
+		free_tab(map->whole);
+	if (map->decor)
+		free_tab(map->decor);
+	if (map->no)
+		free(map->no);
+	if (map->so)
+		free(map->so);
+	if (map->ea)
+		free(map->ea);
+	if (map->we)
+		free(map->we);
+	free(map);
 }

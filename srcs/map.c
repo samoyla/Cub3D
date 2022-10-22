@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 17:44:54 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 12:15:55 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/20 14:41:02 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	check_if_inside(t_map *map)
 	i = -1;
 	while (map->map[++i])
 	{
-		j = 0;
+		j = -1;
 		while (map->map[i][++j])
 		{
 			if ((map->map[i][j] == '0' || map->map[i][j] == 'N'
