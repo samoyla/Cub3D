@@ -17,7 +17,7 @@ int	check_args(int ac)
 	if (ac != 2)
 	{
 		ft_putstr_fd("Error\nwrong number of arguments\n", 2);
-		exit(FAILURE);
+		return (FAILURE);
 	}	
 	return (SUCCESS);
 }

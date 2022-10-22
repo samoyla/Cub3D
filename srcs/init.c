@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:07:48 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/19 12:32:16 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/22 11:25:07 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ void	init_map(t_map *map)
 	map->whole = NULL;
 	map->decor = NULL;
 	map->map = NULL;
+	map->input = NULL;
 	map->so = NULL;
 	map->no = NULL;
 	map->ea = NULL;
 	map->we = NULL;
+	map->size = 0;
+	map->count = 0;
 	map->f_red = 0;
 	map->f_green = 0;
 	map->f_blue = 0;

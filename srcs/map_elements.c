@@ -39,7 +39,7 @@ void	tab_decor(char *pathname, t_map *map)
 	count = 0;
 	map->decor = ft_calloc(6 + 1, sizeof(char *));
 	if (map->decor == NULL)
-		return ;	
+		return ;
 	while (map->whole[i])
 	{
 		if (check_line_space(map->whole[i]) == SUCCESS)
@@ -50,8 +50,12 @@ void	tab_decor(char *pathname, t_map *map)
 				j++;
 			}
 		}
+		else
+			count++;
 		i++;
 	}
+	map->count = count;
+	printf("count = %d\n", map->count);
 	print_tab(map->decor);//supprimer
 }
 
@@ -102,14 +106,12 @@ int	tab_map(char *pathname, t_map *map)
 {
 	int	i;
 	int	j;
-	int	a;
 	int	size;
 	int	size_max;
 
 	i = 0;
-	a = map_size(pathname);
-	j = size_till_map(pathname);
-	size = a - j;
+	j = map->count + 6;
+	size = map->size - map->count + 6;
 	if (size == 0)
 		return (FAILURE);
 	size_max = max_width(&map->whole[j]);

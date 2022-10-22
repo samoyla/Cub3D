@@ -6,20 +6,24 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 10:32:36 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/19 16:42:31 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/22 13:36:01 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	create_tab_elements(char *pathname, t_map *map, t_check *check)
+int	create_tab_elements(char *pathname, t_map *map, t_check *check, char **av)
 {
-	tab_whole_map(pathname, map);
+	tab_whole_map(map, av);
 	tab_decor(pathname, map);
 	if (decor_analysis(map, check) == FAILURE)
+	{
+		//free_map_struct(map);
 		return (FAILURE);
+	}
 	if (tab_map(pathname, map) == FAILURE)
 	{
+		//free_map_struct(map);
 		ft_putstr_fd("Error\nmap doesn't exist\n", 2);
 		return (FAILURE);
 	}
@@ -33,7 +37,7 @@ char	*s_n_r(char *str, char c, char ac)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		while (str[i] == c)
 			str[i] = ac;
@@ -42,53 +46,17 @@ char	*s_n_r(char *str, char c, char ac)
 	return (str);
 }
 
-int	map_size(char *pathname)
+void	tab_whole_map(t_map *map, char **av)
 {
 	int		i;
-	char	*line;
-	int		fd;
 
 	i = 0;
-	fd = open(pathname, O_RDONLY);
-	check_fd(fd);
-	line = get_next_line(fd);
-	if (!line)
-		return (0);
-	while (line != NULL)
-	{
-		line = get_next_line(fd);
-		free(line);
+	read_input(map, av);
+	map->whole = ft_split(map->input, '\n');
+	print_tab(map->whole);
+	while (map->whole[i])
 		i++;
-	}
-	close(fd);
-	free(line);
-	return (i);
-}
-
-void	tab_whole_map(char *pathname, t_map *map)
-{
-	int		fd;
-	int		i;
-	int		size;
-	char	*line;
-
-	i = 0;
-	fd = open(pathname, O_RDONLY);
-	check_fd(fd);
-	line = get_next_line(fd);
-	size = map_size(pathname);
-	map->whole = ft_calloc(size + 1, sizeof(char *));
-	if (!map->whole)
-		return ;
-	while (i < size)
-	{
-		s_n_r(line, '\n', '\0');
-		map->whole[i] = ft_strdup(line);
-		free(line);
-		i++;
-		line = get_next_line(fd);
-	}
-	close(fd);
-	map->whole[i] = 0;
-	free(line);
+	map->size = i;
+	printf("size of whole map = %d\n", map->size);
+	free(map->input);
 }

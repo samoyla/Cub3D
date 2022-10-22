@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 16:29:42 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/21 16:56:38 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:10:21 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,14 @@ void	free_tab(char **tab)
 	tab = NULL;
 }
 
-int	free_map_struct(t_map *map)
+void	free_map_struct(t_map *map)
 {
-	int	i;
-
-	i = -1;
 	if (map == NULL)
-		return (1);
-	while (map->decor[++i])
-		free(map->decor[i]);
-	while (map->whole[++i])
-		free(map->whole[i]);
+		return ;
+	if (map->whole)
+		free_tab(map->whole);
+	if (map->decor)
+		free_tab(map->decor);
 	if (map->no)
 		free(map->no);
 	if (map->so)
@@ -65,7 +62,5 @@ int	free_map_struct(t_map *map)
 		free(map->ea);
 	if (map->we)
 		free(map->we);
-	if (map->map)
-		free_tab(map->map);
-	return (1);
+	free(map);
 }

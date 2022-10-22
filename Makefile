@@ -28,7 +28,7 @@ CSRCS		=	cub3d.c \
 				map.c \
 				check_wind_rose_n_colors.c\
 				fill_map.c\
-				gnl.c
+				read_input.c\
 
 SRCS		=	$(addprefix $(SRCS_DIR), $(CSRCS))
 
