@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 16:00:08 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/21 17:56:25 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/22 16:06:03 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,20 @@
 
 void screen_points_update(t_data *data)
 {
-	data->player.screen.pleft.x = data->player.pos.x + HALF;
-	data->player.screen.pleft.y = data->player.pos.y + DIST;
-	data->player.screen.pright.x = data->player.pos.x - HALF;
-	data->player.screen.pright.y = data->player.pos.y + DIST;
-	z_rotation(data, &data->player.screen.pleft, data->player.angle);
-	z_rotation(data, &data->player.screen.pright, data->player.angle);
+	double norm;
+
+	data->screen.pleft.x = data->player.pos.x + HALF;
+	data->screen.pleft.y = data->player.pos.y + DIST;
+	data->screen.pright.x = data->player.pos.x - HALF;
+	data->screen.pright.y = data->player.pos.y + DIST;
+	z_rotation(data, &data->screen.pleft, data->player.angle);
+	z_rotation(data, &data->screen.pright, data->player.angle);
+	data->screen.v.vx = data->screen.pright.x - data->screen.pleft.x;
+	data->screen.v.vy = data->screen.pright.y - data->screen.pleft.y;
+	norm = sqrt((data->screen.v.vx * data->screen.v.vx) + (data->screen.v.vy * data->screen.v.vy));
+	data->screen.v.vx /= norm;
+	data->screen.v.vy /= norm;
+	printf("vx:%f vy:%f\n", data->screen.v.vx, data->screen.v.vy);
 }
 
 
@@ -44,6 +52,12 @@ void z_angle_rotation(t_data *data, int key)
 		else
 			data->player.angle = angles[--i];
 	}
+	data->player.v.vx = sin(data->player.angle);
+	data->player.v.vy = cos(data->player.angle);
+
+	// checker
+	data->player.check.x = data->player.pos.x + data->player.v.vx * DIST;
+	data->player.check.y = data->player.pos.y + data->player.v.vy * DIST;
 }
 
 void hud_points_update(t_data *data)
@@ -101,14 +115,18 @@ void move_player(t_data *data, int key)
 	data->player.posh.y = data->player.pos.y * data->hud.yt;
 	hud_points_update(data);
 	screen_points_update(data);
+
+	// checker
+	data->player.check.x = data->player.pos.x + data->player.v.vx * DIST;
+	data->player.check.y = data->player.pos.y + data->player.v.vy * DIST;
 }
 
 int	handle_keypress(int key, t_data *data)
 {
-	printf("pos x:%f y:%f\n", data->player.pos.x, data->player.pos.y);
-	printf("screen half:%f\n", HALF);
-	printf("lscreen x:%f y:%f\n", data->player.screen.pleft.x, data->player.screen.pleft.y);
-	printf("rscreen x:%f y:%f\n", data->player.screen.pright.x, data->player.screen.pright.y);
+	// printf("pos x:%f y:%f\n", data->player.pos.x, data->player.pos.y);
+	// printf("screen half:%f\n", HALF);
+	// printf("lscreen x:%f y:%f\n", data->screen.pleft.x, data->screen.pleft.y);
+	// printf("rscreen x:%f y:%f\n", data->screen.pright.x, data->screen.pright.y);
 
 	if (key == XK_Escape)
 		ft_red_cross(data);
@@ -119,6 +137,28 @@ int	handle_keypress(int key, t_data *data)
 		move_player(data, key);
 	else
 		printf("Key pressed:%d\n", key);
+
+	// CHECK
+
+	// wall
+	data->player.wall.x = wall_boundary(data->player.check.x, data->player.v.vx);
+	data->player.wall.y = wall_boundary(data->player.check.y, data->player.v.vy);
+
+	// dist
+	data->player.dist.x = abs_double(data->player.wall.x - data->player.pos.x);
+	data->player.dist.y = abs_double(data->player.wall.y - data->player.pos.y);
+
+	// step
+	data->player.step.x = abs_double(data->player.dist.x / data->player.v.vx);
+	data->player.step.y = abs_double(data->player.dist.y / data->player.v.vy);
+
+	printf("\nplay vx:%f vy:%f\n", data->player.v.vx, data->player.v.vy);
+	printf("wall x:%f y:%f\n", data->player.wall.x, data->player.wall.y);
+	printf("dist x:%f y:%f\n", data->player.dist.x, data->player.dist.y);
+	printf("step x:%f y:%f\n", data->player.step.x, data->player.step.y);
+
+
+
 	return (0);
 }
 

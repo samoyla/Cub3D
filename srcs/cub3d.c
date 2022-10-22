@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/21 18:27:26 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/22 14:45:03 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int ac, char **av)
 	resize_width_height(&data);
 	set_screen_points(&data);
 	set_hud(&data);
+	wall_distance(&data);
 
 	init_data(&data, "Cub3D");
 	init_image(&data);

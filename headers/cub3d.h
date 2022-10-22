@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/21 18:37:49 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/22 16:03:10 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,12 @@ typedef struct	s_posi
 	double	z;
 }				t_posi;
 
+typedef struct	s_vect
+{
+	double	vx;
+	double	vy;
+}				t_vect;
+
 typedef struct	s_screen
 {
 	double	full;
@@ -118,15 +124,21 @@ typedef struct	s_screen
 	double	incr;
 	t_posi	pleft;
 	t_posi	pright;
+	t_vect	v;
 }				t_screen;
 
 typedef struct	s_playr
 {
 	t_posi	pos;
 	t_posi	posh;
-	t_screen screen;
 	double	angle;
-	double	prevangle;
+	t_vect	v;
+
+
+	t_posi	check;
+	t_posi	wall;
+	t_posi	dist;
+	t_posi	step;
 }				t_playr;
 
 typedef struct	s_hpt
@@ -148,8 +160,6 @@ typedef struct	s_hud
 {
 	int		xsize;
 	int		ysize;
-	// int		xhsize;
-	// int		yhsize;
 	int		xt;
 	int		yt;
 	t_tri	tri;
@@ -166,6 +176,7 @@ typedef struct	s_data
 	t_img	img;
 	t_playr	player;
 	t_hud	hud;
+	t_screen screen;
 }				t_data;
 
 //check_map_file.c
@@ -212,11 +223,13 @@ void	init_player(t_data *data);
 void	set_hud(t_data *data);
 
 // SCREEN LINE
- void 	set_screen_points(t_data *data);;
+void 	set_screen_points(t_data *data);;
 
 // Ray tracing
- void	ray_tracing(t_data *data);
- void 	z_rotation(t_data *data, t_posi *p, double angle);
+void	ray_tracing(t_data *data);
+void 	z_rotation(t_data *data, t_posi *p, double angle);
+void	wall_distance(t_data *data);
+double	wall_boundary(double coord, double dir);
 
 //utils.c
 void	check_fd(int fd);
@@ -224,6 +237,8 @@ void	print_tab(char	**tab);
 void	free_tab(char **tab);
 int		if_str_digit(char *s);
 int		digit_size(char *s);
+double	abs_double(double a);
+
 //gnl.c
 char	*get_next_line(int fd);
 //MLX

@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:11:32 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/21 18:40:07 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/22 15:38:24 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,22 @@
 
 void set_screen_points(t_data *data)
 {
-	data->player.screen.pleft.x = data->player.pos.x + HALF;
-	data->player.screen.pleft.y = data->player.pos.y + DIST;
-	data->player.screen.pright.x = data->player.pos.x - HALF;
-	data->player.screen.pright.y = data->player.pos.y + DIST;
-	z_rotation(data, &data->player.screen.pleft, data->player.angle);
-	z_rotation(data, &data->player.screen.pright, data->player.angle);
-	data->player.screen.incr = (HALF * 2) / data->width;
-	printf("2HALF:%f and incr:%f, width:%d\n", 2 * HALF, data->player.screen.incr, data->width);
-	printf("Width*incr:%f\n", data->width * data->player.screen.incr);
-	data->player.screen.pleft.z = 0.5;
+	double norm;
 
+	data->screen.pleft.x = data->player.pos.x + HALF;
+	data->screen.pleft.y = data->player.pos.y + DIST;
+	data->screen.pright.x = data->player.pos.x - HALF;
+	data->screen.pright.y = data->player.pos.y + DIST;
+	z_rotation(data, &data->screen.pleft, data->player.angle);
+	z_rotation(data, &data->screen.pright, data->player.angle);
+	data->screen.incr = (HALF * 2) / data->width;
+	// printf("2HALF:%f and incr:%f, width:%d\n", 2 * HALF, data->screen.incr, data->width);
+	// printf("Width*incr:%f\n", data->width * data->screen.incr);
+	data->screen.pleft.z = 0.5;
+	data->screen.v.vx = data->screen.pright.x - data->screen.pleft.x;
+	data->screen.v.vy = data->screen.pright.y - data->screen.pleft.y;
+	norm = sqrt((data->screen.v.vx * data->screen.v.vx) + (data->screen.v.vy * data->screen.v.vy));
+	data->screen.v.vx /= norm;
+	data->screen.v.vy /= norm;
+	// printf("vx:%f vy:%f\n", data->screen.v.vx, data->screen.v.vy);
 }
