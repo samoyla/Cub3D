@@ -6,11 +6,16 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:06:53 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/22 16:20:42 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/22 17:46:55 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+double norm_two_points(t_posi p1, t_posi p2)
+{
+	return (sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y)));
+}
 
 double abs_double(double a)
 {
@@ -32,6 +37,7 @@ double wall_boundary(double coord, double dir)
 void wall_distance(t_data *data)
 {
 	int wall;
+	double dist;
 	// double wx;
 	// double wy;
 	// double distx;
@@ -39,36 +45,80 @@ void wall_distance(t_data *data)
 	// double stepx;
 	// double stepy;
 
+	// POINT
 	data->player.check.x = data->player.pos.x + data->player.v.vx * DIST;
 	data->player.check.y = data->player.pos.y + data->player.v.vy * DIST;
+	data->player.rayp.x = data->player.check.x;
+	data->player.rayp.y = data->player.check.y;
+	printf("check x:%f y:%f\n", data->player.check.x, data->player.check.y);
 
+	// WALL it hits
 	data->player.wall.x = wall_boundary(data->player.check.x, data->player.v.vx);
 	data->player.wall.y = wall_boundary(data->player.check.y, data->player.v.vy);
 	printf("wall x:%f y:%f\n", data->player.wall.x, data->player.wall.y);
 
-	data->player.dist.x = abs_double(data->player.wall.x - data->player.pos.x);
-	data->player.dist.y = abs_double(data->player.wall.y - data->player.pos.y);
+	// distance with this wall
+	data->player.dist.x = abs_double(data->player.wall.x - data->player.check.x);
+	data->player.dist.y = abs_double(data->player.wall.y - data->player.check.y);
 	printf("dist x:%f y:%f\n", data->player.dist.x, data->player.dist.y);
 
+	// step to reach it
 	data->player.step.x = abs_double(data->player.dist.x / data->player.v.vx);
 	data->player.step.y = abs_double(data->player.dist.y / data->player.v.vy);
 	printf("step x:%f y:%f\n", data->player.step.x, data->player.step.y);
 
 	wall = 0;
 	printf("map:%c\n", data->map.map[(int)data->player.wall.y][(int)data->player.wall.x]);
-	if (data->map.map[(int)data->player.wall.y][(int)data->player.wall.x] == '1')
-		printf("OKKKKKKKKKKKK\n");
+
 	if (data->player.step.x < data->player.step.y)
 	{
-
+		data->player.rayp.x += data->player.v.vx * data->player.step.x;
+		data->player.rayp.y += data->player.v.vy * data->player.step.x;
 	}
 	else if (data->player.step.x >= data->player.step.y)
 	{
-
+		data->player.rayp.x += data->player.v.vx * data->player.step.y;
+		data->player.rayp.y += data->player.v.vy * data->player.step.y;
 	}
 
+	if (data->map.map[(int)data->player.wall.y][(int)data->player.wall.x] == '1')
+		wall = 1; // break
 
-	// wall = 0
+	// WALL it hits
+	if (data->player.wall.x < data->map.xsize -1)
+		data->player.wall.x += 1;
+	if (data->player.wall.y < data->map.ysize -1)
+		data->player.wall.y += 1;
+	printf("\nrayp x:%f y:%f\n", data->player.rayp.x, data->player.rayp.y);
+	printf("wall x:%f y:%f\n", data->player.wall.x, data->player.wall.y);
+
+	// distance with this wall
+	data->player.dist.x = abs_double(data->player.wall.x - data->player.rayp.x);
+	data->player.dist.y = abs_double(data->player.wall.y - data->player.rayp.y);
+	printf("dist x:%f y:%f\n", data->player.dist.x, data->player.dist.y);
+
+	// step to reach it
+	data->player.step.x = abs_double(data->player.dist.x / data->player.v.vx);
+	data->player.step.y = abs_double(data->player.dist.y / data->player.v.vy);
+	printf("step x:%f y:%f\n", data->player.step.x, data->player.step.y);
+
+	printf("map:%c\n", data->map.map[(int)data->player.wall.y][(int)data->player.wall.x]);
+
+	if (data->player.step.x < data->player.step.y)
+	{
+		data->player.rayp.x += data->player.v.vx * data->player.step.x;
+		data->player.rayp.y += data->player.v.vy * data->player.step.x;
+	}
+	else if (data->player.step.x >= data->player.step.y)
+	{
+		data->player.rayp.x += data->player.v.vx * data->player.step.y;
+		data->player.rayp.y += data->player.v.vy * data->player.step.y;
+	}
+	printf("rayp x:%f y:%f\n", data->player.rayp.x, data->player.rayp.y);
+	dist = norm_two_points(data->player.check, data->player.rayp);
+	printf("Final dist:%f\n", dist);
+
+	// wall = 0 // HEEEEEEEEEEEEEEEEEEEEEEEEERE HERE-------------------------------<<<<<
 	// while (!wall)
 	// {
 

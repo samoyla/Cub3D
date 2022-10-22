@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/22 16:03:10 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/22 17:13:31 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ typedef struct	s_playr
 
 
 	t_posi	check;
+	t_posi	rayp;
 	t_posi	wall;
 	t_posi	dist;
 	t_posi	step;
