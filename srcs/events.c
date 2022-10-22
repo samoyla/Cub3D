@@ -6,11 +6,22 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 16:00:08 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/19 16:49:41 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:56:25 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void screen_points_update(t_data *data)
+{
+	data->player.screen.pleft.x = data->player.pos.x + HALF;
+	data->player.screen.pleft.y = data->player.pos.y + DIST;
+	data->player.screen.pright.x = data->player.pos.x - HALF;
+	data->player.screen.pright.y = data->player.pos.y + DIST;
+	z_rotation(data, &data->player.screen.pleft, data->player.angle);
+	z_rotation(data, &data->player.screen.pright, data->player.angle);
+}
+
 
 void z_angle_rotation(t_data *data, int key)
 {
@@ -49,6 +60,7 @@ void z_rotation_player(t_data *data, int key)
 {
 	z_angle_rotation(data, key);
 	hud_points_update(data);
+	screen_points_update(data);
 }
 
 /*
@@ -88,10 +100,16 @@ void move_player(t_data *data, int key)
 	data->player.posh.x = data->player.pos.x * data->hud.xt;
 	data->player.posh.y = data->player.pos.y * data->hud.yt;
 	hud_points_update(data);
+	screen_points_update(data);
 }
 
 int	handle_keypress(int key, t_data *data)
 {
+	printf("pos x:%f y:%f\n", data->player.pos.x, data->player.pos.y);
+	printf("screen half:%f\n", HALF);
+	printf("lscreen x:%f y:%f\n", data->player.screen.pleft.x, data->player.screen.pleft.y);
+	printf("rscreen x:%f y:%f\n", data->player.screen.pright.x, data->player.screen.pright.y);
+
 	if (key == XK_Escape)
 		ft_red_cross(data);
 	else if(key == XK_Left || key == XK_Right)

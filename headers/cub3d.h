@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/19 17:12:47 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:37:49 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 
 # define WIDTH				1280
 # define HEIGHT				720
+# define SCALING_FACTOR		1000
+# define SCALE				64
 # define MLX_ERROR 			1
 # define BUFFER_SIZE		1
 # define HUD_SIZE_FACTOR	4
@@ -48,28 +50,33 @@
 # define GREY				0x9C9C9C
 # define BLACK				0x000000
 
-# define STEP				0.2
+// Events
+# define STEP				0.2 //* SCALE //0.2 * SCALING_FACTOR
 # define ROT				PI * 0.125
 static double angles[17] = {0, PI * 0.125, PI * 0.25, PI * 0.375, PI * 0.5, PI * 0.625, PI * 0.75, PI * 0.875,
 							PI, PI * 1.125, PI * 1.25, PI * 1.375, PI * 1.5, PI * 1.625, PI * 1.75, PI * 1.875, -1};
 
+// Raycasting
+# define DIST				0.1 //* SCALE //0.1 * SCALING_FACTOR
+# define HALF				(tan(FOV * 0.5) * DIST * 2) //* SCALE //* SCALING_FACTOR
+
 typedef struct	s_map
 {
-	char	**whole;
-	char	**decor;
-	char	**map;
-	int		xsize;
-	int		ysize;
-	char	*so;
-	char	*no;
-	char	*ea;
-	char	*we;
-	int		f_red;
-	int		f_green;
-	int		f_blue;
-	int		c_red;
-	int		c_green;
-	int		c_blue;
+	char		**whole;
+	char		**decor;
+	char		**map;
+	long int	xsize;
+	long int	ysize;
+	char		*so;
+	char		*no;
+	char		*ea;
+	char		*we;
+	int			f_red;
+	int			f_green;
+	int			f_blue;
+	int			c_red;
+	int			c_green;
+	int			c_blue;
 }				t_map;
 
 typedef struct s_check
@@ -97,18 +104,29 @@ typedef struct s_img
 	int		endian;
 }t_img;
 
-typedef struct s_posi
+typedef struct	s_posi
 {
 	double	x;
 	double	y;
 	double	z;
-}	t_posi;
+}				t_posi;
+
+typedef struct	s_screen
+{
+	double	full;
+	double	half;
+	double	incr;
+	t_posi	pleft;
+	t_posi	pright;
+}				t_screen;
 
 typedef struct	s_playr
 {
 	t_posi	pos;
 	t_posi	posh;
+	t_screen screen;
 	double	angle;
+	double	prevangle;
 }				t_playr;
 
 typedef struct	s_hpt
@@ -192,6 +210,13 @@ void	init_player(t_data *data);
 
 // HUD
 void	set_hud(t_data *data);
+
+// SCREEN LINE
+ void 	set_screen_points(t_data *data);;
+
+// Ray tracing
+ void	ray_tracing(t_data *data);
+ void 	z_rotation(t_data *data, t_posi *p, double angle);
 
 //utils.c
 void	check_fd(int fd);

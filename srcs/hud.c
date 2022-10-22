@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 12:28:33 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/19 17:01:45 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:32:04 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@ void set_hud(t_data *data)
 	}
 	data->hud.xt = data->hud.xsize / data->map.xsize;
 	data->hud.yt = data->hud.ysize / data->map.ysize;
-	// printf("hud x:%d y:%d\n", data->hud.xsize, data->hud.ysize);
-	// data->hud.xhsize = data->hud.xsize * data->hud.xt;
-	// data->hud.yhsize = data->hud.ysize * data->hud.yt;
 	set_triangle(data);
 	data->player.posh.x = data->player.pos.x * data->hud.xt;
 	data->player.posh.y = data->player.pos.y * data->hud.yt;

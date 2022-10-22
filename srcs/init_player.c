@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:36:16 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/19 14:34:57 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:32:23 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void set_player_angle(t_data *data, char c)
 		data->player.angle = angles[4];
 	else if (c == 'W')
 		data->player.angle = angles[12];
+	data->player.prevangle = data->player.angle;
 }
 
 void init_player(t_data *data)
@@ -49,8 +50,8 @@ void init_player(t_data *data)
 		{
 			if (is_player_init_pos(data->map.map[y][x]))
 			{
-				data->player.pos.x = x + 0.5;
-				data->player.pos.y = y + 0.5;
+				data->player.pos.x = (x + 0.5);
+				data->player.pos.y = (y + 0.5);
 				set_player_angle(data, data->map.map[y][x]);
 			}
 		}

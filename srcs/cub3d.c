@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/19 15:04:49 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:27:26 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int	main(int ac, char **av)
 
 // MLX
 	resize_width_height(&data);
+	set_screen_points(&data);
 	set_hud(&data);
 
 	init_data(&data, "Cub3D");
 	init_image(&data);
-
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.win_ptr, 17, 0L, &ft_red_cross, &data);
 	mlx_loop_hook(data.mlx_ptr, &render, &data);

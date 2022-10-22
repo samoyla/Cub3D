@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:13:30 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/19 17:43:05 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:40:25 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	render_background(t_data *data, int color)
 		x = 0;
 		while (x < WIDTH)
 		{
-			if (y > data->hud.ysize || x > data->hud.xsize)
+			// if (y > data->hud.ysize || x > data->hud.xsize)
 				img_pix_put(&data->img, x, y, color);
 			x++;
 		}
@@ -195,20 +195,19 @@ void render_player(t_data *data, int color)
 		}
 		x_init++;
 	}
-	// img_pix_put(&data->img, data->player.posh.x, data->player.posh.y, STRONG_BLUE);
-	// printf("______1______\np1(%f, %f)\n", data->hud.tri.p1.x_hud, data->hud.tri.p1.y_hud);
-	// (void)color;
-	// img_pix_put(&data->img, data->hud.tri.p1.x_hud, data->hud.tri.p1.y_hud, YELLOW);
-	// img_pix_put(&data->img, data->hud.tri.p2.x_hud, data->hud.tri.p2.y_hud, YELLOW);
 }
 
 int	render(t_data *data)
 {
 	if (data->win_ptr == NULL)
 		return (1);
+	render_background(data, WHITE); // a supprimer car inutile
 	render_hud(data, STRONG_BLUE);
 	render_player(data, YELLOW);
-	render_background(data, WHITE); // a supprimer car inutile
+	// // render_background(data, WHITE); // a supprimer car inutile
+
+	// // Ray tracing
+	// ray_tracing(data);
 
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
 
