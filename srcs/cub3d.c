@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/22 14:45:03 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/23 18:56:21 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ int	main(int ac, char **av)
 
 // MLX
 	resize_width_height(&data);
+	printf("width:%d\n", data.width);
+	data.screen.dist = malloc(sizeof(data.screen.dist) *(data.width + 1)); // protect malloc
+	data.screen.dist[data.width] = -1;
+	printf("map ysize:%ld and xsize:%ld\n", data.map.ysize, data.map.xsize);
 	set_screen_points(&data);
 	set_hud(&data);
 	wall_distance(&data);
