@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 16:00:08 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/22 16:06:03 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/23 18:06:52 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int is_pos_in_bounds(t_data *data, t_posi p)
 void move_player(t_data *data, int key)
 {
 	t_posi p;
+	t_posi pcheck;
 	int dir;
 
 	dir = 1;
@@ -101,13 +102,17 @@ void move_player(t_data *data, int key)
 	{
 		p.x = data->player.pos.x + dir * STEP * sin(data->player.angle);
 		p.y = data->player.pos.y + dir * STEP * cos(data->player.angle);
+		pcheck.x = data->player.pos.x + dir * (STEP + 0.3) * sin(data->player.angle); // Optimiser les collisions!!
+		pcheck.y = data->player.pos.y + dir * (STEP + 0.3) * cos(data->player.angle);
 	}
 	else
 	{
 		p.x = data->player.pos.x + dir * STEP * sin(data->player.angle + PI / 2);
 		p.y = data->player.pos.y + dir * STEP * cos(data->player.angle + PI / 2);
+		pcheck.x = data->player.pos.x + dir * (STEP + 0.3) * sin(data->player.angle + PI / 2);
+		pcheck.y = data->player.pos.y + dir * (STEP + 0.3) * cos(data->player.angle + PI / 2);
 	}
-	if (!is_pos_in_bounds(data, p))
+	if (!is_pos_in_bounds(data, pcheck))
 		return;
 	data->player.pos.x = p.x;
 	data->player.pos.y = p.y;
@@ -138,25 +143,7 @@ int	handle_keypress(int key, t_data *data)
 	else
 		printf("Key pressed:%d\n", key);
 
-	// CHECK
-
-	// wall
-	data->player.wall.x = wall_boundary(data->player.check.x, data->player.v.vx);
-	data->player.wall.y = wall_boundary(data->player.check.y, data->player.v.vy);
-
-	// dist
-	data->player.dist.x = abs_double(data->player.wall.x - data->player.pos.x);
-	data->player.dist.y = abs_double(data->player.wall.y - data->player.pos.y);
-
-	// step
-	data->player.step.x = abs_double(data->player.dist.x / data->player.v.vx);
-	data->player.step.y = abs_double(data->player.dist.y / data->player.v.vy);
-
-	printf("\nplay vx:%f vy:%f\n", data->player.v.vx, data->player.v.vy);
-	printf("wall x:%f y:%f\n", data->player.wall.x, data->player.wall.y);
-	printf("dist x:%f y:%f\n", data->player.dist.x, data->player.dist.y);
-	printf("step x:%f y:%f\n", data->player.step.x, data->player.step.y);
-
+	wall_distance(data);
 
 
 	return (0);
