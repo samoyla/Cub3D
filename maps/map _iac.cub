@@ -1,0 +1,17 @@
+NO ./texture/floor.xpm
+SO ./texture/wall.xpm 
+   
+   EA ./texture/floor.xpm 
+ 
+  
+WE ./texture/wall.xpm
+    
+F 220,100,0
+   C          210,30,0
+
+
+
+
+111111
+100N01
+111111

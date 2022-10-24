@@ -29,6 +29,13 @@ CSRCS		=	cub3d.c \
 				check_wind_rose_n_colors.c\
 				fill_map.c\
 				read_input.c\
+				resize_width_height.c \
+				map_size.c \
+				hud.c \
+				init_player.c \
+				set_screen_points.c \
+				wall_distance.c \
+				ray_tracing.c \
 
 SRCS		=	$(addprefix $(SRCS_DIR), $(CSRCS))
 
@@ -43,6 +50,8 @@ DEPS_DIR	=	headers/
 MLXLIB		=	./mlx/libmlx_Linux.a
 
 LIBFT		=	./libft/libft.a
+
+MLX			=	libmlx.dylib
 
 CC			=	gcc
 
@@ -66,6 +75,7 @@ mlxlib:
 $(NAME):		$(OBJS)
 				@make -sC ./libft
 				@make -sC ./mlx
+				# @mv mlx/$(MLX) .
 				@$(CC) -I$(DEPS_DIR) $(CFLAGS) -Imlx $(OBJS) $(LIBFT) -o $(NAME) $(FL_MLX)
 
 clean:
