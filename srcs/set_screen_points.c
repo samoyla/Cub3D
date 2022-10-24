@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:11:32 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/22 15:38:24 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 14:38:08 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ void set_screen_points(t_data *data)
 	data->screen.pright.y = data->player.pos.y + DIST;
 	z_rotation(data, &data->screen.pleft, data->player.angle);
 	z_rotation(data, &data->screen.pright, data->player.angle);
-	data->screen.incr = (HALF * 2) / data->width;
-	// printf("2HALF:%f and incr:%f, width:%d\n", 2 * HALF, data->screen.incr, data->width);
-	// printf("Width*incr:%f\n", data->width * data->screen.incr);
+	data->screen.xincr = (HALF * 2) / data->width;
+	data->screen.yincr = data->screen.xincr * data->width / data->height;
+	printf("2HALF:%f and xincr:%f, width:%d\n", 2 * HALF, data->screen.xincr, data->width);
+	printf("y incr:Width*xincr:%f\n", data->width * data->screen.xincr);
 	data->screen.pleft.z = 0.5;
 	data->screen.v.vx = data->screen.pright.x - data->screen.pleft.x;
 	data->screen.v.vy = data->screen.pright.y - data->screen.pleft.y;

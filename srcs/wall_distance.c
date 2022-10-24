@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:06:53 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/23 22:29:45 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:55:17 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void wall_distance(t_data *data)
 	// while(++i < data->width)
 	// {
 		i = 0;
-		data->player.check.x = data->screen.pleft.x  + data->screen.incr * data->screen.v.vx * i;
-		data->player.check.y = data->screen.pleft.y + data->screen.incr * data->screen.v.vy * i;
+		data->player.check.x = data->screen.pleft.x  + data->screen.xincr * data->screen.v.vx * i;
+		data->player.check.y = data->screen.pleft.y + data->screen.xincr * data->screen.v.vy * i;
 		data->player.rayp.x = data->player.check.x;
 		data->player.rayp.y = data->player.check.y;
 		data->player.wall.x = wall_boundary(data->player.rayp.x, data->player.v.vx);
@@ -55,15 +55,16 @@ void wall_distance(t_data *data)
 			// printf("wall y:%f x:%f\n", data->player.wall.y, data->player.wall.x);
 			// printf("ray pos x:%f y:%f\n", data->player.rayp.x, data->player.rayp.y);
 			// printf("v x:%f y:%f\n", data->player.v.vx, data->player.v.vy);
-			if (data->player.v.vx < 0) // protect out of bounds
+			if (data->player.v.vx <= 0 && data->player.wall.x > 0)
 				data->player.matpos.x = data->player.wall.x - 1;
-			else
+			else if (data->player.v.vx > 0)
 				data->player.matpos.x = data->player.wall.x;
-			if (data->player.v.vy <= 0) // protect out of bounds
+			if (data->player.v.vy <= 0 && data->player.wall.y > 0)
 				data->player.matpos.y = data->player.wall.y - 1;
-			else if (data->player.v.vy > 0)
+			else if (data->player.v.vy > 0 && data->player.wall.y < data->map.ysize -1)
 				data->player.matpos.y = data->player.wall.y;
-			// else
+			if (data->player.matpos.x == data->map.xsize)
+				data->player.matpos.x -= 1;
 			// 	data->player.matpos.y = ceil(data->player.wall.y;
 			data->player.dist.x = abs_double(data->player.wall.x - data->player.rayp.x);
 			data->player.dist.y = abs_double(data->player.wall.y - data->player.rayp.y);
@@ -74,7 +75,7 @@ void wall_distance(t_data *data)
 				data->player.rayp.x += data->player.v.vx * data->player.step.x;
 				data->player.rayp.y += data->player.v.vy * data->player.step.x;
 				data->player.wall.y = ceil(data->player.rayp.y) - 1;
-				// printf("X ceily:%f mpx:%f m:%c\n", ceil(data->player.rayp.y) - 1, data->player.matpos.x, data->map.map[(int)(ceil(data->player.rayp.y) - 1)][(int)data->player.matpos.x]);
+				// printf("X ceily:%f mpx:%f\n", ceil(data->player.rayp.y) - 1, data->player.matpos.x);
 				if (data->map.map[(int)(ceil(data->player.rayp.y) - 1)][(int)data->player.matpos.x] == '1')
 					wall = 1;
 				if (data->player.v.vx < 0 && data->player.wall.x > 0)
@@ -89,8 +90,8 @@ void wall_distance(t_data *data)
 				// printf("ray pos x:%f y:%f\n", data->player.rayp.x, data->player.rayp.y);
 				data->player.rayp.x += data->player.v.vx * data->player.step.y;
 				data->player.rayp.y += data->player.v.vy * data->player.step.y;
-				// printf("Y mpy:%f ceilx:%f m:%c\n", data->player.matpos.y, ceil(data->player.rayp.x) - 1, data->map.map[(int)data->player.matpos.y][(int)(ceil(data->player.rayp.y) - 1)]);
-				if (data->map.map[(int)data->player.matpos.y][(int)(ceil(data->player.rayp.y) - 1)] == '1')
+				// printf("Y mpy:%f ceilx:%f\n", data->player.matpos.y, ceil(data->player.rayp.x) - 1);
+				if (data->map.map[(int)data->player.matpos.y][(int)(ceil(data->player.rayp.x) - 1)] == '1')
 					wall = 1;
 				if (data->player.v.vy < 0 && data->player.wall.y > 0)
 					data->player.wall.y -= 1;
@@ -104,6 +105,12 @@ void wall_distance(t_data *data)
 		// if (i == 0)
 		printf("dist:%f\n", data->screen.dist[i]);
 	// }
+
+
+
+
+	// GET SIZE ON SCREEN
+
 }
 
 

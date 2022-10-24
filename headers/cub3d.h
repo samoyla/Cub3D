@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/23 22:04:58 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:57:28 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static double angles[17] = {0, PI * 0.125, PI * 0.25, PI * 0.375, PI * 0.5, PI *
 // Raycasting
 # define DIST				0.1 //* SCALE //0.1 * SCALING_FACTOR
 # define HALF				(tan(FOV * 0.5) * DIST * 2) //* SCALE //* SCALING_FACTOR
+# define MAX_PDIST			HALF / sin(FOV * 0.5)
 
 typedef struct	s_map
 {
@@ -121,7 +122,9 @@ typedef struct	s_screen
 {
 	double	full;
 	double	half;
-	double	incr;
+	double	fullh;
+	double	xincr;
+	double	yincr;
 	t_posi	pleft;
 	t_posi	pright;
 	t_vect	v;

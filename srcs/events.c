@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 16:00:08 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/23 23:33:08 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 11:23:24 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,37 +89,66 @@ int is_pos_in_bounds(t_data *data, t_posi p)
 	return (1);
 }
 
-t_posi get_min_dist_to_wall(t_data *data, t_posi pcheck)
+int verify_min_dist(double d)
 {
-	t_posi pclose;
+	// printf("MAX:%f d:%f sub:%f\n", MAX_PDIST, d, d- MAX_PDIST);
+	if (d - MAX_PDIST <= 0)
+		return (0);
+	return (1);
+}
 
-	(void)data;
+int get_min_dist_to_wall(t_data *data, t_posi pcheck)
+{
 	if (abs_double(pcheck.x - ceil(pcheck.x)) > abs_double(pcheck.x - (ceil(pcheck.x) - 1)))
 	{
-		printf("x:%f y:%f\n", ceil(pcheck.x) - 1, ceil(pcheck.y)-1);
-		pclose.x = abs_double(pcheck.x - (ceil(pcheck.x) - 1));
+		// printf("low x:%f y:%f\n", ceil(pcheck.x) - 2, ceil(pcheck.y)-1);
+		// printf("x:%f map:%c\n", abs_double(pcheck.x - (ceil(pcheck.x) - 1)), data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x) - 2]);
+		if (data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x) - 2] == '1')
+		{
+			if (!verify_min_dist(abs_double(pcheck.x - (ceil(pcheck.x) - 1))))
+			{
+				// printf("111111\n");
+				return (0);
+			}
+		}
 	}
 	else
 	{
-		printf("x:%f y:%f\n", ceil(pcheck.x), ceil(pcheck.y)-1);
-		pclose.x = abs_double(pcheck.x - ceil(pcheck.x));
+		if (data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x)] == '1')
+		{
+			if (!verify_min_dist(abs_double(pcheck.x - ceil(pcheck.x))))
+			{
+				// printf("222222\n");
+				return (0);
+			}
+		}
 	}
 	if (abs_double(pcheck.y - ceil(pcheck.y)) > abs_double(pcheck.y - (ceil(pcheck.y) - 1)))
 	{
-		printf("x:%f y:%f\n", ceil(pcheck.x)-1, ceil(pcheck.y)-1);
-		pclose.y = abs_double(pcheck.x - (ceil(pcheck.y) - 1));
+		// printf("\nldist y:%f\n", abs_double(pcheck.y - (ceil(pcheck.y) - 1)));
+		// printf("mapx:%f y:%f\n", ceil(pcheck.x) - 1, ceil(pcheck.y) - 2);
+		// printf("m:%c\n", data->map.map[(int)ceil(pcheck.y) - 2][(int)ceil(pcheck.x) - 1]);
+		if (data->map.map[(int)ceil(pcheck.y) - 2][(int)ceil(pcheck.x) - 1] == '1')
+		{
+			if (!verify_min_dist(abs_double(pcheck.y - (ceil(pcheck.y) - 1))))
+			{
+				// printf("333333\n");
+				return (0);
+			}
+		}
 	}
 	else
 	{
-		printf("x:%f y:%f\n", ceil(pcheck.x)-1, ceil(pcheck.y));
-		pclose.y = abs_double(pcheck.y - ceil(pcheck.y));
+		if (data->map.map[(int)ceil(pcheck.y)][(int)ceil(pcheck.x) - 1] == '1')
+		{
+			if (!verify_min_dist(abs_double(pcheck.y - ceil(pcheck.y))))
+			{
+				// printf("444444\n");
+				return (0);
+			}
+		}
 	}
-	printf("dx:%f dy:%f\n", pclose.x, pclose.y);
-	// HERE--------<<<<< check if matrice index is a '1', if not put a flag num so it is bypassed
-	// then if '1' compare with min length
-
-
-	return (pclose);
+	return (1);
 }
 
 int check_minimum_distance(t_data *data, t_posi pclose)
@@ -139,7 +168,6 @@ void move_player(t_data *data, int key)
 {
 	t_posi p;
 	t_posi pcheck;
-	t_posi pclose;
 	int dir;
 
 	dir = 1;
@@ -155,10 +183,10 @@ void move_player(t_data *data, int key)
 		pcheck.x = data->player.pos.x + dir * (STEP + 0.1) * sin(data->player.angle + PI / 2);
 		pcheck.y = data->player.pos.y + dir * (STEP + 0.1) * cos(data->player.angle + PI / 2);
 	}
-	pclose = get_min_dist_to_wall(data, pcheck);
-	if (!check_minimum_distance(data, pclose));
-
-
+	// printf("P:x:%f y:%f\n", data->player.pos.x, data->player.pos.y);
+	// printf("Pcheck:x:%f y:%f\n", pcheck.x, pcheck.y);
+	if (!get_min_dist_to_wall(data, pcheck))
+		return;
 	// if (!is_pos_in_bounds(data, pcheck))
 	// 	return;
 	if (key == XK_w || key == XK_s)
