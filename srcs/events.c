@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 16:00:08 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/24 11:23:24 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:02:31 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,21 @@ void z_angle_rotation(t_data *data, int key)
 	int i;
 
 	i = 0;
-	while (angles[i] != -1 && data->player.angle != angles[i])
+	while (i < NB_ANGLES && data->player.angle != data->player.angles[i])
 		i++;
 	if (key == XK_Left)
 	{
-		if (i == 15)
-			data->player.angle = angles[0];
+		if (i == NB_ANGLES - 1)
+			data->player.angle = data->player.angles[0];
 		else
-			data->player.angle = angles[++i];
+			data->player.angle = data->player.angles[++i];
 	}
 	else if (key == XK_Right)
 	{
 		if (i == 0)
-			data->player.angle = angles[15];
+			data->player.angle = data->player.angles[NB_ANGLES - 1];
 		else
-			data->player.angle = angles[--i];
+			data->player.angle = data->player.angles[--i];
 	}
 	data->player.v.vx = sin(data->player.angle);
 	data->player.v.vy = cos(data->player.angle);
@@ -77,9 +77,6 @@ void z_rotation_player(t_data *data, int key)
 	screen_points_update(data);
 }
 
-/*
-	Certainement a optimiser/ameliorer quand le raytracing sera fait
-*/
 int is_pos_in_bounds(t_data *data, t_posi p)
 {
 	if ((int)p.x > data->map.xsize || (int)p.y > data->map.ysize)
@@ -91,7 +88,6 @@ int is_pos_in_bounds(t_data *data, t_posi p)
 
 int verify_min_dist(double d)
 {
-	// printf("MAX:%f d:%f sub:%f\n", MAX_PDIST, d, d- MAX_PDIST);
 	if (d - MAX_PDIST <= 0)
 		return (0);
 	return (1);
@@ -106,10 +102,7 @@ int get_min_dist_to_wall(t_data *data, t_posi pcheck)
 		if (data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x) - 2] == '1')
 		{
 			if (!verify_min_dist(abs_double(pcheck.x - (ceil(pcheck.x) - 1))))
-			{
-				// printf("111111\n");
 				return (0);
-			}
 		}
 	}
 	else
@@ -117,10 +110,7 @@ int get_min_dist_to_wall(t_data *data, t_posi pcheck)
 		if (data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x)] == '1')
 		{
 			if (!verify_min_dist(abs_double(pcheck.x - ceil(pcheck.x))))
-			{
-				// printf("222222\n");
 				return (0);
-			}
 		}
 	}
 	if (abs_double(pcheck.y - ceil(pcheck.y)) > abs_double(pcheck.y - (ceil(pcheck.y) - 1)))
@@ -131,10 +121,7 @@ int get_min_dist_to_wall(t_data *data, t_posi pcheck)
 		if (data->map.map[(int)ceil(pcheck.y) - 2][(int)ceil(pcheck.x) - 1] == '1')
 		{
 			if (!verify_min_dist(abs_double(pcheck.y - (ceil(pcheck.y) - 1))))
-			{
-				// printf("333333\n");
 				return (0);
-			}
 		}
 	}
 	else
@@ -142,25 +129,9 @@ int get_min_dist_to_wall(t_data *data, t_posi pcheck)
 		if (data->map.map[(int)ceil(pcheck.y)][(int)ceil(pcheck.x) - 1] == '1')
 		{
 			if (!verify_min_dist(abs_double(pcheck.y - ceil(pcheck.y))))
-			{
-				// printf("444444\n");
 				return (0);
-			}
 		}
 	}
-	return (1);
-}
-
-int check_minimum_distance(t_data *data, t_posi pclose)
-{
-	double matx;
-	double maty;
-
-	// if ()
-	(void)data;
-	(void)pclose;
-
-
 	return (1);
 }
 
@@ -213,11 +184,6 @@ void move_player(t_data *data, int key)
 
 int	handle_keypress(int key, t_data *data)
 {
-	// printf("pos x:%f y:%f\n", data->player.pos.x, data->player.pos.y);
-	// printf("screen half:%f\n", HALF);
-	// printf("lscreen x:%f y:%f\n", data->screen.pleft.x, data->screen.pleft.y);
-	// printf("rscreen x:%f y:%f\n", data->screen.pright.x, data->screen.pright.y);
-
 	if (key == XK_Escape)
 		ft_red_cross(data);
 	else if(key == XK_Left || key == XK_Right)

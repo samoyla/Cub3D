@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 22:35:57 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/23 18:13:22 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:46:37 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,22 @@ void z_rotation(t_data *data, t_posi *p, double angle)
 
 void ray_tracing(t_data *data)
 {
-	int i;
+	int	ix;
+	int iy;
 
-	i = -1;
-	// // printf("data->width:%d\n", data->width);
-	while(++i < data->height)
+	ix = -1;
+	while (++ix < data->width)
 	{
-		img_pix_put(&data->img, 640, i, STRONG_BLUE);
+		iy = -1;
+		while(++iy < data->height)
+		{
+			if ((iy < data->height / 2) && (data->screen.fullh / 2) - iy * data->screen.yincr > data->screen.wheight[ix] / 2)
+				img_pix_put(&data->img, ix, iy, RED);
+			else if ((iy > data->height / 2) && ((iy - data->height / 2) * data->screen.yincr > data->screen.wheight[ix] / 2))
+				img_pix_put(&data->img, ix, iy, data->map.floor);
+			else
+				img_pix_put(&data->img, ix, iy, STRONG_BLUE);
+		}
 	}
 
 

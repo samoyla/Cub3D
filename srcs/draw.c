@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:13:30 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/22 14:43:52 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:47:51 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,13 +201,14 @@ int	render(t_data *data)
 {
 	if (data->win_ptr == NULL)
 		return (1);
-	render_background(data, WHITE); // a supprimer car inutile
-	render_hud(data, STRONG_BLUE);
-	render_player(data, YELLOW);
+	// render_background(data, WHITE); // a supprimer car inutile
+
 	// // render_background(data, WHITE); // a supprimer car inutile
 
 	// // Ray tracing
 	ray_tracing(data);
+	render_hud(data, STRONG_BLUE);
+	render_player(data, YELLOW);
 
 	img_pix_put(&data->img, data->player.check.x * data->hud.xt, data->player.check.y * data->hud.yt, STRONG_BLUE); // point checker
 

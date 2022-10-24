@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:36:16 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/22 13:21:56 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:03:10 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int is_player_init_pos(char c)
 
 void set_player_angle(t_data *data, char c)
 {
-	if (c == 'N')
-		data->player.angle = angles[8];
-	else if (c == 'S')
-		data->player.angle = angles[0];
+	if (c == 'S')
+		data->player.angle = data->player.angles[0];
 	else if (c == 'E')
-		data->player.angle = angles[4];
+		data->player.angle = data->player.angles[NB_ANGLES / 4];
+	else if (c == 'N')
+		data->player.angle = data->player.angles[NB_ANGLES / 2];
 	else if (c == 'W')
-		data->player.angle = angles[12];
+		data->player.angle = data->player.angles[NB_ANGLES * 3 / 4];
 }
 
 void init_player(t_data *data)
@@ -37,6 +37,14 @@ void init_player(t_data *data)
 	int y;
 	int x;
 
+	data->player.angles = malloc(sizeof(data->player.angles) *(NB_ANGLES)); // protect malloc
+	int i;
+	i = 0;
+	while (i < NB_ANGLES)
+	{
+		data->player.angles[i] = i * 2 * PI / NB_ANGLES;
+		i++;
+	}
 	data->player.pos.x = 0;
 	data->player.pos.y = 0;
 	data->player.pos.z = 0.5;
@@ -57,4 +65,5 @@ void init_player(t_data *data)
 	}
 	data->player.v.vx = sin(data->player.angle);
 	data->player.v.vy = cos(data->player.angle);
+
 }

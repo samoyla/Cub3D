@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_division.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:27:24 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/20 17:00:55 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/24 22:43:18 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	get_color(t_map *map)
 		}
 		free_tab(color_line);
 	}
+	map->floor = encode_rgb((uint8_t)map->f_red, (uint8_t)map->f_green, (uint8_t)map->f_blue);
+	map->ceilling = encode_rgb(255, 255, 0); // ADAPTER
 	printf("-----------------------\n");
 	printf("f_r = %d\nf_g = %d\nf_b = %d\n", map->f_red, map->f_green, map->f_blue);
 	printf("-----------------------\n");

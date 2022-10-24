@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:06:53 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/24 13:55:17 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:44:57 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void wall_distance(t_data *data)
 	int i;
 
 	i = -1;
-	// while(++i < data->width)
-	// {
-		i = 0;
+	while(++i < data->width)
+	{
+		// i = 640;
 		data->player.check.x = data->screen.pleft.x  + data->screen.xincr * data->screen.v.vx * i;
 		data->player.check.y = data->screen.pleft.y + data->screen.xincr * data->screen.v.vy * i;
 		data->player.rayp.x = data->player.check.x;
@@ -76,7 +76,7 @@ void wall_distance(t_data *data)
 				data->player.rayp.y += data->player.v.vy * data->player.step.x;
 				data->player.wall.y = ceil(data->player.rayp.y) - 1;
 				// printf("X ceily:%f mpx:%f\n", ceil(data->player.rayp.y) - 1, data->player.matpos.x);
-				if (data->map.map[(int)(ceil(data->player.rayp.y) - 1)][(int)data->player.matpos.x] == '1')
+				if (data->map.map[(int)(ceil(data->player.rayp.y) - 1)][(int)data->player.matpos.x] == '1') // proteger les indices!! car Maryna a seg ici
 					wall = 1;
 				if (data->player.v.vx < 0 && data->player.wall.x > 0)
 					data->player.wall.x -= 1;
@@ -103,8 +103,10 @@ void wall_distance(t_data *data)
 		}
 		data->screen.dist[i] = norm_two_points(data->player.check, data->player.rayp);
 		// if (i == 0)
-		printf("dist:%f\n", data->screen.dist[i]);
-	// }
+
+		data->screen.wheight[i] = DIST / data->screen.dist[i];
+		// printf("dist:%f and wheight:%f\n", data->screen.dist[i], data->screen.wheight[i]);
+	}
 
 
 
