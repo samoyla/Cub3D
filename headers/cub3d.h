@@ -6,11 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/10/22 10:51:56 by masamoil         ###   ########.fr       */
-=======
-/*   Updated: 2022/10/24 13:57:28 by iguscett         ###   ########.fr       */
->>>>>>> iac
+/*   Updated: 2022/10/24 17:15:24 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +228,8 @@ int		max_width(char **map);
 char	*ft_strdup_space(char *s, int size);
 //resize_width_height.c
 void	resize_width_height(t_data *data);
-
+//map_size.c
+void		get_map_size(t_map *map);
 // PLAYER
 void	init_player(t_data *data);
 
@@ -257,8 +254,8 @@ double	abs_double(double a);
 
 //MLX
 //events.c
-int		handle_keypress(int keysem, t_data *data, t_map *map);
-int		ft_red_cross(t_data *data, t_map *map);
+int		handle_keypress(int keysem, t_data *data);
+int		ft_red_cross(t_data *data);
 //free.c
 void	ft_free_n_destroy(t_data *data);
 void	free_tab(char **tab);

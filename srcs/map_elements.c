@@ -73,35 +73,6 @@ int	check_space(char *str)
 	return (SUCCESS);
 }
 
-static int	size_till_map(char *pathname)
-{
-	int		count;
-	int		fd;
-	int		i;
-	char	*line;
-
-	count = 0;
-	i = 0;
-	fd = open(pathname, O_RDONLY);
-	check_fd(fd);
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		if (check_line_space(line) == SUCCESS)
-		{
-			if (i <= 5)
-				i++;
-		}
-		else
-			count++;
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	close(fd);
-	return (i + count);
-}
-
 int	tab_map(char *pathname, t_map *map)
 {
 	int	i;
@@ -130,6 +101,7 @@ int	tab_map(char *pathname, t_map *map)
 		j++;
 	}
 	map->map[i] = 0;
+	printf("map with spaces\n");
 	print_tab(map->map);//supprimer
 	return (SUCCESS);
 }

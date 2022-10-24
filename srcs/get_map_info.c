@@ -53,7 +53,6 @@ void	tab_whole_map(t_map *map, char **av)
 	i = 0;
 	read_input(map, av);
 	map->whole = ft_split(map->input, '\n');
-	print_tab(map->whole);
 	while (map->whole[i])
 		i++;
 	map->size = i;

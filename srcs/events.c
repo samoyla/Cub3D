@@ -234,7 +234,7 @@ int	handle_keypress(int key, t_data *data)
 	return (0);
 }
 
-int	ft_red_cross(t_data *data, t_map *map)
+int	ft_red_cross(t_data *data)
 {
 	ft_free_n_destroy(data);
 	//free_tab(map->decor);
