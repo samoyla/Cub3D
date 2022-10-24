@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:10:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 16:41:22 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:12:55 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,9 @@ int	digit_size(char *s)
 		if (ft_atoi(&s[i]) > 255 || ft_atoi(&s[i]) < 0)
 			return (FAILURE);
 	return (SUCCESS);
+}
+
+int	encode_rgb(uint8_t red, uint8_t green, uint8_t blue)
+{
+	return (red << 16 | green << 8 | blue);
 }

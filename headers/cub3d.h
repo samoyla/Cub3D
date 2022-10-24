@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/24 13:57:28 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:25:28 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,25 @@
 # define HUD_SIZE_FACTOR	4
 
 # define PI					3.1415
-# define FOV				PI/3
+# define FOV				66 * PI / 180
 
 # define BLUE				0x07E0
 # define STRONG_BLUE		0x004D98
 # define YELLOW				0xFFFF00
+# define RED				0xFF0000
 # define WHITE				0xFFFFFF
 # define GREY				0x9C9C9C
 # define BLACK				0x000000
 
 // Events
-# define STEP				0.2 //* SCALE //0.2 * SCALING_FACTOR
+# define STEP				0.1 //* SCALE //0.2 * SCALING_FACTOR
+# define NB_ANGLES			32
 # define ROT				PI * 0.125
 static double angles[17] = {0, PI * 0.125, PI * 0.25, PI * 0.375, PI * 0.5, PI * 0.625, PI * 0.75, PI * 0.875,
 							PI, PI * 1.125, PI * 1.25, PI * 1.375, PI * 1.5, PI * 1.625, PI * 1.75, PI * 1.875, -1};
 
 // Raycasting
-# define DIST				0.1 //* SCALE //0.1 * SCALING_FACTOR
+# define DIST				0.05 //* SCALE //0.1 * SCALING_FACTOR
 # define HALF				(tan(FOV * 0.5) * DIST * 2) //* SCALE //* SCALING_FACTOR
 # define MAX_PDIST			HALF / sin(FOV * 0.5)
 
@@ -78,6 +80,8 @@ typedef struct	s_map
 	int			c_red;
 	int			c_green;
 	int			c_blue;
+	int			floor;
+	int			ceilling;
 }				t_map;
 
 typedef struct s_check
@@ -129,6 +133,7 @@ typedef struct	s_screen
 	t_posi	pright;
 	t_vect	v;
 	double	*dist;
+	double	*wheight;
 }				t_screen;
 
 typedef struct	s_playr
@@ -136,6 +141,7 @@ typedef struct	s_playr
 	t_posi	pos;
 	t_posi	posh;
 	double	angle;
+	double	*angles;
 	t_vect	v;
 
 
@@ -244,6 +250,7 @@ void	free_tab(char **tab);
 int		if_str_digit(char *s);
 int		digit_size(char *s);
 double	abs_double(double a);
+int		encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
 
 //gnl.c
 char	*get_next_line(int fd);

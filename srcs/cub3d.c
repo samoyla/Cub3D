@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/23 18:56:21 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:29:24 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int ac, char **av)
 	get_texture(&data.map);
 	get_color(&data.map);
 
-
+	printf("floor color:%d ceilling:%d\n", data.map.floor, data.map.ceilling);
 // PRINT MAP
 	int i = -1;
 	while (data.map.map[++i])
@@ -47,6 +47,8 @@ int	main(int ac, char **av)
 	printf("width:%d\n", data.width);
 	data.screen.dist = malloc(sizeof(data.screen.dist) *(data.width + 1)); // protect malloc
 	data.screen.dist[data.width] = -1;
+	data.screen.wheight = malloc(sizeof(data.screen.wheight) *(data.width + 1)); // protect malloc
+	data.screen.wheight[data.width] = -1;
 	printf("map ysize:%ld and xsize:%ld\n", data.map.ysize, data.map.xsize);
 	set_screen_points(&data);
 	set_hud(&data);
