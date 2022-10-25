@@ -55,8 +55,8 @@ void	tab_decor(char *pathname, t_map *map)
 		i++;
 	}
 	map->count = count;
-	printf("count = %d\n", map->count);
-	print_tab(map->decor);//supprimer
+	//printf("count = %d\n", map->count);
+	//print_tab(map->decor);//supprimer
 }
 
 int	check_space(char *str)

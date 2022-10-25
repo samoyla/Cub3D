@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/24 22:44:05 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:55:31 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,8 @@ int	main(int ac, char **av, char **env)
 	if (check_file(av[1]) == FAILURE)
 		exit (FAILURE);
 	if (create_tab_elements(av[1], &data.map, &check, av) == FAILURE)
-	{
-		free_map_struct(&data.map);
 		exit (FAILURE);
-	}
 	get_map(&data.map);
-//---------------------------------------------------------------------
-//mlx part
-	if (decor_analysis(&data.map, &check) == FAILURE)
-		return (FAILURE);
-	get_texture(&data.map);
-	get_color(&data.map);
-
 	printf("floor color:%d ceilling:%d\n", data.map.floor, data.map.ceilling);
 // PRINT MAP
 	int i = -1;

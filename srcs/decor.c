@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* ************************************************************************* */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   decor.c                                            :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 15:12:05 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/21 16:59:05 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/25 13:16:09 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	check_texture_lines(char **split, t_check *check)
 	if (ft_strncmp(split[0], "SO", 3) == 0)
 	{
 		check->so++;
+
 		if (check_windrose(check, split) == FAILURE)
 			return (FAILURE);
 	}
@@ -72,17 +73,14 @@ static int	split_condition(char **split, t_check *check)
 	if (!split[1] || split[2])
 	{
 		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("wrong decor setting\n", 2);
+		ft_putstr_fd("wrong decor setting or it does not exist\n", 2);
 		free_tab(split);
-		return (FAILURE);
+		exit(FAILURE);
 	}
 	if (split[1])
 	{
 		if (check_decor_lines(split, check) == FAILURE)
-		{
-			free_tab(split);
 			return (FAILURE);
-		}
 	}
 	else
 		free_tab(split);

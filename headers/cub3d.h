@@ -107,6 +107,14 @@ typedef struct s_img
 	int		endian;
 }t_img;
 
+typedef struct s_imgs
+{
+	t_img	no;
+	t_img	so;
+	t_img	we;
+	t_img	ea;
+}t_imgs;
+
 typedef struct	s_posi
 {
 	double	x;
@@ -185,6 +193,7 @@ typedef struct	s_data
 	t_playr	player;
 	t_hud	hud;
 	t_screen screen;
+	t_imgs	tex;
 }				t_data;
 
 typedef struct s_read
@@ -232,6 +241,7 @@ int		map_analysis(t_map *map);
 //fill_map.c
 int		max_width(char **map);
 char	*ft_strdup_space(char *s, int size);
+
 //resize_width_height.c
 void	resize_width_height(t_data *data);
 //map_size.c

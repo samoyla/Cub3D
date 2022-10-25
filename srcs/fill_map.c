@@ -18,6 +18,11 @@ int	max_width(char **map)
 	int	size;
 
 	i = 0;
+	if (!map[i])
+	{
+		ft_putstr_fd("map does not exist\n", 2);
+		exit (FAILURE);
+	}
 	size = ft_strlen(map[i]);
 	while (map[i])
 	{

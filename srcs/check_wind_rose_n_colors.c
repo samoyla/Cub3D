@@ -15,32 +15,32 @@
 int	check_doubles(t_check check)
 {
 	// Est déclenché même quand il n'y a pas de doubles -> à corriger
-	(void)check;
+	//(void)check;
 	//-------------------------------------------------------
 
-	// if (check.no > 1 || check.so > 1 || check.we > 1 || check.ea > 1
-	// 	|| check.f > 1 || check.c > 1)
-	// {
-	// 	ft_putstr_fd("Error\n", 2);
-	// 	ft_putstr_fd("duplication is found\n", 2);
-	// 	return (FAILURE);
-	// }
+	if (check.no > 1 || check.so > 1 || check.we > 1 || check.ea > 1
+		|| check.f > 1 || check.c > 1)
+	{
+		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("duplication is found\n", 2);
+		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 
 int	check_exist(t_check check)
 {
 	// est déclenché dans une map ok... -> corriger?
-	(void)check;
+	//(void)check;
 	//----------------------------------------
 
-	// if (check.no != 1 || check.so != 1 || check.we != 1 || check.ea != 1
-	// 	|| check.f != 1 || check.c != 1)
-	// {
-	// 	ft_putstr_fd("Error\n", 2);
-	// 	ft_putstr_fd("wrong characters\n", 2);
-	// 	return (FAILURE);
-	// }
+	if (check.no != 1 || check.so != 1 || check.we != 1 || check.ea != 1
+		|| check.f != 1 || check.c != 1)
+	{
+		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("wrong characters\n", 2);
+		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 
@@ -89,7 +89,7 @@ int	check_nb(char *str)
 	split_nb = ft_split(str, ',');
 	if (split_nb == NULL)
 		return (FAILURE);
-	print_tab(split_nb);
+	//print_tab(split_nb);
 	i = -1;
 	while (split_nb[++i])
 	{

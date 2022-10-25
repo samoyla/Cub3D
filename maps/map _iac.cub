@@ -1,7 +1,7 @@
 NO ./texture/blue_coal.xpm
 SO ./texture/mud_wall.xpm
 
-   EA ./texture/pavement.xpm
+EA ./texture/pavement.xpm
 
 
 WE ./texture/psyche_wall.xpm
