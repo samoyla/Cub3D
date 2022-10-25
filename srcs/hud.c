@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 12:28:33 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/21 18:32:04 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:26:25 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ void set_triangle(t_data *data)
 
 void set_hud(t_data *data)
 {
+	printf("xsize:%ld\n", data->map.xsize);
+	printf("data->height:%d\n", data->height);
+	printf("ysiz:%ld", data->map.ysize);
+	printf("data->width:%d", data->width);
 	if (data->map.xsize * data->height > data->map.ysize * data->width)
 	{
 		data->hud.xsize = data->width / HUD_SIZE_FACTOR;

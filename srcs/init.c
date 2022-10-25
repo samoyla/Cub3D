@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:07:48 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/22 11:25:07 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/10/25 19:06:02 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ void	get_map(t_map *map)
 //MLX
 t_data	*init_data(t_data *data, char *name)
 {
+	data->tex.no.img = NULL;
+	data->tex.so.img = NULL;
+	data->tex.ea.img = NULL;
+	data->tex.we.img = NULL;
+	data->tex.no.addr = NULL;
+	data->tex.so.addr = NULL;
+	data->tex.ea.addr = NULL;
+	data->tex.we.addr = NULL;
 	data->mlx_ptr = NULL;
 	data->mlx_ptr = mlx_init();
 	if (data->mlx_ptr == NULL)
@@ -72,4 +80,32 @@ t_data	*init_image(t_data *data)
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
 	return (data);
+}
+
+void load_textures(t_data *data, t_img *img, char *path)
+{
+	int x;
+	int y;
+
+	printf("T:|%s|\n", path);
+	img->img = mlx_xpm_file_to_image(data->mlx_ptr, path, &x, &y);
+	if (img->img == NULL)
+		printf("IMG ERROR\n"); // proteger, free and exit
+	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_len, &img->endian);
+	if (img->addr == NULL)
+		printf("ADDR ERROR\n"); // proteger, free and exit
+	printf("T:|%s| x:%d y:%d\n", path, x, y);
+	// printf("int element 100 from addr:%d\n", (int)img->addr[100]);
+	img->x = (double)x;
+	img->y = (double)y;
+
+}
+
+void init_textures(t_data *data)
+{
+	printf("\n\n");
+	load_textures(data, &data->tex.no, data->map.no);
+	load_textures(data, &data->tex.so, data->map.so);
+	load_textures(data, &data->tex.we, data->map.we);
+	load_textures(data, &data->tex.ea, data->map.ea);
 }

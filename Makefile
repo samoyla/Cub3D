@@ -6,7 +6,7 @@
 #    By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/10/24 22:57:36 by iguscett         ###   ########.fr        #
+#    Updated: 2022/10/25 14:58:22 by iguscett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ CSRCS		=	cub3d.c \
 				hud.c \
 				init_player.c \
 				init_screen.c \
-				wall_distance.c \
+				get_wall_height.c \
 				ray_tracing.c \
 
 SRCS		=	$(addprefix $(SRCS_DIR), $(CSRCS))

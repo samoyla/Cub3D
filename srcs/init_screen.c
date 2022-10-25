@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:11:32 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/24 23:13:04 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:07:35 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ void init_screen(t_data *data)
 	norm = sqrt((data->screen.v.vx * data->screen.v.vx) + (data->screen.v.vy * data->screen.v.vy));
 	data->screen.v.vx /= norm;
 	data->screen.v.vy /= norm;
-	data->screen.dist = malloc(sizeof(data->screen.dist) * data->width); // protect malloc
-	data->screen.wheight = malloc(sizeof(data->screen.wheight) * data->width); // protect malloc
+	data->wheight = malloc(sizeof(data->wheight) * data->width); // protect malloc
+	data->col = malloc(sizeof(data->col) * data->width); // protect malloc;
+	data->side = malloc(sizeof(data->side) * data->width); // protect malloc;
 }
 
 

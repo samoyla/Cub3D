@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:13:30 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/24 23:39:02 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:34:32 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void	render_background(t_data *data, int color)
 		x = 0;
 		while (x < WIDTH)
 		{
-			// if (y > data->hud.ysize || x > data->hud.xsize)
-				img_pix_put(&data->img, x, y, color);
+			img_pix_put(&data->img, x, y, color);
 			x++;
 		}
 		y++;
@@ -137,6 +136,7 @@ void render_hud(t_data *data, int color)
 	while (++y < data->hud.ysize)
 	{
 		x = -1;
+		// printf("hudxsize:%d\n", data->hud.xsize);
 		while (++x < data->hud.xsize)
 			img_pix_put(&data->img, x, y, color);
 	}
@@ -210,15 +210,56 @@ int	render(t_data *data)
 	render_hud(data, STRONG_BLUE);
 	render_player(data, YELLOW);
 
-	img_pix_put(&data->img, data->player.check.x * data->hud.xt, data->player.check.y * data->hud.yt, STRONG_BLUE); // point checker
-
-	img_pix_put(&data->img, 1.047049 * data->hud.xt, 4.0 * data->hud.yt, RED); // bug wall
-	img_pix_put(&data->img, 1.999189 * data->hud.xt, 4.0 * data->hud.yt, RED); // bug wall
-
-
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
 
 	return (0);
 }
 
 
+
+
+
+
+
+
+
+	// img_pix_put(&data->img, data->player.check.x * data->hud.xt, data->player.check.y * data->hud.yt, STRONG_BLUE); // point checker
+
+	// img_pix_put(&data->img, 1.047049 * data->hud.xt, 4.0 * data->hud.yt, RED); // bug wall
+	// img_pix_put(&data->img, 1.999189 * data->hud.xt, 4.0 * data->hud.yt, RED); // bug wall
+
+	// int i = - 1;
+	// double j;
+	// while (++i < data->map.xsize)
+	// {
+	// 	j = 0;
+	// 	while (j < data->map.ysize)
+	// 	{
+	// 		img_pix_put(&data->img, i * data->hud.xt, j * data->hud.yt, RED); // bug wall
+	// 		j += 0.05;
+	// 	}
+	// }
+	// i = -1;
+	// while (++i < data->map.ysize)
+	// {
+	// 	j = 0;
+	// 	while (j < data->map.xsize)
+	// 	{
+	// 		img_pix_put(&data->img, j * data->hud.xt, i * data->hud.yt, RED); // bug wall
+	// 		j += 0.05;
+	// 	}
+	// }
+
+	// t_posi p;
+	// p.x = data->screen.pleft.x  + data->screen.xincr * data->screen.v.vx * i;
+	// p.y = data->screen.pleft.y + data->screen.xincr * data->screen.v.vy * i;
+	// j = -1;
+	// while (++j < 1000)
+	// {
+	// 	if (p.x * data->hud.xt > 0 && p.x * data->hud.xt < data->width
+	// 		&& p.y * data->hud.yt > 0 && p.y * data->hud.yt < data->height)
+	// 		img_pix_put(&data->img, p.x * data->hud.xt, p.y * data->hud.yt, RED); // bug wall
+	// 	p.x += data->screen.xincr * data->player.v.vx * j;
+	// 	p.y += data->screen.xincr * data->player.v.vy * j;
+	// 	j += 0.05;
+	// }

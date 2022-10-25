@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:27:24 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/24 22:43:18 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:23:11 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	get_texture(t_map *map)
 			map->ea = ft_strdup(wind_rose[1]);
 		free_tab(wind_rose);
 	}
-	printf("%s\n%s\n%s\n%s\n", map->no, map->so, map->we, map->ea);
 }
 
 void	get_color(t_map *map)
@@ -63,7 +62,7 @@ void	get_color(t_map *map)
 		free_tab(color_line);
 	}
 	map->floor = encode_rgb((uint8_t)map->f_red, (uint8_t)map->f_green, (uint8_t)map->f_blue);
-	map->ceilling = encode_rgb(255, 255, 0); // ADAPTER
+	map->ceilling = encode_rgb(map->c_red, map->c_green, map->c_blue);
 	printf("-----------------------\n");
 	printf("f_r = %d\nf_g = %d\nf_b = %d\n", map->f_red, map->f_green, map->f_blue);
 	printf("-----------------------\n");

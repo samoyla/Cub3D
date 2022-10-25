@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/24 22:57:58 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:54:17 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@
 # define BLACK				0x000000
 
 // Events
+# define CUB_SIZE			1
 # define STEP				0.1 //* SCALE //0.2 * SCALING_FACTOR
 # define NB_ANGLES			32
 # define ROT				PI * 0.125
@@ -60,7 +61,7 @@ static double angles[17] = {0, PI * 0.125, PI * 0.25, PI * 0.375, PI * 0.5, PI *
 							PI, PI * 1.125, PI * 1.25, PI * 1.375, PI * 1.5, PI * 1.625, PI * 1.75, PI * 1.875, -1};
 
 // Raycasting
-# define DIST				0.05 //* SCALE //0.1 * SCALING_FACTOR
+# define DIST				0.025 //* SCALE //0.1 * SCALING_FACTOR
 # define HALF				(tan(FOV * 0.5) * DIST * 2) //* SCALE //* SCALING_FACTOR
 # define MAX_PDIST			HALF / sin(FOV * 0.5)
 
@@ -98,14 +99,24 @@ typedef struct s_check
 	int	ea;
 }t_check;
 
-typedef struct s_img
+typedef struct	s_img
 {
 	void	*img;
-	char	*addr;
+	char	*addr; // passer en int*?
 	int		bpp;
 	int		line_len;
 	int		endian;
-}t_img;
+	double	x;
+	double	y;
+}				t_img;
+
+typedef struct	s_imgs
+{
+	t_img	no;
+	t_img	so;
+	t_img	ea;
+	t_img	we;
+}				t_imgs;
 
 typedef struct	s_posi
 {
@@ -130,8 +141,7 @@ typedef struct	s_screen
 	t_posi	pleft;
 	t_posi	pright;
 	t_vect	v;
-	double	*dist;
-	double	*wheight;
+
 }				t_screen;
 
 typedef struct	s_playr
@@ -185,6 +195,13 @@ typedef struct	s_data
 	t_playr	player;
 	t_hud	hud;
 	t_screen screen;
+	t_imgs	tex;
+	// double	*dist;
+	double	*wheight;
+	double	*col;
+	char	*side;
+
+
 }				t_data;
 
 typedef struct s_read
@@ -232,6 +249,8 @@ int		map_analysis(t_map *map);
 //fill_map.c
 int		max_width(char **map);
 char	*ft_strdup_space(char *s, int size);
+// textture
+void	init_textures(t_data *data);
 //resize_width_height.c
 void	resize_width_height(t_data *data);
 //map_size.c
@@ -248,7 +267,7 @@ void 	init_screen(t_data *data);;
 // Ray tracing
 void	ray_tracing(t_data *data);
 void 	z_rotation(t_data *data, t_posi *p, double angle);
-void	wall_distance(t_data *data);
+void	get_wall_height(t_data *data);
 double	wall_boundary(double coord, double dir);
 
 //utils.c
@@ -256,7 +275,7 @@ void	check_fd(int fd);
 void	print_tab(char	**tab);
 int		if_str_digit(char *s);
 int		digit_size(char *s);
-double	abs_double(double a);
+double	absd(double a);
 int		encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
 
 //MLX

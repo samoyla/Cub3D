@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 16:00:08 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/24 17:02:31 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/25 17:51:09 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void screen_points_update(t_data *data)
 	norm = sqrt((data->screen.v.vx * data->screen.v.vx) + (data->screen.v.vy * data->screen.v.vy));
 	data->screen.v.vx /= norm;
 	data->screen.v.vy /= norm;
-	// printf("vx:%f vy:%f\n", data->screen.v.vx, data->screen.v.vy);
 }
 
 
@@ -56,8 +55,8 @@ void z_angle_rotation(t_data *data, int key)
 	data->player.v.vy = cos(data->player.angle);
 
 	// checker
-	data->player.check.x = data->player.pos.x + data->player.v.vx * DIST;
-	data->player.check.y = data->player.pos.y + data->player.v.vy * DIST;
+	// data->player.check.x = data->player.pos.x + data->player.v.vx * DIST;
+	// data->player.check.y = data->player.pos.y + data->player.v.vy * DIST;
 }
 
 void hud_points_update(t_data *data)
@@ -93,45 +92,90 @@ int verify_min_dist(double d)
 	return (1);
 }
 
+int is_in_corner(t_posi pcheck)
+{
+	int corner;
+
+	corner = 0;
+	if (pcheck.x - ceil(pcheck.x) + 1 <= MAX_PDIST || pcheck.x - ceil(pcheck.x) + 1 >= 1 - MAX_PDIST)
+		corner++;
+	if (pcheck.y - ceil(pcheck.y) + 1 <= MAX_PDIST || pcheck.y - ceil(pcheck.y) + 1 >= 1 - MAX_PDIST)
+		corner++;
+	if (corner == 2)
+		return (1);
+	return (0);
+}
+
+int corner_ok(t_data *data, t_posi pcheck)
+{
+	int x;
+	int y;
+	int dx;
+	int dy;
+
+	x = ceil(pcheck.x) - 1;
+	y = ceil(pcheck.y) - 1;
+	dx = 1;
+	dy = 1;
+	if (pcheck.x - ceil(pcheck.x) + 1 <= MAX_PDIST)
+		dx = - 1;
+	if (pcheck.y - ceil(pcheck.y) + 1 <= MAX_PDIST)
+		dy = - 1;
+	// printf("px:%f py:%f\n", pcheck.x, pcheck.y);
+	// printf("1[%d][%d] 2[%d][%d] 3[%d][%d] 4[%d][%d]\n", y,x,y,x+dx,y+dy,x,y+dy,x+dx);
+	// printf("m1:%c m2:%c m3:%c m4:%c\n", data->map.map[y][x], data->map.map[y][x+dx], data->map.map[y+dy][x], data->map.map[y+dy][x+dx]);
+	if (data->map.map[y][x] == '1' || data->map.map[y][x + dx] == '1'
+		|| data->map.map[y + dy][x] == '1' || data->map.map[y + dy][x + dx] == '1')
+		return (0);
+	return (1);
+}
+
 int get_min_dist_to_wall(t_data *data, t_posi pcheck)
 {
-	if (abs_double(pcheck.x - ceil(pcheck.x)) > abs_double(pcheck.x - (ceil(pcheck.x) - 1)))
+	// printf("_________________\nPcheck x:%f y:%f\n", pcheck.x, pcheck.y);
+	if (absd(pcheck.x - ceil(pcheck.x)) > absd(pcheck.x - (ceil(pcheck.x) - 1)))
 	{
-		// printf("low x:%f y:%f\n", ceil(pcheck.x) - 2, ceil(pcheck.y)-1);
-		// printf("x:%f map:%c\n", abs_double(pcheck.x - (ceil(pcheck.x) - 1)), data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x) - 2]);
+		// printf("X low x:%f y:%f\n", ceil(pcheck.x) - 2, ceil(pcheck.y)-1);
+		// printf("x:%f map:%c\n\n", absd(pcheck.x - (ceil(pcheck.x) - 1)), data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x) - 2]);
 		if (data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x) - 2] == '1')
 		{
-			if (!verify_min_dist(abs_double(pcheck.x - (ceil(pcheck.x) - 1))))
+			if (!verify_min_dist(absd(pcheck.x - (ceil(pcheck.x) - 1))))
 				return (0);
 		}
 	}
 	else
 	{
+		// printf("X hig x:%f y:%f\n", ceil(pcheck.x) - 2, ceil(pcheck.y)-1);
+		// printf("x:%f map:%c\n\n", absd(pcheck.x - (ceil(pcheck.x) - 1)), data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x) - 2]);
 		if (data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x)] == '1')
 		{
-			if (!verify_min_dist(abs_double(pcheck.x - ceil(pcheck.x))))
+			if (!verify_min_dist(absd(pcheck.x - ceil(pcheck.x))))
 				return (0);
 		}
 	}
-	if (abs_double(pcheck.y - ceil(pcheck.y)) > abs_double(pcheck.y - (ceil(pcheck.y) - 1)))
+	if (absd(pcheck.y - ceil(pcheck.y)) > absd(pcheck.y - (ceil(pcheck.y) - 1)))
 	{
-		// printf("\nldist y:%f\n", abs_double(pcheck.y - (ceil(pcheck.y) - 1)));
-		// printf("mapx:%f y:%f\n", ceil(pcheck.x) - 1, ceil(pcheck.y) - 2);
-		// printf("m:%c\n", data->map.map[(int)ceil(pcheck.y) - 2][(int)ceil(pcheck.x) - 1]);
+		// printf("Y low x:%f y:%f\n", ceil(pcheck.x) - 2, ceil(pcheck.y)-1);
+		// printf("x:%f map:%c\n\n", absd(pcheck.x - (ceil(pcheck.x) - 1)), data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x) - 2]);
 		if (data->map.map[(int)ceil(pcheck.y) - 2][(int)ceil(pcheck.x) - 1] == '1')
 		{
-			if (!verify_min_dist(abs_double(pcheck.y - (ceil(pcheck.y) - 1))))
+			if (!verify_min_dist(absd(pcheck.y - (ceil(pcheck.y) - 1))))
 				return (0);
 		}
 	}
 	else
 	{
+		// printf("Y hig x:%f y:%f\n", ceil(pcheck.x) - 2, ceil(pcheck.y)-1);
+		// printf("x:%f map:%c\n\n", absd(pcheck.x - (ceil(pcheck.x) - 1)), data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x) - 2]);
 		if (data->map.map[(int)ceil(pcheck.y)][(int)ceil(pcheck.x) - 1] == '1')
 		{
-			if (!verify_min_dist(abs_double(pcheck.y - ceil(pcheck.y))))
+			if (!verify_min_dist(absd(pcheck.y - ceil(pcheck.y))))
 				return (0);
 		}
 	}
+	if (is_in_corner(pcheck) && !corner_ok(data, pcheck))
+		return (0);
+	// printf("-----\n");
 	return (1);
 }
 
@@ -156,7 +200,7 @@ void move_player(t_data *data, int key)
 	}
 	// printf("P:x:%f y:%f\n", data->player.pos.x, data->player.pos.y);
 	// printf("Pcheck:x:%f y:%f\n", pcheck.x, pcheck.y);
-	if (!get_min_dist_to_wall(data, pcheck))
+	if (!get_min_dist_to_wall(data, pcheck)) // PROBLEME: chcker la map rc_dev.c erreur en haut a gauche passe a travers mur
 		return;
 	// if (!is_pos_in_bounds(data, pcheck))
 	// 	return;
@@ -194,7 +238,7 @@ int	handle_keypress(int key, t_data *data)
 	else
 		printf("Key pressed:%d\n", key);
 
-	wall_distance(data);
+	get_wall_height(data);
 
 
 	return (0);
