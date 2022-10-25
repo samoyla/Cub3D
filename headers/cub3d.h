@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/24 22:41:56 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 22:57:58 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,7 @@ void	init_player(t_data *data);
 void	set_hud(t_data *data);
 
 // SCREEN LINE
-void 	set_screen_points(t_data *data);;
+void 	init_screen(t_data *data);;
 
 // Ray tracing
 void	ray_tracing(t_data *data);

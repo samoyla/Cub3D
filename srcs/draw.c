@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:13:30 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/24 16:47:51 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 23:39:02 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,9 @@ int	render(t_data *data)
 	render_player(data, YELLOW);
 
 	img_pix_put(&data->img, data->player.check.x * data->hud.xt, data->player.check.y * data->hud.yt, STRONG_BLUE); // point checker
+
+	img_pix_put(&data->img, 1.047049 * data->hud.xt, 4.0 * data->hud.yt, RED); // bug wall
+	img_pix_put(&data->img, 1.999189 * data->hud.xt, 4.0 * data->hud.yt, RED); // bug wall
 
 
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);

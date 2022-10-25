@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:06:53 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/24 17:44:57 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/24 23:44:10 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,40 @@ double abs_double(double a)
 
 double wall_boundary(double coord, double dir)
 {
-	// printf("coord:%f \n", coord);
 	if (dir > 0)
 		return (ceil(coord));
 	return (ceil(coord) - 1);
-	// return (ceil(coord));
+}
+
+void init_start_and_ray_points(t_data *d, int i)
+{
+	d->player.check.x = d->screen.pleft.x  + d->screen.xincr * d->screen.v.vx * i;
+	d->player.check.y = d->screen.pleft.y + d->screen.xincr * d->screen.v.vy * i;
+	d->player.rayp.x = d->player.check.x;
+	d->player.rayp.y = d->player.check.y;
+	d->player.wall.x = wall_boundary(d->player.rayp.x, d->player.v.vx);
+	d->player.wall.y = wall_boundary(d->player.rayp.y, d->player.v.vy);
+}
+void get_matrix_indexes(t_data *data)
+{
+	if (data->player.v.vx <= 0 && data->player.wall.x > 0)
+		data->player.matpos.x = data->player.wall.x - 1;
+	else if (data->player.v.vx > 0)
+		data->player.matpos.x = data->player.wall.x;
+	if (data->player.v.vy <= 0 && data->player.wall.y > 0)
+		data->player.matpos.y = data->player.wall.y - 1;
+	else if (data->player.v.vy > 0 && data->player.wall.y < data->map.ysize -1)
+		data->player.matpos.y = data->player.wall.y;
+	if (data->player.matpos.x == data->map.xsize)
+		data->player.matpos.x -= 1;
+}
+
+void get_dist_and_step(t_data *data)
+{
+	data->player.dist.x = abs_double(data->player.wall.x - data->player.rayp.x);
+	data->player.dist.y = abs_double(data->player.wall.y - data->player.rayp.y);
+	data->player.step.x = abs_double(data->player.dist.x / data->player.v.vx);
+	data->player.step.y = abs_double(data->player.dist.y / data->player.v.vy);
 }
 
 void wall_distance(t_data *data)
@@ -38,34 +67,16 @@ void wall_distance(t_data *data)
 	int wall;
 	int i;
 
-	i = -1;
-	while(++i < data->width)
-	{
-		// i = 640;
-		data->player.check.x = data->screen.pleft.x  + data->screen.xincr * data->screen.v.vx * i;
-		data->player.check.y = data->screen.pleft.y + data->screen.xincr * data->screen.v.vy * i;
-		data->player.rayp.x = data->player.check.x;
-		data->player.rayp.y = data->player.check.y;
-		data->player.wall.x = wall_boundary(data->player.rayp.x, data->player.v.vx);
-		data->player.wall.y = wall_boundary(data->player.rayp.y, data->player.v.vy);
-		// printf("\n");
+	int limit = 0;
+	// i = -1;
+	// while(++i < data->width)
+	// {
+		i = 640;
+		init_start_and_ray_points(data, i);
 		wall = 0;
-		while (!wall)
+		while (!wall && limit++ < 10)
 		{
-			// printf("wall y:%f x:%f\n", data->player.wall.y, data->player.wall.x);
-			// printf("ray pos x:%f y:%f\n", data->player.rayp.x, data->player.rayp.y);
-			// printf("v x:%f y:%f\n", data->player.v.vx, data->player.v.vy);
-			if (data->player.v.vx <= 0 && data->player.wall.x > 0)
-				data->player.matpos.x = data->player.wall.x - 1;
-			else if (data->player.v.vx > 0)
-				data->player.matpos.x = data->player.wall.x;
-			if (data->player.v.vy <= 0 && data->player.wall.y > 0)
-				data->player.matpos.y = data->player.wall.y - 1;
-			else if (data->player.v.vy > 0 && data->player.wall.y < data->map.ysize -1)
-				data->player.matpos.y = data->player.wall.y;
-			if (data->player.matpos.x == data->map.xsize)
-				data->player.matpos.x -= 1;
-			// 	data->player.matpos.y = ceil(data->player.wall.y;
+			get_matrix_indexes(data);
 			data->player.dist.x = abs_double(data->player.wall.x - data->player.rayp.x);
 			data->player.dist.y = abs_double(data->player.wall.y - data->player.rayp.y);
 			data->player.step.x = abs_double(data->player.dist.x / data->player.v.vx);
@@ -75,7 +86,8 @@ void wall_distance(t_data *data)
 				data->player.rayp.x += data->player.v.vx * data->player.step.x;
 				data->player.rayp.y += data->player.v.vy * data->player.step.x;
 				data->player.wall.y = ceil(data->player.rayp.y) - 1;
-				// printf("X ceily:%f mpx:%f\n", ceil(data->player.rayp.y) - 1, data->player.matpos.x);
+				printf("ray pos x:%f y:%f\n", data->player.rayp.x, data->player.rayp.y);
+				printf("X ceily:%f mpx:%f\n", ceil(data->player.rayp.y) - 1, data->player.matpos.x);
 				if (data->map.map[(int)(ceil(data->player.rayp.y) - 1)][(int)data->player.matpos.x] == '1') // proteger les indices!! car Maryna a seg ici
 					wall = 1;
 				if (data->player.v.vx < 0 && data->player.wall.x > 0)
@@ -87,10 +99,10 @@ void wall_distance(t_data *data)
 			}
 			else if (data->player.step.x >= data->player.step.y)
 			{
-				// printf("ray pos x:%f y:%f\n", data->player.rayp.x, data->player.rayp.y);
 				data->player.rayp.x += data->player.v.vx * data->player.step.y;
 				data->player.rayp.y += data->player.v.vy * data->player.step.y;
-				// printf("Y mpy:%f ceilx:%f\n", data->player.matpos.y, ceil(data->player.rayp.x) - 1);
+				printf("ray pos x:%f y:%f\n", data->player.rayp.x, data->player.rayp.y);
+				printf("Y mpy:%f ceilx:%f\n", data->player.matpos.y, ceil(data->player.rayp.x) - 1);
 				if (data->map.map[(int)data->player.matpos.y][(int)(ceil(data->player.rayp.x) - 1)] == '1')
 					wall = 1;
 				if (data->player.v.vy < 0 && data->player.wall.y > 0)
@@ -100,13 +112,18 @@ void wall_distance(t_data *data)
 				if (data->player.v.vx > 0 && data->player.wall.x < data->map.xsize -1)
 					data->player.wall.x += 1;
 			}
+			printf("----");
 		}
 		data->screen.dist[i] = norm_two_points(data->player.check, data->player.rayp);
-		// if (i == 0)
-
 		data->screen.wheight[i] = DIST / data->screen.dist[i];
+		// if (limit == 10)
+			// printf("----FFUUUUCKKKKKED UPPPPPPPPPPP----");
+		printf("limit:%d", limit);
+		printf("dist:%f h:%f\n\n", data->screen.dist[i], data->screen.wheight[i]);
+
+
 		// printf("dist:%f and wheight:%f\n", data->screen.dist[i], data->screen.wheight[i]);
-	}
+	// }
 
 
 
@@ -121,11 +138,13 @@ void wall_distance(t_data *data)
 
 
 
+// printf("wall y:%f x:%f\n", data->player.wall.y, data->player.wall.x);
+			// printf("ray pos x:%f y:%f\n", data->player.rayp.x, data->player.rayp.y);
+			// printf("v x:%f y:%f\n", data->player.v.vx, data->player.v.vy);
 
 
 
-
-
+//--------------------------------------------------------------------------------------------------------------
 // void wall_distance(t_data *data)
 // {
 // 	int wall;
