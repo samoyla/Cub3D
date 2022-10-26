@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:11:32 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/25 18:07:35 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:17:15 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ void init_screen(t_data *data)
 
 	set_screen_lr_points(data);
 	data->screen.xincr = (HALF * 2) / data->width;
-	data->screen.fullh = data->screen.xincr * data->height;
-	data->screen.yincr = data->screen.fullh / data->height;
+	data->screen.xfull = HALF * 2;
+	data->screen.xhalf = HALF;
+	data->screen.yfull = data->screen.xincr * data->height;
+	data->screen.yincr = data->screen.yfull / data->height;
 	data->screen.v.vx = (data->screen.pright.x - data->screen.pleft.x);
 	data->screen.v.vy = (data->screen.pright.y - data->screen.pleft.y);
 	norm = sqrt((data->screen.v.vx * data->screen.v.vx) + (data->screen.v.vy * data->screen.v.vy));
@@ -48,5 +50,5 @@ void init_screen(t_data *data)
 
 
 	// printf("FULL:%f xincr:%f width:%d width*xincr:%f\n", 2 * HALF, data->screen.xincr, data->width, data->width*data->screen.xincr);
-	// printf("y full:%f yincr:%f full(multiplication):%f\n", data->screen.fullh, data->screen.yincr, data->screen.yincr * data->height);
+	// printf("y full:%f yincr:%f full(multiplication):%f\n", data->screen.yfull, data->screen.yincr, data->screen.yincr * data->height);
 	// printf("vx:%f vy:%f\n", data->screen.v.vx, data->screen.v.vy);

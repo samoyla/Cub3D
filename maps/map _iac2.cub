@@ -1,7 +1,7 @@
-NO ./texture/wall.xpm
-SO ./texture/wall.xpm
-EA ./texture/wall.xpm
-WE ./texture/wall.xpm
+NO ./texture/pavement.xpm
+SO ./texture/mud_wall.xpm
+EA ./texture/mud_wall.xpm
+WE ./texture/mud_wall.xpm
 F 105,105,105
 C 192,192,192
 

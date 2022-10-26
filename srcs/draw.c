@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:13:30 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/25 18:34:32 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/26 20:53:26 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	char	*pixel;
 	int		i;
 
-	i = img->bpp - 8;
+	i = img->bpp - 8; // bpp = 32
     pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	while (i >= 0)
 	{
@@ -197,19 +197,87 @@ void render_player(t_data *data, int color)
 	}
 }
 
+void px_to_image_debug(t_img *image, int x, int y, int color)
+{
+	image->addr[y + x] = color;
+}
+
+int	get_image_pixel_debug(t_img *image, int col, int row, int width)
+{
+
+	return ((int)image->iaddr[col + row * width]);
+}
+
+void render_image(t_data *data)
+{
+	// int color;
+	// printf("RED int:%d\n", (int)GREY);
+	// img_pix_put(&data->img, 476, 156, RED);
+	// color = get_image_pixel_debug(&data->img, 476, 156, data->width);
+	// printf("color int:%d\n", color);
+
+
+	int i;
+	int j;
+	int xshift = 500;
+	int yshift = 200; // starts here!
+	int color;
+
+	i = -1;
+	while (++i < data->width)
+	{
+		j = -1;
+		while (++j < data->height)
+		{
+			if (i < data->tex.no.x)
+			{
+				if (j < data->tex.no.y)
+				{
+					color = get_image_pixel_debug(&data->tex.no, i, j, (int)data->tex.no.x);
+					// printf("i:%d and j:%d color:%d\n", i, j, color);
+					img_pix_put(&data->img, i + xshift, j + yshift, color);
+					if (i == 0)
+						printf("x:%d y:%d color:%d ix:%i iy:%d\n", i, j, color,i + xshift,j +yshift);
+				}
+			}
+		}
+	}
+}
+
+void print_col_row(t_data *data)
+{
+	int i = -1;
+	int j = -1;
+	int color;
+
+	while (++i < data->tex.no.x)
+	{
+		j = -1;
+		while (++j < data->tex.no.y)
+		{
+			color = get_image_pixel_debug(&data->tex.no, i, j, (int)data->tex.no.y);
+			// printf("col:%d and row:%d color:%d\n", i, j, color);
+			img_pix_put(&data->img, i, j, color);
+		}
+	}
+}
+
+
 int	render(t_data *data)
 {
 	if (data->win_ptr == NULL)
 		return (1);
-	// render_background(data, WHITE); // a supprimer car inutile
 
-	// // render_background(data, WHITE); // a supprimer car inutile
 
 	// // Ray tracing
 	ray_tracing(data);
-	render_hud(data, STRONG_BLUE);
-	render_player(data, YELLOW);
 
+
+	// print_col_row(data);
+	// render_image(data);
+
+	// render_hud(data, STRONG_BLUE);
+	// render_player(data, YELLOW);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
 
 	return (0);
@@ -217,6 +285,23 @@ int	render(t_data *data)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// render_background(data, WHITE); // a supprimer car inutile
+
+	// // render_background(data, WHITE); // a supprimer car inutile
 
 
 

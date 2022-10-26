@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/25 18:54:17 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/26 21:08:58 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@
 
 // Events
 # define CUB_SIZE			1
-# define STEP				0.1 //* SCALE //0.2 * SCALING_FACTOR
-# define NB_ANGLES			32
+# define STEP				0.01 //* SCALE //0.2 * SCALING_FACTOR
+# define NB_ANGLES			64
 # define ROT				PI * 0.125
 static double angles[17] = {0, PI * 0.125, PI * 0.25, PI * 0.375, PI * 0.5, PI * 0.625, PI * 0.75, PI * 0.875,
 							PI, PI * 1.125, PI * 1.25, PI * 1.375, PI * 1.5, PI * 1.625, PI * 1.75, PI * 1.875, -1};
@@ -103,6 +103,7 @@ typedef struct	s_img
 {
 	void	*img;
 	char	*addr; // passer en int*?
+	int		*iaddr;
 	int		bpp;
 	int		line_len;
 	int		endian;
@@ -133,10 +134,10 @@ typedef struct	s_vect
 
 typedef struct	s_screen
 {
-	double	full;
-	double	half;
-	double	fullh;
+	double	xfull;
+	double	xhalf;
 	double	xincr;
+	double	yfull;
 	double	yincr;
 	t_posi	pleft;
 	t_posi	pright;
@@ -183,6 +184,17 @@ typedef struct	s_hud
 	t_tri	tri;
 }				t_hud;
 
+typedef struct	s_wall
+{
+	t_img	*texture;
+	double	wall_height;
+	int		wall_height_px;
+	int		low_limit_px;
+	int		high_limit_px;
+	double	column;
+
+}				t_wall;
+
 typedef struct	s_data
 {
 	void	*mlx_ptr_size;
@@ -195,6 +207,7 @@ typedef struct	s_data
 	t_playr	player;
 	t_hud	hud;
 	t_screen screen;
+	t_wall	wall;
 	t_imgs	tex;
 	// double	*dist;
 	double	*wheight;
