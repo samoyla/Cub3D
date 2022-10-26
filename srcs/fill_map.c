@@ -31,13 +31,13 @@ int	max_width(char **mapi, t_map *map)
 			size = ft_strlen(mapi[i]);
 		i++;
 	}
-	return (size);	
+	return (size);
 }
 
 char	*ft_strdup_space(char *s, int size)
 {
 	char	*dest;
-	int	i;
+	int		i;
 
 	i = 0;
 	dest = malloc(sizeof(char) * size + 1);
@@ -47,7 +47,6 @@ char	*ft_strdup_space(char *s, int size)
 	{
 		dest[i] = s[i];
 		i++;
-		
 	}
 	while (i < size)
 	{

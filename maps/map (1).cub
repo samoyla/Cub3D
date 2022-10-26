@@ -3,10 +3,10 @@
 
 NO ./texture/wall.xpm
 SO ./texture/wall.xpm
-
+  
 WE ./texture/wall.xpm
 EA ./texture/wall.xpm
-
+  
 F 255,255,0
 C 51,255,255
 

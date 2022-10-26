@@ -31,7 +31,7 @@ void	get_texture(t_map *map)
 			map->ea = ft_strdup(wind_rose[1]);
 		free_tab(wind_rose);
 	}
-	printf("%s\n%s\n%s\n%s\n", map->no, map->so, map->we, map->ea);
+	//printf("%s\n%s\n%s\n%s\n", map->no, map->so, map->we, map->ea);
 }
 
 void	get_color(t_map *map)
@@ -64,9 +64,9 @@ void	get_color(t_map *map)
 	}
 	map->floor = encode_rgb((uint8_t)map->f_red, (uint8_t)map->f_green, (uint8_t)map->f_blue);
 	map->ceilling = encode_rgb(255, 255, 0); // ADAPTER
-	printf("-----------------------\n");
-	printf("f_r = %d\nf_g = %d\nf_b = %d\n", map->f_red, map->f_green, map->f_blue);
-	printf("-----------------------\n");
-	printf("c_r = %d\nc_g = %d\nc_b = %d\n", map->c_red, map->c_green, map->c_blue);
+	// printf("-----------------------\n");
+	// printf("f_r = %d\nf_g = %d\nf_b = %d\n", map->f_red, map->f_green, map->f_blue);
+	// printf("-----------------------\n");
+	// printf("c_r = %d\nc_g = %d\nc_b = %d\n", map->c_red, map->c_green, map->c_blue);
 }
 

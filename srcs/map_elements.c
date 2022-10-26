@@ -35,7 +35,7 @@ void	tab_decor(char *pathname, t_map *map)
 	int	count;
 
 	i = 0;
-	j = 0;
+	j = -1;
 	count = 0;
 	map->decor = ft_calloc(6 + 1, sizeof(char *));
 	if (map->decor == NULL)
@@ -44,19 +44,15 @@ void	tab_decor(char *pathname, t_map *map)
 	{
 		if (check_line_space(map->whole[i]) == SUCCESS)
 		{
-			if (j <= 5)
-			{	
-				map->decor[j] = ft_strdup(map->whole[i]);//probleme free strdup here???
-				j++;
-			}
+			if (++j <= 5)
+				map->decor[j] = ft_strdup(map->whole[i]);
 		}
 		else
 			count++;
 		i++;
 	}
 	map->count = count;
-	//printf("count = %d\n", map->count);
-	print_tab(map->decor);//supprimer
+	//print_tab(map->decor);//supprimer
 }
 
 int	check_space(char *str)
@@ -82,6 +78,7 @@ int	tab_map(char *pathname, t_map *map)
 
 	i = 0;
 	j = map->count + 6;
+	printf("j = %d\n", j);
 	size = map->size - map->count + 6;
 	if (size == 0)
 		return (FAILURE);
@@ -91,17 +88,10 @@ int	tab_map(char *pathname, t_map *map)
 		return (FAILURE);
 	while (map->whole[j] != NULL)
 	{
-		if (ft_strchr(map->whole[j], '1') || ft_strchr(map->whole[j], '0')
-			|| ft_strchr(map->whole[j], 'N') || ft_strchr(map->whole[j], 'S')
-			|| ft_strchr(map->whole[j], 'W') || ft_strchr(map->whole[j], 'E'))
-		{
-			map->map[i] = ft_strdup_space(map->whole[j], size_max);
+		map->map[i] = ft_strdup_space(map->whole[j], size_max);
 			i++;
-		}
 		j++;
 	}
 	map->map[i] = 0;
-	printf("map with spaces\n");
-	print_tab(map->map);//supprimer
 	return (SUCCESS);
 }

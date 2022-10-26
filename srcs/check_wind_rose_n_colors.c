@@ -82,7 +82,7 @@ int	check_nb(char **str, t_map *map)
 	split_nb = ft_split(str[1], ',');
 	if (split_nb == NULL)
 		return (FAILURE);
-	print_tab(split_nb);
+	//print_tab(split_nb);
 	i = -1;
 	while (split_nb[++i])
 	{
