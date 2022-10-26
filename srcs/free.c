@@ -48,12 +48,14 @@ void	free_tab(char **tab)
 
 void	free_map_struct(t_map *map)
 {
-	if (map == NULL)
-		return ;
+	//if (map == NULL)
+	//	return ;
 	if (map->whole)
 		free_tab(map->whole);
 	if (map->decor)
 		free_tab(map->decor);
+	if (map->map)
+		free_tab(map->map);
 	if (map->no)
 		free(map->no);
 	if (map->so)
@@ -62,5 +64,4 @@ void	free_map_struct(t_map *map)
 		free(map->ea);
 	if (map->we)
 		free(map->we);
-	free(map);
 }

@@ -32,6 +32,7 @@ int	main(int ac, char **av, char **env)
 	if (create_tab_elements(av[1], &data.map, &check, av) == FAILURE)
 		exit (FAILURE);
 	get_map(&data.map);
+	
 	printf("floor color:%d ceilling:%d\n", data.map.floor, data.map.ceilling);
 // PRINT MAP
 	int i = -1;
@@ -63,6 +64,6 @@ int	main(int ac, char **av, char **env)
 	mlx_loop(data.mlx_ptr);
 	free(data.mlx_ptr);
 	ft_free_n_destroy(&data);
-
+	free_map_struct(&data.map);
 	return (SUCCESS);
 }

@@ -17,10 +17,7 @@ int	create_tab_elements(char *pathname, t_map *map, t_check *check, char **av)
 	tab_whole_map(map, av);
 	tab_decor(pathname, map);
 	if (decor_analysis(map, check) == FAILURE)
-	{
-		//free_map_struct(map);
-		return (FAILURE);
-	}
+			return (FAILURE);
 	if (tab_map(pathname, map) == FAILURE)
 	{
 		//free_map_struct(map);

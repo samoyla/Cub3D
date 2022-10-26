@@ -78,7 +78,7 @@ int	check_file(char *s)
 	if (if_file_exists(s) == FAILURE)
 	{
 		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("File does not exist\n", 2);
+		ft_putstr_fd("File does not exist or permission is denied\n", 2);
 		return (FAILURE);
 	}
 	if (check_ext(s) == FAILURE)

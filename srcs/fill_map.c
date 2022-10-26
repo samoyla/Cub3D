@@ -12,22 +12,23 @@
 
 #include "cub3d.h"
 
-int	max_width(char **map)
+int	max_width(char **mapi, t_map *map)
 {
 	int	i;
 	int	size;
 
 	i = 0;
-	if (!map[i])
+	if (!mapi[i])
 	{
 		ft_putstr_fd("map does not exist\n", 2);
+		free_map_struct(map);
 		exit (FAILURE);
 	}
-	size = ft_strlen(map[i]);
-	while (map[i])
+	size = ft_strlen(mapi[i]);
+	while (mapi[i])
 	{
-		if (size < ft_strlen(map[i]))
-			size = ft_strlen(map[i]);
+		if (size < ft_strlen(mapi[i]))
+			size = ft_strlen(mapi[i]);
 		i++;
 	}
 	return (size);	

@@ -14,10 +14,6 @@
 
 int	check_doubles(t_check check)
 {
-	// Est déclenché même quand il n'y a pas de doubles -> à corriger
-	//(void)check;
-	//-------------------------------------------------------
-
 	if (check.no > 1 || check.so > 1 || check.we > 1 || check.ea > 1
 		|| check.f > 1 || check.c > 1)
 	{
@@ -30,10 +26,6 @@ int	check_doubles(t_check check)
 
 int	check_exist(t_check check)
 {
-	// est déclenché dans une map ok... -> corriger?
-	//(void)check;
-	//----------------------------------------
-
 	if (check.no != 1 || check.so != 1 || check.we != 1 || check.ea != 1
 		|| check.f != 1 || check.c != 1)
 	{
@@ -56,7 +48,7 @@ static int	path_ext(char *name)
 	return (SUCCESS);
 }
 
-int	check_windrose(t_check *check, char **split)
+int	check_windrose(t_check *check, char **split, t_map *map)
 {
 	int	fd;
 
@@ -68,28 +60,29 @@ int	check_windrose(t_check *check, char **split)
 		ft_putstr_fd("Error\n", 2);
 		ft_putstr_fd("path of texture is not valid\n", 2);
 		free_tab(split);
+		free_map_struct(map);
 		return (FAILURE);
 	}
 	if (path_ext(split[1]) == FAILURE)
 	{
 		ft_putstr_fd("Error\nwrong texture extention\n", 2);
 		free_tab(split);
+		free_map_struct(map);
 		return (FAILURE);
 	}
 	close(fd);
 	return (SUCCESS);
 }
 
-int	check_nb(char *str)
+int	check_nb(char **str, t_map *map)
 {
 	char	**split_nb;
 	int		i;
 
-
-	split_nb = ft_split(str, ',');
+	split_nb = ft_split(str[1], ',');
 	if (split_nb == NULL)
 		return (FAILURE);
-	//print_tab(split_nb);
+	print_tab(split_nb);
 	i = -1;
 	while (split_nb[++i])
 	{
@@ -97,6 +90,8 @@ int	check_nb(char *str)
 			|| digit_size(split_nb[i]) == FAILURE)
 		{
 			free_tab(split_nb);
+			free_tab(str);
+			free_map_struct(map);
 			ft_putstr_fd("rgb problem\n", 2);
 			return (FAILURE);
 		}
@@ -105,6 +100,8 @@ int	check_nb(char *str)
 	{
 		ft_putstr_fd("format of rgb is incorrect\n", 2);
 		free_tab(split_nb);
+		free_tab(str);
+		free_map_struct(map);
 		return (FAILURE);
 	}
 	free_tab(split_nb);

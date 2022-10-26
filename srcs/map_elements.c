@@ -46,7 +46,7 @@ void	tab_decor(char *pathname, t_map *map)
 		{
 			if (j <= 5)
 			{	
-				map->decor[j] = ft_strdup(map->whole[i]);
+				map->decor[j] = ft_strdup(map->whole[i]);//probleme free strdup here???
 				j++;
 			}
 		}
@@ -56,7 +56,7 @@ void	tab_decor(char *pathname, t_map *map)
 	}
 	map->count = count;
 	//printf("count = %d\n", map->count);
-	//print_tab(map->decor);//supprimer
+	print_tab(map->decor);//supprimer
 }
 
 int	check_space(char *str)
@@ -85,7 +85,7 @@ int	tab_map(char *pathname, t_map *map)
 	size = map->size - map->count + 6;
 	if (size == 0)
 		return (FAILURE);
-	size_max = max_width(&map->whole[j]);
+	size_max = max_width(&map->whole[j], map);
 	map->map = ft_calloc(size + 1, sizeof(char *));
 	if (!map->map)
 		return (FAILURE);

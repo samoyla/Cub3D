@@ -234,12 +234,12 @@ int		decor_analysis(t_map *map, t_check *check);
 //check_wind_rose_and colors.c
 int		check_doubles(t_check check);
 int		check_exist(t_check check);
-int		check_windrose(t_check *check, char **split);
-int		check_nb(char *str);
+int		check_windrose(t_check *check, char **split, t_map *map);
+int		check_nb(char **str, t_map *map);
 //map.c
 int		map_analysis(t_map *map);
 //fill_map.c
-int		max_width(char **map);
+int		max_width(char **mapi, t_map *map);
 char	*ft_strdup_space(char *s, int size);
 
 //resize_width_height.c
