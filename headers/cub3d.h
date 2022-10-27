@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/26 21:08:58 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/27 16:25:04 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@
 
 // Events
 # define CUB_SIZE			1
-# define STEP				0.01 //* SCALE //0.2 * SCALING_FACTOR
+# define STEP				0.05 //* SCALE //0.2 * SCALING_FACTOR
 # define NB_ANGLES			64
 # define ROT				PI * 0.125
 static double angles[17] = {0, PI * 0.125, PI * 0.25, PI * 0.375, PI * 0.5, PI * 0.625, PI * 0.75, PI * 0.875,
 							PI, PI * 1.125, PI * 1.25, PI * 1.375, PI * 1.5, PI * 1.625, PI * 1.75, PI * 1.875, -1};
 
 // Raycasting
-# define DIST				0.025 //* SCALE //0.1 * SCALING_FACTOR
-# define HALF				(tan(FOV * 0.5) * DIST * 2) //* SCALE //* SCALING_FACTOR
+# define DIST				0.1 //* SCALE //0.1 * SCALING_FACTOR
+# define HALF				(tan(FOV * 0.5) * DIST) //* SCALE //* SCALING_FACTOR
 # define MAX_PDIST			HALF / sin(FOV * 0.5)
 
 typedef struct	s_map
@@ -139,6 +139,7 @@ typedef struct	s_screen
 	double	xincr;
 	double	yfull;
 	double	yincr;
+	double	point_angle;
 	t_posi	pleft;
 	t_posi	pright;
 	t_vect	v;
@@ -213,6 +214,7 @@ typedef struct	s_data
 	double	*wheight;
 	double	*col;
 	char	*side;
+	int		*wallnb;
 
 
 }				t_data;

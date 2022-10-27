@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:07:48 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/26 21:16:59 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/27 12:40:20 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,14 @@ t_data	*init_image(t_data *data)
 	return (data);
 }
 
+
+
 void load_textures(t_data *data, t_img *img, char *path)
 {
 	int x;
 	int y;
 
-	printf("T:|%s|\n", path);
+	printf("\nT:|%s|\n", path);
 	img->img = mlx_xpm_file_to_image(data->mlx_ptr, path, &x, &y);
 	if (img->img == NULL)
 		printf("IMG ERROR\n"); // proteger, free and exit
@@ -104,6 +106,13 @@ void load_textures(t_data *data, t_img *img, char *path)
 	img->y = (double)y;
 	printf("ll:%d x:%f y:%f\n", img->line_len, img->x, img->y);
 
+	// verify_size_of_texture(img);
+	int i = 0;
+	// while (img->iaddr[i])
+	// 	i++;
+
+	printf("addr[0]:%c addr[50]:%c addr[51]:%c addr[65535]:%c addr[65536]:%c addr[65537]:%c\n", img->addr[0], img->addr[50],img->addr[51],img->addr[65535],img->addr[65536],img->addr[65537]);
+printf("addr[0]:%c addr[50]:%c addr[51]:%c addr[65535]:%c addr[65536]:%c addr[65537]:%c\n", img->iaddr[0], img->iaddr[50],img->iaddr[51],img->iaddr[65535],img->iaddr[65536],img->iaddr[65537]);
 }
 
 void init_textures(t_data *data)

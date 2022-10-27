@@ -1,55 +1,25 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    bcksp                                              :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/21 18:11:32 by iguscett          #+#    #+#              #
-#    Updated: 2022/10/26 15:16:35 by iguscett         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-#include "cub3d.h"
-
-void set_screen_lr_points(t_data *data)
-{
-	data->screen.pleft.x = data->player.pos.x + HALF;
-	data->screen.pleft.y = data->player.pos.y + DIST;
-	data->screen.pright.x = data->player.pos.x - HALF;
-	data->screen.pright.y = data->player.pos.y + DIST;
-	z_rotation(data, &data->screen.pleft, data->player.angle);
-	z_rotation(data, &data->screen.pright, data->player.angle);
-}
-
-double norm_vector(t_vect v)
-{
-	return (sqrt((v.vx * v.vx) + (v.vy * v.vy)));
-}
-
-void init_screen(t_data *data)
-{
-	double norm;
-	data->screen.dist = malloc(sizeof(data->screen.dist) * data->width); // protect malloc
-	data->screen.wheight = malloc(sizeof(data->screen.wheight) * data->width); // protect malloc
-	// set_screen_lr_points(data);
-		data->screen.pleft.x = data->player.pos.x + HALF;
-	data->screen.pleft.y = data->player.pos.y + DIST;
-	data->screen.pright.x = data->player.pos.x - HALF;
-	data->screen.pright.y = data->player.pos.y + DIST;
-	z_rotation(data, &data->screen.pleft, data->player.angle);
-	z_rotation(data, &data->screen.pright, data->player.angle);
-	data->screen.xincr = (HALF * 2) / data->width;
-	data->screen.yfull = data->screen.xincr * data->height;
-	data->screen.yincr = data->screen.yfull / data->height;
-	data->screen.v.vx = (data->screen.pright.x - data->screen.pleft.x) / norm_vector(data->screen.v);
-	data->screen.v.vy = (data->screen.pright.y - data->screen.pleft.y) / norm_vector(data->screen.v);
-	// norm = norm_vector(data->screen.v); sqrt((data->screen.v.vx * data->screen.v.vx) + (data->screen.v.vy * data->screen.v.vy));
-	// data->screen.v.vx /= norm;
-	// data->screen.v.vy /= norm;
-}
 
 
-	// printf("FULL:%f xincr:%f width:%d width*xincr:%f\n", 2 * HALF, data->screen.xincr, data->width, data->width*data->screen.xincr);
-	// printf("y full:%f yincr:%f full(multiplication):%f\n", data->screen.yfull, data->screen.yincr, data->screen.yincr * data->height);
-	// printf("vx:%f vy:%f\n", data->screen.v.vx, data->screen.v.vy);
+T:|./texture/pavement.xpm|
+T:|./texture/pavement.xpm| x:256 y:256 p:0x7ffd83f1ddd0
+ll:1024 x:256.000000 y:256.000000
+addr[0]:7 addr[50]:� addr[51]: addr[65535]: addr[65536]:� addr[65537]:�
+addr[0]:7 addr[50]: addr[51]:: addr[65535]:R addr[65536]: addr[65537]:
+
+T:|./texture/mud_wall.xpm|
+T:|./texture/mud_wall.xpm| x:256 y:256 p:0x7ffd83f1de08
+ll:1024 x:256.000000 y:256.000000
+addr[0]:F addr[50]:x addr[51]: addr[65535]: addr[65536]:F addr[65537]:]
+addr[0]:F addr[50]:F addr[51]:F addr[65535]:F addr[65536]: addr[65537]:
+
+T:|./texture/mud_wall.xpm|
+T:|./texture/mud_wall.xpm| x:256 y:256 p:0x7ffd83f1de78
+ll:1024 x:256.000000 y:256.000000
+addr[0]:F addr[50]:x addr[51]: addr[65535]: addr[65536]:F addr[65537]:]
+addr[0]:F addr[50]:F addr[51]:F addr[65535]:F addr[65536]: addr[65537]:
+
+T:|./texture/mud_wall.xpm|
+T:|./texture/mud_wall.xpm| x:256 y:256 p:0x7ffd83f1de40
+ll:1024 x:256.000000 y:256.000000
+addr[0]:F addr[50]:x addr[51]: addr[65535]: addr[65536]:F addr[65537]:]
+addr[0]:F addr[50]:F addr[51]:F addr[65535]:F addr[65536]: addr[65537]:

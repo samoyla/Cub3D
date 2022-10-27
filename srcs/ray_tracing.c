@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 22:35:57 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/26 21:28:31 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/27 18:27:19 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int	get_image_pixel_color(t_img *image, double col, double row)
 
 	// printf("p:%p\n", &image);
 	c = (int)((col) * image->x);
-	r = (int)(image->y * row);
-	// printf("col:%f\n", col);
-	printf("c:%d row:%d\n", c, (int)row);
-	return ((int)image->iaddr[c + r]); // * CUB_SIZE for parametrization
+	r = (int)(row * image->y);
+	// printf("col:%f row:%f\n", col, row);
+	// printf("c:%d row:%d\n", c, r);
+	return ((int)image->iaddr[c + (int)(r * image->x)]); // * CUB_SIZE for parametrization
 }
 
 void z_rotation(t_data *data, t_posi *p, double angle)
@@ -88,7 +88,12 @@ void texture_colums(t_data *data, int ix)
 		img_pix_put(&data->img, ix, row++, data->map.ceilling);
 	while (row < data->wall.high_limit_px)
 	{
-		color = get_image_pixel_color(data->wall.texture, data->wall.column, (row - data->wall.low_limit_px) / data->wall.wall_height_px);
+		// printf("p:%p p:%p p:%p p:%p\n", &data->tex.no,&data->tex.ea,&data->tex.so,&data->tex.we);
+		// printf("ix:%d row:%d -> whpx:%d and row in %%:%f\n", ix, row);
+		color = get_image_pixel_color(data->wall.texture, data->wall.column, (double)(row - data->wall.low_limit_px) / data->wall.wall_height_px);
+
+
+
 		img_pix_put(&data->img, ix, row++, color);
 	}
 	while (row < data->height)
@@ -107,21 +112,6 @@ void textures(t_data *data)
 
 void ray_tracing(t_data *data)
 {
-	// int	ix;
-	// int iy;
-
-	// ix = -1;
-	// while (++ix < data->width)
-	// {
-	// 	iy = 0;
-	// 	while(iy < data->height && (iy * data->screen.yincr < (data->screen.yfull - data->wheight[ix]) / 2))
-	// 		img_pix_put(&data->img, ix, iy++, data->map.ceilling);
-	// 	while (iy < data->height && (iy * data->screen.yincr > (data->screen.yfull - data->wheight[ix]) / 2)
-	// 		&& (iy * data->screen.yincr < (data->screen.yfull + data->wheight[ix]) / 2))
-	// 		img_pix_put(&data->img, ix, iy++, STRONG_BLUE);
-	// 	while (iy < data->height)
-	// 		img_pix_put(&data->img, ix, iy++, data->map.floor);
-	// }
 	textures(data);
 }
 
@@ -149,7 +139,11 @@ void ray_tracing(t_data *data)
 
 
 
-
+		// color = STRONG_BLUE;
+		// if (data->wallnb[ix] % 2 == 1)
+		// 	img_pix_put(&data->img, ix, row++, STRONG_BLUE);
+		// if (data->wallnb[ix] % 2 == 0)
+		// 	img_pix_put(&data->img, ix, row++, RED);
 
 
 

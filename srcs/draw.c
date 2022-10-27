@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:13:30 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/26 20:53:26 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/27 12:22:06 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,6 @@ void render_image(t_data *data)
 	// color = get_image_pixel_debug(&data->img, 476, 156, data->width);
 	// printf("color int:%d\n", color);
 
-
 	int i;
 	int j;
 	int xshift = 500;
@@ -236,7 +235,7 @@ void render_image(t_data *data)
 					color = get_image_pixel_debug(&data->tex.no, i, j, (int)data->tex.no.x);
 					// printf("i:%d and j:%d color:%d\n", i, j, color);
 					img_pix_put(&data->img, i + xshift, j + yshift, color);
-					if (i == 0)
+					// if (i == 0)
 						printf("x:%d y:%d color:%d ix:%i iy:%d\n", i, j, color,i + xshift,j +yshift);
 				}
 			}
@@ -276,8 +275,8 @@ int	render(t_data *data)
 	// print_col_row(data);
 	// render_image(data);
 
-	// render_hud(data, STRONG_BLUE);
-	// render_player(data, YELLOW);
+	render_hud(data, STRONG_BLUE);
+	render_player(data, YELLOW);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
 
 	return (0);

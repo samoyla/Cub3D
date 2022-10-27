@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/25 16:29:48 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/27 13:04:23 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,14 @@ int	main(int ac, char **av, char **env)
 	init_map(&data.map);
 	init_check(&check);
 	if (check_args(ac) == FAILURE)
-		exit (FAILURE);
+		;
+		// exit (FAILURE);
 	if (check_file(av[1]) == FAILURE)
-		exit (FAILURE);
+		;
+		// exit (FAILURE);
 	if (create_tab_elements(av[1], &data.map, &check, av) == FAILURE)
-		exit (FAILURE);
+		;
+		// exit (FAILURE);
 	get_map(&data.map);
 //---------------------------------------------------------------------
 	get_map_size(&data.map);

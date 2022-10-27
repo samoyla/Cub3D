@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:11:32 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/26 15:17:15 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/27 13:10:28 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void init_screen(t_data *data)
 	data->wheight = malloc(sizeof(data->wheight) * data->width); // protect malloc
 	data->col = malloc(sizeof(data->col) * data->width); // protect malloc;
 	data->side = malloc(sizeof(data->side) * data->width); // protect malloc;
+	data->wallnb = malloc(sizeof(int) * data->width); // protect malloc;
 }
 
 
