@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/28 16:25:35 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/28 19:00:42 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,29 @@
 # define SCALE				64
 # define MLX_ERROR 			1
 # define BUFFER_SIZE		1
-# define HUD_SIZE_FACTOR	4
 
 # define PI					3.1415
-# define FOV				66 * PI / 180
 
-# define BLUE				0x07E0
-# define STRONG_BLUE		0x004D98
+# define STRONG_BLUE		0x00004D98
 # define YELLOW				0xFFFF00
 # define RED				0xFF0000
 # define WHITE				0xFFFFFF
 # define GREY				0x9C9C9C
 # define BLACK				0x000000
 
-// Events
-# define CUB_SIZE			1
-# define STEP				0.05 //* SCALE //0.2 * SCALING_FACTOR
-# define NB_ANGLES			64
-# define ROT				PI * 0.125
-static double angles[17] = {0, PI * 0.125, PI * 0.25, PI * 0.375, PI * 0.5, PI * 0.625, PI * 0.75, PI * 0.875,
-							PI, PI * 1.125, PI * 1.25, PI * 1.375, PI * 1.5, PI * 1.625, PI * 1.75, PI * 1.875, -1};
+# define TRANSPARENCY 		0
 
-// Raycasting
-# define DIST				0.1 //* SCALE //0.1 * SCALING_FACTOR
-# define HALF				(tan(FOV * 0.5) * DIST) //* SCALE //* SCALING_FACTOR
+// IN GAME PARAMETERS
+# define FOV				66 * PI / 180
+# define CUB_SIZE			1
+# define STEP				0.1
+# define NB_ANGLES			64
+# define DIST				0.1
+# define HALF				(tan(FOV * 0.5) * DIST)
 # define MAX_PDIST			HALF / sin(FOV * 0.5)
+# define HUD_SIZE_FACTOR	4
+# define HUD_X_SIZE			11
+# define HUD_Y_SIZE			6
 
 typedef struct	s_map
 {
@@ -102,7 +100,7 @@ typedef struct s_check
 typedef struct	s_img
 {
 	void	*img;
-	char	*addr; // passer en int*?
+	char	*addr;
 	int		*iaddr;
 	int		bpp;
 	int		line_len;
@@ -183,6 +181,7 @@ typedef struct	s_hud
 	int		xt;
 	int		yt;
 	t_tri	tri;
+	char	**map;
 }				t_hud;
 
 typedef struct	s_wall
@@ -275,6 +274,18 @@ void	init_player(t_data *data);
 
 // HUD
 void	set_hud(t_data *data);
+void	hud_put_empty_square(t_data *data, int x, int y, int color);
+void 	walls_edges(t_data *data, int x, int y, int color);
+void	empty_spaces(t_data *data);
+void 	black_edges(t_data *data);
+void 	render_hud(t_data *data, int color);
+
+//events
+void	screen_points_update(t_data *data);
+void	z_angle_rotation(t_data *data, int key);
+void	hud_points_update(t_data *data);
+void 	z_rotation_player(t_data *data, int key);
+int 	is_move_valid(t_data *data, t_posi pcheck);
 
 // SCREEN LINE
 void 	init_screen(t_data *data);;
@@ -284,6 +295,8 @@ void	ray_tracing(t_data *data);
 void 	z_rotation(t_data *data, t_posi *p, double angle);
 void	get_wall_height(t_data *data);
 double	wall_boundary(double coord, double dir);
+int		encode_trgb(uint8_t transparency, uint8_t red, uint8_t green, uint8_t blue);
+int		create_trgb(unsigned char t, unsigned char r, unsigned char g, unsigned char b);
 
 //utils.c
 void	check_fd(int fd);

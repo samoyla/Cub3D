@@ -6,11 +6,20 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/27 13:04:23 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/28 19:04:58 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+/*
+	OK Passer a travers le mur en marche arriere
+	OK map adaptable abandonne
+	OK proteger xpm abandonne
+	- restructurer le tout et cleaner
+	- protege mallocs
+	- leaks
+*/
 
 int	main(int ac, char **av, char **env)
 {

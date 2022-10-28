@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:13:30 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/27 12:22:06 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/28 18:22:30 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,122 +27,6 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
 		i -= 8;
 	}
-}
-
-void	render_background(t_data *data, int color)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			img_pix_put(&data->img, x, y, color);
-			x++;
-		}
-		y++;
-	}
-}
-
-void hud_put_empty_square(t_data *data, int x, int y, int color)
-{
-	int ix;
-	int iy;
-
-	ix = x * data->hud.xt;
-	while (ix < (x + 1) * data->hud.xt)
-	{
-		iy = y * data->hud.yt;
-		while (iy < (y + 1) * data->hud.yt)
-			img_pix_put(&data->img, ix, iy++, color);
-		ix++;
-	}
-}
-
-void walls_edges(t_data *data, int x, int y, int color)
-{
-	int ix;
-	int iy;
-
-	ix = x * data->hud.xt;
-	iy = y * data->hud.yt;
-	while (ix < (x + 1) * data->hud.xt)
-	{
-		img_pix_put(&data->img, ix, iy, color);
-		img_pix_put(&data->img, ix, iy + 1, color);
-		img_pix_put(&data->img, ix, iy + data->hud.yt - 1, color);
-		img_pix_put(&data->img, ix, iy + data->hud.yt - 2, color);
-		ix++;
-	}
-	ix = x * data->hud.xt;
-	while (iy < (y + 1) * data->hud.yt)
-	{
-		img_pix_put(&data->img, ix, iy, color);
-		img_pix_put(&data->img, ix + 1, iy, color);
-		img_pix_put(&data->img, ix + data->hud.xt + 1, iy, color);
-		img_pix_put(&data->img, ix + data->hud.xt, iy, color);
-		img_pix_put(&data->img, ix + data->hud.xt - 1, iy, color);
-		iy++;
-	}
-}
-
-void empty_spaces(t_data *data)
-{
-	int y;
-	int x;
-
-	y = -1;
-	while (data->map.map[++y])
-	{
-		x = -1;
-		while (data->map.map[y][++x])
-		{
-			if (data->map.map[y][x] == '0' || data->map.map[y][x] == 'N'
-				|| data->map.map[y][x] == 'S' || data->map.map[y][x] == 'W'
-				|| data->map.map[y][x] == 'E')
-				hud_put_empty_square(data, x, y, GREY);
-			else if (data->map.map[y][x] == '2' || data->map.map[y][x] == ' ')
-				hud_put_empty_square(data, x, y, WHITE);
-		}
-	}
-}
-
-void black_edges(t_data *data)
-{
-	int y;
-	int x;
-
-	y = -1;
-	while (data->map.map[++y])
-	{
-		x = -1;
-		while (data->map.map[y][++x])
-		{
-			if (data->map.map[y][x] == '1')
-				walls_edges(data, x, y, BLACK);
-		}
-	}
-}
-
-void render_hud(t_data *data, int color)
-{
-	int	y;
-	int	x;
-
-	y = -1;
-	while (++y < data->hud.ysize)
-	{
-		x = -1;
-		// printf("hudxsize:%d\n", data->hud.xsize);
-		while (++x < data->hud.xsize)
-			img_pix_put(&data->img, x, y, color);
-	}
-	int k = -1;
-	empty_spaces(data);
-	black_edges(data);
 }
 
 double sign(t_data *data, double x, double y, t_hpt pa, t_hpt pb)
@@ -197,88 +81,14 @@ void render_player(t_data *data, int color)
 	}
 }
 
-void px_to_image_debug(t_img *image, int x, int y, int color)
-{
-	image->addr[y + x] = color;
-}
-
-int	get_image_pixel_debug(t_img *image, int col, int row, int width)
-{
-
-	return ((int)image->iaddr[col + row * width]);
-}
-
-void render_image(t_data *data)
-{
-	// int color;
-	// printf("RED int:%d\n", (int)GREY);
-	// img_pix_put(&data->img, 476, 156, RED);
-	// color = get_image_pixel_debug(&data->img, 476, 156, data->width);
-	// printf("color int:%d\n", color);
-
-	int i;
-	int j;
-	int xshift = 500;
-	int yshift = 200; // starts here!
-	int color;
-
-	i = -1;
-	while (++i < data->width)
-	{
-		j = -1;
-		while (++j < data->height)
-		{
-			if (i < data->tex.no.x)
-			{
-				if (j < data->tex.no.y)
-				{
-					color = get_image_pixel_debug(&data->tex.no, i, j, (int)data->tex.no.x);
-					// printf("i:%d and j:%d color:%d\n", i, j, color);
-					img_pix_put(&data->img, i + xshift, j + yshift, color);
-					// if (i == 0)
-						printf("x:%d y:%d color:%d ix:%i iy:%d\n", i, j, color,i + xshift,j +yshift);
-				}
-			}
-		}
-	}
-}
-
-void print_col_row(t_data *data)
-{
-	int i = -1;
-	int j = -1;
-	int color;
-
-	while (++i < data->tex.no.x)
-	{
-		j = -1;
-		while (++j < data->tex.no.y)
-		{
-			color = get_image_pixel_debug(&data->tex.no, i, j, (int)data->tex.no.y);
-			// printf("col:%d and row:%d color:%d\n", i, j, color);
-			img_pix_put(&data->img, i, j, color);
-		}
-	}
-}
-
-
 int	render(t_data *data)
 {
 	if (data->win_ptr == NULL)
 		return (1);
-
-
-	// // Ray tracing
 	ray_tracing(data);
-
-
-	// print_col_row(data);
-	// render_image(data);
-
 	render_hud(data, STRONG_BLUE);
 	render_player(data, YELLOW);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
-
 	return (0);
 }
 
@@ -295,7 +105,91 @@ int	render(t_data *data)
 
 
 
+// void	render_background(t_data *data, int color)
+// {
+// 	int	y;
+// 	int	x;
 
+// 	y = 0;
+// 	while (y < HEIGHT)
+// 	{
+// 		x = 0;
+// 		while (x < WIDTH)
+// 		{
+// 			img_pix_put(&data->img, x, y, color);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
+
+
+// void print_col_row(t_data *data)
+// {
+// 	int i = -1;
+// 	int j = -1;
+// 	int color;
+
+// 	while (++i < data->tex.no.x)
+// 	{
+// 		j = -1;
+// 		while (++j < data->tex.no.y)
+// 		{
+// 			color = get_image_pixel_debug(&data->tex.no, i, j, (int)data->tex.no.y);
+// 			// printf("col:%d and row:%d color:%d\n", i, j, color);
+// 			img_pix_put(&data->img, i, j, color);
+// 		}
+// 	}
+// }
+
+
+
+
+// void px_to_image_debug(t_img *image, int x, int y, int color)
+// {
+// 	image->addr[y + x] = color;
+// }
+
+// int	get_image_pixel_debug(t_img *image, int col, int row, int width)
+// {
+
+// 	return ((int)image->iaddr[col + row * width]);
+// }
+
+// void render_image(t_data *data)
+// {
+// 	// int color;
+// 	// printf("RED int:%d\n", (int)GREY);
+// 	// img_pix_put(&data->img, 476, 156, RED);
+// 	// color = get_image_pixel_debug(&data->img, 476, 156, data->width);
+// 	// printf("color int:%d\n", color);
+
+// 	int i;
+// 	int j;
+// 	int xshift = 500;
+// 	int yshift = 200; // starts here!
+// 	int color;
+
+// 	i = -1;
+// 	while (++i < data->width)
+// 	{
+// 		j = -1;
+// 		while (++j < data->height)
+// 		{
+// 			if (i < data->tex.no.x)
+// 			{
+// 				if (j < data->tex.no.y)
+// 				{
+// 					color = get_image_pixel_debug(&data->tex.no, i, j, (int)data->tex.no.x);
+// 					// printf("i:%d and j:%d color:%d\n", i, j, color);
+// 					img_pix_put(&data->img, i + xshift, j + yshift, color);
+// 					// if (i == 0)
+// 						printf("x:%d y:%d color:%d ix:%i iy:%d\n", i, j, color,i + xshift,j +yshift);
+// 				}
+// 			}
+// 		}
+// 	}
+// }
 
 
 	// render_background(data, WHITE); // a supprimer car inutile

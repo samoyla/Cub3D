@@ -6,7 +6,7 @@
 #    By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/10/25 14:58:22 by iguscett         ###   ########.fr        #
+#    Updated: 2022/10/28 18:59:39 by iguscett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,11 @@ CSRCS		=	cub3d.c \
 				init.c \
 				utils.c \
 				events.c \
+				events_update_positions.c \
+				events_validate_move.c \
 				free.c \
 				draw.c \
+				draw_hud.c \
 				get_map_info.c \
 				map_elements.c \
 				map_division.c \

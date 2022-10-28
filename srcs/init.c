@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:07:48 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/27 12:40:20 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/28 18:25:23 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,6 @@ void load_textures(t_data *data, t_img *img, char *path)
 	// while (img->iaddr[i])
 	// 	i++;
 
-	printf("addr[0]:%c addr[50]:%c addr[51]:%c addr[65535]:%c addr[65536]:%c addr[65537]:%c\n", img->addr[0], img->addr[50],img->addr[51],img->addr[65535],img->addr[65536],img->addr[65537]);
-printf("addr[0]:%c addr[50]:%c addr[51]:%c addr[65535]:%c addr[65536]:%c addr[65537]:%c\n", img->iaddr[0], img->iaddr[50],img->iaddr[51],img->iaddr[65535],img->iaddr[65536],img->iaddr[65537]);
 }
 
 void init_textures(t_data *data)
