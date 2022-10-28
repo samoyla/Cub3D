@@ -84,7 +84,7 @@ static int	check_input(char *str)
 		if (*str == '\n' && *(str + 1) && *(str + 1) == '\n')
 		{
 		 	printf("Error\nempty horizontal lines in map\n");
-		 	exit (FAILURE);
+		 	return (FAILURE);
 		 }
 		 else
 		 	str++;
@@ -99,7 +99,10 @@ void	tab_whole_map(t_map *map, char **av)
 	i = 0;
 	read_input(map, av);
 	if (check_input(map->input) == FAILURE)
+	{
+		free(map->input);
 		exit (FAILURE);
+	}
 	map->whole = ft_split(map->input, '\n');
 	while (map->whole[i])
 		i++;
