@@ -52,6 +52,7 @@ void	tab_decor(char *pathname, t_map *map)
 		i++;
 	}
 	map->count = count;
+	printf("map-count = %d\n", map->count);
 	//print_tab(map->decor);//supprimer
 }
 
@@ -77,9 +78,8 @@ int	tab_map(char *pathname, t_map *map)
 	int	size_max;
 
 	i = 0;
-	j = map->count + 6;
-	printf("j = %d\n", j);
-	size = map->size - map->count + 6;
+	j = 6;
+	size = map->size + j;
 	if (size == 0)
 		return (FAILURE);
 	size_max = max_width(&map->whole[j], map);
@@ -93,5 +93,6 @@ int	tab_map(char *pathname, t_map *map)
 		j++;
 	}
 	map->map[i] = 0;
+	print_tab(map->map);
 	return (SUCCESS);
 }

@@ -50,6 +50,18 @@ static int	ft_whitespaces_no_n(char c)
 	return (FAILURE);
 }
 
+static int	if_n_end(char *str)
+{
+	int i = 0;
+	while(str[i])
+	{
+		if (str[i] != '\n')
+			return(1);
+		i++; 
+	}
+	return (0);
+}
+
 static int	check_input(char *str)
 {
 	int	i;
@@ -79,9 +91,10 @@ static int	check_input(char *str)
 		if (*str != '\0')
 			str++;
 	}
+	printf("flag_start = %d\n", flag_start);
 	while (*str)
 	{
-		if (*str == '\n' && *(str + 1) && *(str + 1) == '\n')
+		if (*str == '\n' && *(str + 1) && *(str + 1) == '\n' && if_n_end(str))
 		{
 		 	printf("Error\nempty horizontal lines in map\n");
 		 	return (FAILURE);
@@ -108,6 +121,6 @@ void	tab_whole_map(t_map *map, char **av)
 		i++;
 	map->size = i;
 	printf("size of whole map = %d\n", map->size);
-	print_tab(map->whole);
+	//print_tab(map->whole);
 	free(map->input);
 }

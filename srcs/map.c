@@ -82,6 +82,7 @@ static int	check_player(t_map *map)
 
 	i = -1;
 	nb_p = 0;
+	//printf("first line of map:\n%s\n", map->map[0]);
 	while (map->map[++i])
 	{
 		j = -1;
