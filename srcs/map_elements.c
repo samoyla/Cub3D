@@ -83,7 +83,7 @@ int	tab_map(char *pathname, t_map *map)
 	if (size == 0)
 		return (FAILURE);
 	size_max = max_width(&map->whole[j], map);
-	map->map = ft_calloc(size + 1, sizeof(char *));
+	map->map = ft_calloc(size, sizeof(char *));
 	if (!map->map)
 		return (FAILURE);
 	while (map->whole[j] != NULL)
@@ -92,7 +92,7 @@ int	tab_map(char *pathname, t_map *map)
 			i++;
 		j++;
 	}
-	map->map[i] = 0;
+	//map->map[i] = 0;
 	print_tab(map->map);
 	return (SUCCESS);
 }

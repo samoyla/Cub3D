@@ -28,19 +28,19 @@ int	create_tab_elements(char *pathname, t_map *map, t_check *check, char **av)
 	return (SUCCESS);
 }
 
-char	*s_n_r(char *str, char c, char ac)
-{
-	int	i;
+// char	*s_n_r(char *str, char c, char ac)
+// {
+// 	int	i;
 
-	i = 0;
-	while (str && str[i])
-	{
-		while (str[i] == c)
-			str[i] = ac;
-		i++;
-	}
-	return (str);
-}
+// 	i = 0;
+// 	while (str && str[i])
+// 	{
+// 		while (str[i] == c)
+// 			str[i] = ac;
+// 		i++;
+// 	}
+// 	return (str);
+// }
 
 static int	ft_whitespaces_no_n(char c)
 {
@@ -55,7 +55,7 @@ static int	if_n_end(char *str)
 	int i = 0;
 	while(str[i])
 	{
-		if (str[i] != '\n')
+		if (str[i] != '\n' && ft_whitespaces_no_n(str[i]) == FAILURE)
 			return(1);
 		i++; 
 	}
@@ -121,6 +121,6 @@ void	tab_whole_map(t_map *map, char **av)
 		i++;
 	map->size = i;
 	printf("size of whole map = %d\n", map->size);
-	//print_tab(map->whole);
+	print_tab(map->whole);
 	free(map->input);
 }
