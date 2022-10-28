@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:06:53 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/27 18:25:30 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/28 16:30:51 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,14 +143,15 @@ void get_height(t_data *data, int i, t_vect *va)
 {
 	double ray_dist;
 
+
+	ray_dist = norm_two_points(data->player.check, data->player.rayp) * cos(data->screen.point_angle - data->player.angle);
+	data->wheight[i] = DIST / ray_dist;
+	if (data->wheight[i] > 1)
+		data->wheight[i] = 1;
 	// if (i >= 639 && i <= 641)
 	// {
-	// 	printf("i:%d dist:%f cos:%f\n", i, norm_two_points(data->player.check, data->player.rayp), cos(data->screen.point_angle - data->player.angle));
-	// 	printf("i:%d angle point:%f player angle:%f\n", i, data->screen.point_angle, data->player.angle);
+	// 	printf("i:%d ray_dist:%f wheight:%f\n", i, ray_dist, data->wheight[i]);
 	// }
-	ray_dist = norm_two_points(data->player.check, data->player.rayp) * cos(data->screen.point_angle - data->player.angle);
-
-	data->wheight[i] = DIST / ray_dist;
 }
 
 void get_column(t_data *data, int i)

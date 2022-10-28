@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 22:35:57 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/27 18:27:19 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/28 16:38:58 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void get_wall_height_texture(t_data *data, int ix)
 	data->wall.wall_height = data->wheight[ix];
 	data->wall.wall_height_px = (int)(data->wall.wall_height / data->screen.yincr);
 	data->wall.low_limit_px = (data->height - data->wall.wall_height_px) / 2;
-	if (data->wall.low_limit_px < 0)
-		data->wall.low_limit_px = 0;
+	// if (data->wall.low_limit_px < 0)
+	// 	data->wall.low_limit_px = 0;
 	data->wall.high_limit_px = data->wall.low_limit_px + data->wall.wall_height_px;
 	if (data->wall.high_limit_px > data->height)
 		data->wall.high_limit_px = data->height;
@@ -90,9 +90,14 @@ void texture_colums(t_data *data, int ix)
 	{
 		// printf("p:%p p:%p p:%p p:%p\n", &data->tex.no,&data->tex.ea,&data->tex.so,&data->tex.we);
 		// printf("ix:%d row:%d -> whpx:%d and row in %%:%f\n", ix, row);
+
+
+		// if (ix == 640)//ix >= 639 && ix <= 641)
+		// {
+		// 	// printf("h:%d\n")
+		// 	printf("c:%d et r:%d\n", (int)((data->wall.column) * data->wall.texture->x), (int)(((double)(row - data->wall.low_limit_px) / data->wall.wall_height_px) * data->wall.texture->y));
+		// }
 		color = get_image_pixel_color(data->wall.texture, data->wall.column, (double)(row - data->wall.low_limit_px) / data->wall.wall_height_px);
-
-
 
 		img_pix_put(&data->img, ix, row++, color);
 	}
