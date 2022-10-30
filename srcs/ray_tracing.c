@@ -6,11 +6,21 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 22:35:57 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/24 16:46:37 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/30 16:55:13 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	get_image_pixel_color(t_img *image, double col, double row)
+{
+	int c;
+	int r;
+
+	c = (int)((col) * image->x);
+	r = (int)(row * image->y);
+	return ((int)image->iaddr[c + (int)(r * image->x)]);
+}
 
 void z_rotation(t_data *data, t_posi *p, double angle)
 {
@@ -21,56 +31,66 @@ void z_rotation(t_data *data, t_posi *p, double angle)
 	y = p->y - data->player.pos.y;
 	p->y = data->player.pos.y + y * cos(angle) - x * sin(angle);
 	p->x = data->player.pos.x + y * sin(angle) + x * cos(angle);
-
 }
 
-void ray_tracing(t_data *data)
+void get_wall_height_texture(t_data *data, int ix)
+{
+	data->wall.wall_height = data->wall.wheight[ix];
+	data->wall.wall_height_px = (int)(data->wall.wall_height / data->screen.yincr);
+	data->wall.low_limit_px = (data->height - data->wall.wall_height_px) / 2;
+	data->wall.high_limit_px = data->wall.low_limit_px + data->wall.wall_height_px;
+	if (data->wall.high_limit_px > data->height)
+		data->wall.high_limit_px = data->height;
+}
+
+void get_wall_texture(t_data *data, int ix)
+{
+	if (data->wall.side[ix] == 'N')
+		data->wall.texture = &data->tex.no;
+	else if (data->wall.side[ix] == 'E')
+		data->wall.texture = &data->tex.ea;
+	else if (data->wall.side[ix] == 'S')
+		data->wall.texture = &data->tex.so;
+	else if (data->wall.side[ix] == 'W')
+		data->wall.texture = &data->tex.we;
+}
+
+void get_wall_column(t_data *data, int ix)
+{
+	data->wall.column = data->wall.col[ix];
+}
+
+void texture_colums(t_data *data, int ix)
+{
+	int row;
+	int color;
+
+	get_wall_height_texture(data, ix);
+	get_wall_texture(data, ix);
+	get_wall_column(data, ix);
+	row = 0;
+	while (row < data->wall.low_limit_px)
+		img_pix_put(&data->img, ix, row++, data->map.ceilling);
+	while (row < data->wall.high_limit_px)
+	{
+		color = get_image_pixel_color(data->wall.texture, data->wall.column, (double)(row - data->wall.low_limit_px) / data->wall.wall_height_px);
+		img_pix_put(&data->img, ix, row++, color);
+	}
+	while (row < data->height)
+		img_pix_put(&data->img, ix, row++, data->map.floor);
+}
+
+void textures(t_data *data)
 {
 	int	ix;
-	int iy;
 
 	ix = -1;
 	while (++ix < data->width)
-	{
-		iy = -1;
-		while(++iy < data->height)
-		{
-			if ((iy < data->height / 2) && (data->screen.fullh / 2) - iy * data->screen.yincr > data->screen.wheight[ix] / 2)
-				img_pix_put(&data->img, ix, iy, RED);
-			else if ((iy > data->height / 2) && ((iy - data->height / 2) * data->screen.yincr > data->screen.wheight[ix] / 2))
-				img_pix_put(&data->img, ix, iy, data->map.floor);
-			else
-				img_pix_put(&data->img, ix, iy, STRONG_BLUE);
-		}
-	}
+		texture_colums(data, ix);
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-	img_pix_put(&data->img, data->player.pos.x * data->hud.xt, data->player.pos.y * data->hud.yt, STRONG_BLUE);
-	img_pix_put(&data->img, data->player.pos.x * data->hud.xt+1, data->player.pos.y * data->hud.yt, STRONG_BLUE);
-	img_pix_put(&data->img, data->player.pos.x * data->hud.xt, data->player.pos.y * data->hud.yt+1, STRONG_BLUE);
-	img_pix_put(&data->img, data->player.pos.x * data->hud.xt+1, data->player.pos.y * data->hud.yt+1, STRONG_BLUE);
-
-	img_pix_put(&data->img, data->screen.pleft.x * data->hud.xt, data->screen.pleft.y * data->hud.yt, STRONG_BLUE);
-	img_pix_put(&data->img, data->screen.pleft.x * data->hud.xt+1, data->screen.pleft.y * data->hud.yt, STRONG_BLUE);
-	img_pix_put(&data->img, data->screen.pleft.x * data->hud.xt, data->screen.pleft.y * data->hud.yt+1, STRONG_BLUE);
-	img_pix_put(&data->img, data->screen.pleft.x * data->hud.xt+1, data->screen.pleft.y * data->hud.yt+1, STRONG_BLUE);
-
-
-	img_pix_put(&data->img, data->screen.pright.x * data->hud.xt, data->screen.pright.y * data->hud.yt, STRONG_BLUE);
-	img_pix_put(&data->img, data->screen.pright.x * data->hud.xt+1, data->screen.pright.y * data->hud.yt, STRONG_BLUE);
-	img_pix_put(&data->img, data->screen.pright.x * data->hud.xt, data->screen.pright.y * data->hud.yt+1, STRONG_BLUE);
-	img_pix_put(&data->img, data->screen.pright.x * data->hud.xt+1, data->screen.pright.y * data->hud.yt+1, STRONG_BLUE);
-
+void ray_tracing(t_data *data)
+{
+	textures(data);
 }

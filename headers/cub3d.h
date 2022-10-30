@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/24 22:41:56 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/30 18:13:12 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,38 @@
 # define SCALE				64
 # define MLX_ERROR 			1
 # define BUFFER_SIZE		1
-# define HUD_SIZE_FACTOR	4
 
 # define PI					3.1415
-# define FOV				66 * PI / 180
 
-# define BLUE				0x07E0
-# define STRONG_BLUE		0x004D98
+# define STRONG_BLUE		0x00004D98
 # define YELLOW				0xFFFF00
 # define RED				0xFF0000
 # define WHITE				0xFFFFFF
 # define GREY				0x9C9C9C
 # define BLACK				0x000000
 
-// Events
-# define STEP				0.1 //* SCALE //0.2 * SCALING_FACTOR
-# define NB_ANGLES			32
-# define ROT				PI * 0.125
-static double angles[17] = {0, PI * 0.125, PI * 0.25, PI * 0.375, PI * 0.5, PI * 0.625, PI * 0.75, PI * 0.875,
-							PI, PI * 1.125, PI * 1.25, PI * 1.375, PI * 1.5, PI * 1.625, PI * 1.75, PI * 1.875, -1};
+# define TRANSPARENCY 		0
 
-// Raycasting
-# define DIST				0.05 //* SCALE //0.1 * SCALING_FACTOR
-# define HALF				(tan(FOV * 0.5) * DIST * 2) //* SCALE //* SCALING_FACTOR
+// IN GAME PARAMETERS
+# define FOV				66 * PI / 180
+# define CUB_SIZE			1
+# define STEP				0.1
+# define NB_ANGLES			64
+# define DIST				0.1
+# define HALF				(tan(FOV * 0.5) * DIST)
 # define MAX_PDIST			HALF / sin(FOV * 0.5)
+# define HUD_SIZE_FACTOR	4
+# define HUD_X_SIZE			11
+# define HUD_Y_SIZE			6
+
+typedef struct	s_read
+{
+	int		eof;
+	ssize_t	b_read;
+	int		fd;
+	char	*temp;
+
+}				t_read;
 
 typedef struct	s_map
 {
@@ -98,22 +106,25 @@ typedef struct s_check
 	int	ea;
 }t_check;
 
-typedef struct s_img
+typedef struct	s_img
 {
 	void	*img;
 	char	*addr;
+	int		*iaddr;
 	int		bpp;
 	int		line_len;
 	int		endian;
-}t_img;
+	double	x;
+	double	y;
+}				t_img;
 
-typedef struct s_imgs
+typedef struct	s_imgs
 {
 	t_img	no;
+	t_img	ea;
 	t_img	so;
 	t_img	we;
-	t_img	ea;
-}t_imgs;
+}				t_imgs;
 
 typedef struct	s_posi
 {
@@ -130,16 +141,16 @@ typedef struct	s_vect
 
 typedef struct	s_screen
 {
-	double	full;
-	double	half;
-	double	fullh;
+	double	xfull;
+	double	xhalf;
 	double	xincr;
+	double	yfull;
 	double	yincr;
+	double	point_angle;
 	t_posi	pleft;
 	t_posi	pright;
 	t_vect	v;
-	double	*dist;
-	double	*wheight;
+
 }				t_screen;
 
 typedef struct	s_playr
@@ -172,6 +183,20 @@ typedef struct	s_tri
 	t_hpt	p3;
 }				t_tri;
 
+typedef struct	s_wall
+{
+	t_img	*texture;
+	double	wall_height;
+	int		wall_height_px;
+	int		low_limit_px;
+	int		high_limit_px;
+	double	column;
+	double	*wheight;
+	double	*col;
+	char	*side;
+
+}				t_wall;
+
 typedef struct	s_hud
 {
 	int		xsize;
@@ -191,26 +216,20 @@ typedef struct	s_data
 	t_map	map;
 	t_img	img;
 	t_playr	player;
-	t_hud	hud;
 	t_screen screen;
+	t_wall	wall;
 	t_imgs	tex;
+	t_hud	hud;
 }				t_data;
 
-typedef struct s_read
-{
-	int		eof;
-	ssize_t	b_read;
-	int		fd;
-	char	*temp;
 
-}t_read;
+// ****************************************************	//
+// INITIALIZATION										//
+// ****************************************************	//
+void	init_pointers(t_data *data);
+void 	init_map_and_check_struct(t_data *data, t_check *check);
+void	check_nb_args_and_file(t_data *data, int argc, char **argv);
 
-//check_map_file.c
-int		check_args(int ac);
-int		check_file(char *s);
-//init.c
-void	init_map(t_map *map);
-void	init_check(t_check *check);
 void	get_map(t_map *map);
 t_data	*init_data(t_data *data, char *name);
 t_data	*init_image(t_data *data);
@@ -241,6 +260,8 @@ int		map_analysis(t_map *map);
 //fill_map.c
 int		max_width(char **mapi, t_map *map);
 char	*ft_strdup_space(char *s, int size);
+// textture
+void	init_textures(t_data *data);
 
 //resize_width_height.c
 void	resize_width_height(t_data *data);
@@ -251,22 +272,36 @@ void	init_player(t_data *data);
 
 // HUD
 void	set_hud(t_data *data);
+void	hud_put_empty_square(t_data *data, int x, int y, int color);
+void 	walls_edges(t_data *data, int x, int y, int color);
+void	empty_spaces(t_data *data);
+void 	black_edges(t_data *data);
+void 	render_hud(t_data *data, int color);
+
+//events
+void	screen_points_update(t_data *data);
+void	z_angle_rotation(t_data *data, int key);
+void	hud_points_update(t_data *data);
+void 	z_rotation_player(t_data *data, int key);
+int 	is_move_valid(t_data *data, t_posi pcheck);
 
 // SCREEN LINE
-void 	set_screen_points(t_data *data);;
+void 	init_screen(t_data *data);;
 
 // Ray tracing
 void	ray_tracing(t_data *data);
 void 	z_rotation(t_data *data, t_posi *p, double angle);
-void	wall_distance(t_data *data);
+void	get_wall_height(t_data *data);
 double	wall_boundary(double coord, double dir);
+int		encode_trgb(uint8_t transparency, uint8_t red, uint8_t green, uint8_t blue);
+int		create_trgb(unsigned char t, unsigned char r, unsigned char g, unsigned char b);
 
 //utils.c
 void	check_fd(int fd);
 void	print_tab(char	**tab);
 int		if_str_digit(char *s);
 int		digit_size(char *s);
-double	abs_double(double a);
+double	absd(double a);
 int		encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
 
 //MLX
@@ -281,5 +316,7 @@ void	free_map_struct(t_map *map);
 int		render(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	render_background(t_data *data, int color);
+
+void	err_free_ptrs(t_data *data, char *err);
 
 #endif
