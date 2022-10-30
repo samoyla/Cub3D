@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:06:53 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/28 16:41:48 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/30 16:55:04 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,10 @@ void update_wall_value_and_idx_x(t_data *data, t_posi *w, t_posi *m, int *wall, 
 	if (data->map.map[(int)m->y][(int)m->x] == '1')
 	{
 		*wall = 1;
-		data->wallnb[i] = (int)(m->y * 10) + (int)m->x;
 		if (va->vx < 0)
-			data->side[i] = 'W';
+			data->wall.side[i] = 'W';
 		else
-			data->side[i] = 'E';
+			data->wall.side[i] = 'E';
 	}
 	if (va->vx < 0)
 		w->x -= 1;
@@ -121,11 +120,10 @@ void update_wall_value_and_idx_y(t_data *data, t_posi *w, t_posi *m, int *wall, 
 	if (data->map.map[(int)m->y][(int)m->x] == '1')
 	{
 		*wall = 1;
-		data->wallnb[i] = (int)(m->y * 10) + (int)m->x;
 		if (va->vy < 0)
-			data->side[i] = 'N';
+			data->wall.side[i] = 'N';
 		else
-			data->side[i] = 'S';
+			data->wall.side[i] = 'S';
 	}
 	if (va->vy < 0)
 		w->y -= 1;
@@ -139,21 +137,21 @@ void get_height(t_data *data, int i, t_vect *va)
 
 
 	ray_dist = norm_two_points(data->player.check, data->player.rayp) * cos(data->screen.point_angle - data->player.angle);
-	data->wheight[i] = DIST / ray_dist;
-	if (data->wheight[i] > 1)
-		data->wheight[i] = 1;
+	data->wall.wheight[i] = DIST / ray_dist;
+	if (data->wall.wheight[i] > 1)
+		data->wall.wheight[i] = 1;
 }
 
 void get_column(t_data *data, int i)
 {
-	if (data->side[i] == 'N')
-		data->col[i] = (data->player.rayp.x - ceil(data->player.rayp.x) + 1);
-	else if (data->side[i] == 'E')
-		data->col[i] = (data->player.rayp.y - ceil(data->player.rayp.y) + 1);
-	if (data->side[i] == 'S')
-		data->col[i] = (ceil(data->player.rayp.x) - data->player.rayp.x);
-	if (data->side[i] == 'W')
-		data->col[i] = (ceil(data->player.rayp.y) - data->player.rayp.y);
+	if (data->wall.side[i] == 'N')
+		data->wall.col[i] = (data->player.rayp.x - ceil(data->player.rayp.x) + 1);
+	else if (data->wall.side[i] == 'E')
+		data->wall.col[i] = (data->player.rayp.y - ceil(data->player.rayp.y) + 1);
+	if (data->wall.side[i] == 'S')
+		data->wall.col[i] = (ceil(data->player.rayp.x) - data->player.rayp.x);
+	if (data->wall.side[i] == 'W')
+		data->wall.col[i] = (ceil(data->player.rayp.y) - data->player.rayp.y);
 }
 
 void get_wall_height(t_data *data)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/28 19:04:58 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/30 18:07:16 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,21 @@
 	- restructurer le tout et cleaner
 	- protege mallocs
 	- leaks
+
+	!! une map vide segfault!!!
 */
 
-int	main(int ac, char **av, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	t_check	check;
 
+	init_pointers(&data);
 	if (!(*env))
-	{
-		ft_putstr_fd("env doesn't exist\n", 2);
-		exit(FAILURE);
-	}
-	init_map(&data.map);
-	init_check(&check);
-	if (check_args(ac) == FAILURE)
-		;
-		// exit (FAILURE);
-	if (check_file(av[1]) == FAILURE)
-		;
-		// exit (FAILURE);
-	if (create_tab_elements(av[1], &data.map, &check, av) == FAILURE)
+		err_free_ptrs(&data, "env doesn't exist\n");
+	init_map_and_check_struct(&data, &check);
+	check_nb_args_and_file(&data, argc, argv);
+	if (create_tab_elements(argv[1], &data.map, &check, argv) == FAILURE)
 		;
 		// exit (FAILURE);
 	get_map(&data.map);

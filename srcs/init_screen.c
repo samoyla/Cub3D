@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:11:32 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/27 13:10:28 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/30 16:54:26 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,7 @@ void init_screen(t_data *data)
 	norm = sqrt((data->screen.v.vx * data->screen.v.vx) + (data->screen.v.vy * data->screen.v.vy));
 	data->screen.v.vx /= norm;
 	data->screen.v.vy /= norm;
-	data->wheight = malloc(sizeof(data->wheight) * data->width); // protect malloc
-	data->col = malloc(sizeof(data->col) * data->width); // protect malloc;
-	data->side = malloc(sizeof(data->side) * data->width); // protect malloc;
-	data->wallnb = malloc(sizeof(int) * data->width); // protect malloc;
+	data->wall.wheight = malloc(sizeof(data->wall.wheight) * data->width); // protect malloc
+	data->wall.col = malloc(sizeof(data->wall.col) * data->width); // protect malloc;
+	data->wall.side = malloc(sizeof(data->wall.side) * data->width); // protect malloc;
 }
-
-
-
-	// printf("FULL:%f xincr:%f width:%d width*xincr:%f\n", 2 * HALF, data->screen.xincr, data->width, data->width*data->screen.xincr);
-	// printf("y full:%f yincr:%f full(multiplication):%f\n", data->screen.yfull, data->screen.yincr, data->screen.yincr * data->height);
-	// printf("vx:%f vy:%f\n", data->screen.v.vx, data->screen.v.vy);

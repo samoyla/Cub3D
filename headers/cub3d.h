@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/28 19:00:42 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/30 17:42:35 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,15 @@
 # define HUD_X_SIZE			11
 # define HUD_Y_SIZE			6
 
+typedef struct	s_read
+{
+	int		eof;
+	ssize_t	b_read;
+	int		fd;
+	char	*temp;
+
+}				t_read;
+
 typedef struct	s_map
 {
 	char	**whole;
@@ -112,8 +121,8 @@ typedef struct	s_img
 typedef struct	s_imgs
 {
 	t_img	no;
-	t_img	so;
 	t_img	ea;
+	t_img	so;
 	t_img	we;
 }				t_imgs;
 
@@ -174,16 +183,6 @@ typedef struct	s_tri
 	t_hpt	p3;
 }				t_tri;
 
-typedef struct	s_hud
-{
-	int		xsize;
-	int		ysize;
-	int		xt;
-	int		yt;
-	t_tri	tri;
-	char	**map;
-}				t_hud;
-
 typedef struct	s_wall
 {
 	t_img	*texture;
@@ -192,8 +191,20 @@ typedef struct	s_wall
 	int		low_limit_px;
 	int		high_limit_px;
 	double	column;
+	double	*wheight;
+	double	*col;
+	char	*side;
 
 }				t_wall;
+
+typedef struct	s_hud
+{
+	int		xsize;
+	int		ysize;
+	int		xt;
+	int		yt;
+	t_tri	tri;
+}				t_hud;
 
 typedef struct	s_data
 {
@@ -205,34 +216,21 @@ typedef struct	s_data
 	t_map	map;
 	t_img	img;
 	t_playr	player;
-	t_hud	hud;
 	t_screen screen;
 	t_wall	wall;
 	t_imgs	tex;
-	// double	*dist;
-	double	*wheight;
-	double	*col;
-	char	*side;
-	int		*wallnb;
-
-
+	t_hud	hud;
 }				t_data;
 
-typedef struct s_read
-{
-	int		eof;
-	ssize_t	b_read;
-	int		fd;
-	char	*temp;
 
-}t_read;
 
-//check_map_file.c
-int		check_args(int ac);
-int		check_file(char *s);
-//init.c
-void	init_map(t_map *map);
-void	init_check(t_check *check);
+// ****************************************************	//
+// INITIALIZATION										//
+// ****************************************************	//
+void	init_pointers(t_data *data);
+void 	init_map_and_check_struct(t_data *data, t_check *check);
+void	check_nb_args_and_file(t_data *data, int argc, char **argv);
+
 void	get_map(t_map *map);
 t_data	*init_data(t_data *data, char *name);
 t_data	*init_image(t_data *data);
@@ -318,5 +316,7 @@ void	free_map_struct(t_map *map);
 int		render(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	render_background(t_data *data, int color);
+
+void	err_free_ptrs(t_data *data, char *err);
 
 #endif

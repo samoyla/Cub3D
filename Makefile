@@ -6,7 +6,7 @@
 #    By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/10/28 18:59:39 by iguscett         ###   ########.fr        #
+#    Updated: 2022/10/30 17:37:11 by iguscett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,15 @@ NAME		=	cub3D
 
 SRCS_DIR	=	srcs/
 
-CSRCS		=	cub3d.c \
-				check_map_file.c \
+CSRCS		=	main.c \
+				init_pointers.c \
 				init.c \
+				init_map_and_check_struct.c \
+				check_map_file.c \
 				utils.c \
 				events.c \
 				events_update_positions.c \
 				events_validate_move.c \
-				free.c \
 				draw.c \
 				draw_hud.c \
 				get_map_info.c \
@@ -39,6 +40,7 @@ CSRCS		=	cub3d.c \
 				init_screen.c \
 				get_wall_height.c \
 				ray_tracing.c \
+				error_and_free.c \
 
 SRCS		=	$(addprefix $(SRCS_DIR), $(CSRCS))
 

@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 22:35:57 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/28 16:40:57 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/30 16:55:13 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void z_rotation(t_data *data, t_posi *p, double angle)
 
 void get_wall_height_texture(t_data *data, int ix)
 {
-	data->wall.wall_height = data->wheight[ix];
+	data->wall.wall_height = data->wall.wheight[ix];
 	data->wall.wall_height_px = (int)(data->wall.wall_height / data->screen.yincr);
 	data->wall.low_limit_px = (data->height - data->wall.wall_height_px) / 2;
 	data->wall.high_limit_px = data->wall.low_limit_px + data->wall.wall_height_px;
@@ -45,19 +45,19 @@ void get_wall_height_texture(t_data *data, int ix)
 
 void get_wall_texture(t_data *data, int ix)
 {
-	if (data->side[ix] == 'N')
+	if (data->wall.side[ix] == 'N')
 		data->wall.texture = &data->tex.no;
-	else if (data->side[ix] == 'E')
+	else if (data->wall.side[ix] == 'E')
 		data->wall.texture = &data->tex.ea;
-	else if (data->side[ix] == 'S')
+	else if (data->wall.side[ix] == 'S')
 		data->wall.texture = &data->tex.so;
-	else if (data->side[ix] == 'W')
+	else if (data->wall.side[ix] == 'W')
 		data->wall.texture = &data->tex.we;
 }
 
 void get_wall_column(t_data *data, int ix)
 {
-	data->wall.column = data->col[ix];
+	data->wall.column = data->wall.col[ix];
 }
 
 void texture_colums(t_data *data, int ix)

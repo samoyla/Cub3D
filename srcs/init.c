@@ -6,42 +6,11 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:07:48 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/28 18:25:23 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/30 17:31:59 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-//Map
-void	init_map(t_map *map)
-{
-	map->whole = NULL;
-	map->decor = NULL;
-	map->map = NULL;
-	map->input = NULL;
-	map->so = NULL;
-	map->no = NULL;
-	map->ea = NULL;
-	map->we = NULL;
-	map->size = 0;
-	map->count = 0;
-	map->f_red = 0;
-	map->f_green = 0;
-	map->f_blue = 0;
-	map->c_red = 0;
-	map->c_green = 0;
-	map->c_blue = 0;
-}
-
-void	init_check(t_check *check)
-{
-	check->f = 0;
-	check->c = 0;
-	check->no = 0;
-	check->so = 0;
-	check->we = 0;
-	check->ea = 0;
-}
 
 void	get_map(t_map *map)
 {
@@ -49,22 +18,11 @@ void	get_map(t_map *map)
 	get_color(map);
 }
 
-//MLX
 t_data	*init_data(t_data *data, char *name)
 {
-	data->tex.no.img = NULL;
-	data->tex.so.img = NULL;
-	data->tex.ea.img = NULL;
-	data->tex.we.img = NULL;
-	data->tex.no.addr = NULL;
-	data->tex.so.addr = NULL;
-	data->tex.ea.addr = NULL;
-	data->tex.we.addr = NULL;
-	data->mlx_ptr = NULL;
 	data->mlx_ptr = mlx_init();
 	if (data->mlx_ptr == NULL)
 		free(data->mlx_ptr);
-	data->win_ptr = NULL;
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->width, data->height, name);
 	if (data->win_ptr == NULL)
 	{
