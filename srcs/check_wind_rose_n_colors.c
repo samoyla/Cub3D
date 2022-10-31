@@ -30,7 +30,7 @@ int	check_exist(t_check check)
 		|| check.f != 1 || check.c != 1)
 	{
 		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("wrong characters\n", 2);
+		ft_putstr_fd("wrong characters in decor\n", 2);
 		return (FAILURE);
 	}
 	return (SUCCESS);
@@ -60,14 +60,12 @@ int	check_windrose(t_check *check, char **split, t_map *map)
 		ft_putstr_fd("Error\n", 2);
 		ft_putstr_fd("path of texture is not valid\n", 2);
 		free_tab(split);
-		free_map_struct(map);
 		return (FAILURE);
 	}
 	if (path_ext(split[1]) == FAILURE)
 	{
 		ft_putstr_fd("Error\nwrong texture extention\n", 2);
 		free_tab(split);
-		free_map_struct(map);
 		return (FAILURE);
 	}
 	close(fd);
@@ -82,7 +80,6 @@ int	check_nb(char **str, t_map *map)
 	split_nb = ft_split(str[1], ',');
 	if (split_nb == NULL)
 		return (FAILURE);
-	//print_tab(split_nb);
 	i = -1;
 	while (split_nb[++i])
 	{
@@ -91,7 +88,6 @@ int	check_nb(char **str, t_map *map)
 		{
 			free_tab(split_nb);
 			free_tab(str);
-			free_map_struct(map);
 			ft_putstr_fd("rgb problem\n", 2);
 			return (FAILURE);
 		}
@@ -101,7 +97,6 @@ int	check_nb(char **str, t_map *map)
 		ft_putstr_fd("format of rgb is incorrect\n", 2);
 		free_tab(split_nb);
 		free_tab(str);
-		free_map_struct(map);
 		return (FAILURE);
 	}
 	free_tab(split_nb);

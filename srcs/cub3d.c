@@ -30,7 +30,10 @@ int	main(int ac, char **av, char **env)
 	if (check_file(av[1]) == FAILURE)
 		exit (FAILURE);
 	if (create_tab_elements(av[1], &data.map, &check, av) == FAILURE)
+	{
+		free_map_struct(&data.map);
 		exit (FAILURE);
+	}
 	get_map(&data.map);
 	
 // 	printf("floor color:%d ceilling:%d\n", data.map.floor, data.map.ceilling);

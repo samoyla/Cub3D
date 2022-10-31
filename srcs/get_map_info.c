@@ -28,20 +28,6 @@ int	create_tab_elements(char *pathname, t_map *map, t_check *check, char **av)
 	return (SUCCESS);
 }
 
-// char	*s_n_r(char *str, char c, char ac)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (str && str[i])
-// 	{
-// 		while (str[i] == c)
-// 			str[i] = ac;
-// 		i++;
-// 	}
-// 	return (str);
-// }
-
 static int	ft_whitespaces_no_n(char c)
 {
 	if (c == ' ' || c == '\r'
@@ -66,8 +52,7 @@ static int	check_input(char *str)
 {
 	int	i;
 	int	flag_start;
-	int end;
-
+	
 	i = 0;
 	flag_start = 0;
 	while (*str)

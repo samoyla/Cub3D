@@ -50,6 +50,7 @@ void	tab_decor(char *pathname, t_map *map)
 		else
 			count++;
 		i++;
+
 	}
 	map->count = count;
 	printf("map-count = %d\n", map->count);
@@ -70,6 +71,17 @@ int	check_space(char *str)
 	return (SUCCESS);
 }
 
+int	real_size_map(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while(map->whole)
+	{
+		
+	}
+}
+
 int	tab_map(char *pathname, t_map *map)
 {
 	int	i;
@@ -78,8 +90,9 @@ int	tab_map(char *pathname, t_map *map)
 	int	size_max;
 
 	i = 0;
-	j = 6;
-	size = map->size + j;
+	j = 6 + map->count;
+	size = map->size - j;
+	printf("size of map is %d\n", size);
 	if (size == 0)
 		return (FAILURE);
 	size_max = max_width(&map->whole[j], map);
@@ -92,7 +105,8 @@ int	tab_map(char *pathname, t_map *map)
 			i++;
 		j++;
 	}
-	//map->map[i] = 0;
+	printf("--------------------------------------------------\n");
 	print_tab(map->map);
+	printf("--------------------------------------------------\n");
 	return (SUCCESS);
 }

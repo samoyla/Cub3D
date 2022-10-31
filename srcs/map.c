@@ -28,7 +28,6 @@ static int	forbidden_map_ch(t_map *map)
 				&& map->map[i][j] != 'W' && map->map[i][j] != 'E'
 				&& map->map[i][j] != ' ')
 			{
-				free_map_struct(map);
 				ft_putstr_fd("forbidden characters in the map\n", 2);
 				return (FAILURE);
 			}
@@ -65,7 +64,6 @@ static int	check_if_inside(t_map *map)
 				|| map->map[i][j] == 'W' || map->map[i][j] == 'E')
 				&& check_in_walls(map, i, j) == FAILURE)
 			{
-				free_map_struct(map);
 				ft_putstr_fd("Error\nwrong player position or map is open\n", 2);
 				return (FAILURE);
 			}
@@ -82,7 +80,6 @@ static int	check_player(t_map *map)
 
 	i = -1;
 	nb_p = 0;
-	//printf("first line of map:\n%s\n", map->map[0]);
 	while (map->map[++i])
 	{
 		j = -1;
@@ -95,7 +92,6 @@ static int	check_player(t_map *map)
 	}
 	if (nb_p != 1)
 	{
-		free_map_struct(map);
 		ft_putstr_fd("Error\nwrong number of players\n", 2);
 		return (FAILURE);
 	}

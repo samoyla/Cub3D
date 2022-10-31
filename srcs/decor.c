@@ -72,7 +72,6 @@ static int	split_condition(char **split, t_check *check, t_map *map)
 	if (!split[1] || split[2])
 	{
 		free_tab(split);
-		free_map_struct(map);
 		ft_putstr_fd("Error\n", 2);
 		ft_putstr_fd("wrong decor setting or it does not exist\n", 2);
 		return (FAILURE);
@@ -109,7 +108,7 @@ int	decor_analysis(t_map *map, t_check *check)
 		else
 		{
 			ft_putstr_fd("Error\n", 2);
-			ft_putstr_fd("lines contain more than spaces\n", 2);
+			ft_putstr_fd("lines contain not only spaces\n", 2);
 			return (FAILURE);
 		}
 		free_tab(split);
