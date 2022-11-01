@@ -86,6 +86,7 @@ typedef struct	s_map
 	int		c_blue;
 	int			floor;
 	int			ceilling;
+	int	index;
 }				t_map;
 
 typedef struct s_check

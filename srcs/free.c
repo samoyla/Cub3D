@@ -37,7 +37,7 @@ void	free_tab(char **tab)
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	while (tab[i] != NULL)
 	{
 		free(tab[i]);
 		i++;
@@ -48,8 +48,8 @@ void	free_tab(char **tab)
 
 void	free_map_struct(t_map *map)
 {
-	//if (map == NULL)
-	//	return ;
+	if (map == NULL)
+		return ;
 	if (map->whole)
 		free_tab(map->whole);
 	if (map->decor)

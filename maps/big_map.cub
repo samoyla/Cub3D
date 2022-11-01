@@ -2,7 +2,7 @@ NO ./texture/wall.xpm
 EA ./texture/wall.xpm
 
   
-SO       ./texture/wall.xpm
+SO ./texture/wall.xpm
   
 C 51,255,255
 	

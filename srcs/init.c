@@ -31,6 +31,7 @@ void	init_map(t_map *map)
 	map->c_red = 0;
 	map->c_green = 0;
 	map->c_blue = 0;
+	map->index = 0;
 }
 
 void	init_check(t_check *check)

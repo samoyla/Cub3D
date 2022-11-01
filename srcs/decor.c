@@ -94,6 +94,7 @@ int	decor_analysis(t_map *map, t_check *check)
 
 	i = -1;
 	split = NULL;
+	print_tab(map->decor);
 	while (map->decor[++i])
 	{
 		tmp = map->decor[i];

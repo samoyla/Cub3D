@@ -76,7 +76,7 @@ static int	check_input(char *str)
 		if (*str != '\0')
 			str++;
 	}
-	printf("flag_start = %d\n", flag_start);
+	//printf("flag_start = %d\n", flag_start);
 	while (*str)
 	{
 		if (*str == '\n' && *(str + 1) && *(str + 1) == '\n' && if_n_end(str))
@@ -105,7 +105,7 @@ void	tab_whole_map(t_map *map, char **av)
 	while (map->whole[i])
 		i++;
 	map->size = i;
-	printf("size of whole map = %d\n", map->size);
-	print_tab(map->whole);
+	// printf("size of whole map = %d\n", map->size);
+	// print_tab(map->whole);
 	free(map->input);
 }
