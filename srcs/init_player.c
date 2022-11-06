@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:36:16 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/25 16:23:59 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 15:58:31 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ void init_player(t_data *data)
 	int y;
 	int x;
 
-	data->player.angles = malloc(sizeof(data->player.angles) *(NB_ANGLES)); // protect malloc
+	data->player.angles = malloc(sizeof(data->player.angles) *(NB_ANGLES));
+	if (data->player.angles == NULL)
+		exit_free_destroy(data, "Problem in malloc\n", FAILURE);
 	x = -1;
 	while (++x < NB_ANGLES)
 		data->player.angles[x] = x * 2 * PI / NB_ANGLES;

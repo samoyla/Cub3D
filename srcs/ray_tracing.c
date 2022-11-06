@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 22:35:57 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/30 16:55:13 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 15:54:00 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ void get_wall_height_texture(t_data *data, int ix)
 void get_wall_texture(t_data *data, int ix)
 {
 	if (data->wall.side[ix] == 'N')
-		data->wall.texture = &data->tex.no;
+		data->wall.texture = data->tex.no;
 	else if (data->wall.side[ix] == 'E')
-		data->wall.texture = &data->tex.ea;
+		data->wall.texture = data->tex.ea;
 	else if (data->wall.side[ix] == 'S')
-		data->wall.texture = &data->tex.so;
+		data->wall.texture = data->tex.so;
 	else if (data->wall.side[ix] == 'W')
-		data->wall.texture = &data->tex.we;
+		data->wall.texture = data->tex.we;
 }
 
 void get_wall_column(t_data *data, int ix)
@@ -73,7 +73,7 @@ void texture_colums(t_data *data, int ix)
 		img_pix_put(&data->img, ix, row++, data->map.ceilling);
 	while (row < data->wall.high_limit_px)
 	{
-		color = get_image_pixel_color(data->wall.texture, data->wall.column, (double)(row - data->wall.low_limit_px) / data->wall.wall_height_px);
+		color = get_image_pixel_color(&data->wall.texture, data->wall.column, (double)(row - data->wall.low_limit_px) / data->wall.wall_height_px);
 		img_pix_put(&data->img, ix, row++, color);
 	}
 	while (row < data->height)

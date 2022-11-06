@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/30 17:42:35 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 15:49:57 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@
 # define MLX_ERROR 			1
 # define BUFFER_SIZE		1
 
-# define PI					3.1415
-
 # define STRONG_BLUE		0x00004D98
 # define YELLOW				0xFFFF00
 # define RED				0xFF0000
@@ -49,9 +47,8 @@
 # define GREY				0x9C9C9C
 # define BLACK				0x000000
 
-# define TRANSPARENCY 		0
+# define PI					3.1415
 
-// IN GAME PARAMETERS
 # define FOV				66 * PI / 180
 # define CUB_SIZE			1
 # define STEP				0.1
@@ -183,9 +180,16 @@ typedef struct	s_tri
 	t_hpt	p3;
 }				t_tri;
 
+typedef struct	s_hcalc
+{
+	t_posi	wall;
+	t_posi	matrix;
+	t_vect	vangle;
+}				t_hcalc;
+
 typedef struct	s_wall
 {
-	t_img	*texture;
+	t_img	texture;
 	double	wall_height;
 	int		wall_height_px;
 	int		low_limit_px;
@@ -230,45 +234,45 @@ typedef struct	s_data
 void	init_pointers(t_data *data);
 void 	init_map_and_check_struct(t_data *data, t_check *check);
 void	check_nb_args_and_file(t_data *data, int argc, char **argv);
+void	get_and_analyze_map(t_data *data, t_check *check, char *pathname, char **av);
+void	read_input(t_data *data, char **argv);
+void	get_map_tex_and_colors(t_data *data, char *pathname);
+void	decor_analysis(t_data *data, t_check *check);
+void	tab_map(t_data *data, char *pathname);
+void	map_analysis(t_data *data);
+void	get_map(t_data *data);
+void	init_player(t_data *data);
+void 	init_screen_and_hud(t_data *data);
 
-void	get_map(t_map *map);
-t_data	*init_data(t_data *data, char *name);
-t_data	*init_image(t_data *data);
-//read_input.c
-void	read_input(t_map *map, char **argv);
-//get_map_info.c
-int		create_tab_elements(char *pathname, t_map *map, t_check *check, char **av);
-char	*s_n_r(char *str, char c, char ac);
+void	update_ray_step(t_data *data, t_hcalc *st);
+void	update_raypos_and_matrix_idx_x(t_data *data, t_hcalc *st);
+void	update_raypos_and_matrix_idx_y(t_data *data, t_hcalc *st);
+void	update_wall_value_and_idx_x(t_data *data, t_hcalc *st, int *wall, int i);
+void	update_wall_value_and_idx_y(t_data *data, t_hcalc *st, int *wall, int i);
+
+void	init_data_image_textures(t_data *data, char *name);
+
 int		map_size(char *pathname);
-void	tab_whole_map(t_map *map, char **av);
 //map_elements.c
-int		tab_map(char *pathname, t_map *map);
+
 int		check_line_space(char *str);
-void	tab_decor(char *pathname, t_map *map);
+
 int		check_space(char *str);
-//map_devision.c
-void	get_texture(t_map *map);
-void	get_color(t_map *map);
 //decor.c
-int		decor_analysis(t_map *map, t_check *check);
+
 //check_wind_rose_and colors.c
 int		check_doubles(t_check check);
 int		check_exist(t_check check);
 int		check_windrose(t_check *check, char **split);
 int		check_nb(char *str);
-//map.c
-int		map_analysis(t_map *map);
+
 //fill_map.c
 int		max_width(char **map);
 char	*ft_strdup_space(char *s, int size);
 // textture
 void	init_textures(t_data *data);
-//resize_width_height.c
-void	resize_width_height(t_data *data);
-//map_size.c
-void		get_map_size(t_map *map);
 // PLAYER
-void	init_player(t_data *data);
+
 
 // HUD
 void	set_hud(t_data *data);
@@ -285,9 +289,6 @@ void	hud_points_update(t_data *data);
 void 	z_rotation_player(t_data *data, int key);
 int 	is_move_valid(t_data *data, t_posi pcheck);
 
-// SCREEN LINE
-void 	init_screen(t_data *data);;
-
 // Ray tracing
 void	ray_tracing(t_data *data);
 void 	z_rotation(t_data *data, t_posi *p, double angle);
@@ -301,8 +302,11 @@ void	check_fd(int fd);
 void	print_tab(char	**tab);
 int		if_str_digit(char *s);
 int		digit_size(char *s);
-double	absd(double a);
 int		encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
+double	norm_vector(t_vect v);
+double	norm_two_points(t_posi p1, t_posi p2);
+double	absd(double a);
+
 
 //MLX
 //events.c
@@ -310,13 +314,16 @@ int		handle_keypress(int keysem, t_data *data);
 int		ft_red_cross(t_data *data);
 //free.c
 void	ft_free_n_destroy(t_data *data);
-void	free_tab(char **tab);
 void	free_map_struct(t_map *map);
 //draw.c
 int		render(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	render_background(t_data *data, int color);
 
-void	err_free_ptrs(t_data *data, char *err);
+void	exit_and_free(t_data *data, char *err, int exit_code);
+void	exit_free_destroy(t_data *data, char *err, int exit_code);
+void 	free_pointers_map(t_data *data);
+void 	free_pointers_wall(t_data *data);
+void	free_double_ptr_char(char **str);
 
 #endif

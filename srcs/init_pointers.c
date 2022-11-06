@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:07:48 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/30 17:26:26 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 15:52:45 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void init_pointers_screen_img(t_data *data)
 
 void init_pointers_wall(t_data *data)
 {
-	data->wall.texture = NULL;
 	data->wall.wheight = NULL;
 	data->wall.col = NULL;
 	data->wall.side = NULL;

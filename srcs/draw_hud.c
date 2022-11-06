@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:13:30 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/28 17:56:16 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 15:59:07 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void render_hud(t_data *data, int color)
 	while (++y < data->hud.ysize)
 	{
 		x = -1;
-		// printf("hudxsize:%d\n", data->hud.xsize);
 		while (++x < data->hud.xsize)
 			img_pix_put(&data->img, x, y, color);
 	}

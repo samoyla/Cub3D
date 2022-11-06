@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   decor.c                                            :+:      :+:    :+:   */
+/*   decor_analysis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 15:12:05 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/21 16:59:05 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/11/06 15:58:20 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,50 +70,54 @@ static int	check_decor_lines(char **split, t_check *check)
 static int	split_condition(char **split, t_check *check)
 {
 	if (!split[1] || split[2])
-	{
-		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("wrong decor setting\n", 2);
-		free_tab(split);
 		return (FAILURE);
-	}
-	if (split[1])
-	{
-		if (check_decor_lines(split, check) == FAILURE)
-		{
-			free_tab(split);
-			return (FAILURE);
-		}
-	}
-	else
-		free_tab(split);
+	if (check_decor_lines(split, check) == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
-}	
+}
 
-int	decor_analysis(t_map *map, t_check *check)
+int	check_space(char *str)
 {
 	int	i;
-	char	**split;
 
 	i = -1;
-	split = NULL;
-	while (map->decor[++i])
+	while (str[++i])
 	{
-		map->decor[i] = ft_strtrim(map->decor[i], " \t\n\v\f\r");
-		if (check_space(map->decor[i]) == SUCCESS)
-		{	
-			split = ft_split(map->decor[i], ' ');
+		if (str[i] < 32)
+			return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
+void decor_analysis(t_data *data, t_check *check)
+{
+	int		i;
+	char	**split;
+	char	*str;
+
+	i = -1;
+	while (data->map.decor[++i])
+	{
+		str = ft_strtrim(data->map.decor[i], " \t\n\v\f\r");
+		if (check_space(str) == SUCCESS)
+		{
+			split = ft_split(str, ' ');
+			free(str);
+			if (split == NULL)
+				exit_free_destroy(data, "Problem in malloc\n", FAILURE);
 			if (split_condition(split, check) == FAILURE)
-				return (FAILURE);
+			{
+				free_double_ptr_char(split);
+				exit_free_destroy(data, "Wrong decor setting\n", FAILURE);
+			}
+			free_double_ptr_char(split);
 		}
 		else
 		{
-			ft_putstr_fd("Error\n", 2);
-			ft_putstr_fd("lines contain more than spaces\n", 2);
-			return (FAILURE);
+			free(str);
+			exit_free_destroy(data, "Lines contain more than spaces\n", FAILURE);
 		}
 	}
 	if (check_exist(*check) == FAILURE)
-		return (FAILURE);
-	free_tab(split);
-	return (SUCCESS);
+		exit_free_destroy(data, "Wrong charcters\n", FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 16:00:08 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/28 19:04:51 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 15:58:23 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,6 @@ void move_player(t_data *data, int key)
 	data->player.posh.y = data->player.pos.y * data->hud.yt;
 	hud_points_update(data);
 	screen_points_update(data);
-
-	// checker
-	// data->player.check.x = data->player.pos.x + data->player.v.vx * DIST;
-	// data->player.check.y = data->player.pos.y + data->player.v.vy * DIST;
 }
 
 int	handle_keypress(int key, t_data *data)
@@ -70,19 +66,11 @@ int	handle_keypress(int key, t_data *data)
 	else if(key == XK_w || key == XK_a
 		|| key == XK_s || key == XK_d)
 		move_player(data, key);
-	else
-		printf("Key pressed:%d\n", key);
-
 	get_wall_height(data);
-
-
 	return (0);
 }
 
 int	ft_red_cross(t_data *data)
 {
-	ft_free_n_destroy(data);
-	//free_tab(map->decor);
-	//free_tab(map->whole);
-	exit (0);
+	exit_free_destroy(data, NULL, SUCCESS);
 }

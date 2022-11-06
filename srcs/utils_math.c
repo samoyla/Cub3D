@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_size.c                                         :+:      :+:    :+:   */
+/*   utils_math.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 12:17:42 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/21 18:36:08 by iguscett         ###   ########.fr       */
+/*   Created: 2022/10/30 21:15:52 by iguscett          #+#    #+#             */
+/*   Updated: 2022/10/30 21:30:51 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void get_map_size(t_map *map)
+double norm_vector(t_vect v)
 {
-	long y;
-	long x;
+	return (sqrt((v.vx * v.vx) + (v.vy * v.vy)));
+}
 
-	y = 0;
-	if (map->map[0])
-		x = ft_strlen(map->map[0]);
-	while (map->map[(int)y])
-	{
-		if (ft_strlen(map->map[(int)y]) > x)
-			x = ft_strlen(map->map[y]);
-		y++;
-		// if (y > INT_MAX)
-		// 	ERROR;
-	}
-	map->xsize = x; // proteger le x aussi?...
-	map->ysize = y;
+double norm_two_points(t_posi p1, t_posi p2)
+{
+	return (sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y)));
+}
+
+double absd(double a)
+{
+	if (a >= 0)
+		return (a);
+	return (-a);
 }

@@ -12,6 +12,13 @@
 
 #include "cub3d.h"
 
+static void	ft_init_data_read(t_read *data_read)
+{
+	data_read->eof = 0;
+	data_read->b_read = 0;
+	data_read->temp = NULL;
+}
+
 static char	*ft_strjoin_free(char *s1, char const *s2)
 {
 	char	*temp;
@@ -42,21 +49,14 @@ static char	*ft_strjoin_free(char *s1, char const *s2)
 	return (temp);
 }
 
-static void	ft_init_data_read(t_read *data_read)
+static void	close_and_exit(t_data *data, t_read *data_read)
 {
-	data_read->eof = 0;
-	data_read->b_read = 0;
-	data_read->temp = NULL;
+	if (data_read->fd >= 0)
+		close(data_read->fd);
+	exit_free_destroy(data, "Problem in malloc\n", FAILURE);
 }
 
-static void	close_and_exit(t_read *data_read)
-{
-	close(data_read->fd);
-	ft_putstr_fd("Problem in malloc\n", 2);
-	exit(FAILURE);
-}
-
-void	read_input(t_map *map, char **argv)
+void	read_input(t_data *data, char **argv)
 {
 	t_read		data_read;
 	static char	buff[1024];
@@ -64,20 +64,18 @@ void	read_input(t_map *map, char **argv)
 	ft_init_data_read(&data_read);
 	data_read.fd = open(argv[1], O_RDONLY);
 	if (data_read.fd < 0)
-	{
-		ft_putstr_fd("Problem encountered while reading the file\n", 2);
-		exit(FAILURE);
-	}
+		exit_free_destroy(data, "Problem encountered while reading the file\n", FAILURE);
 	while (!data_read.eof)
 	{
 		data_read.b_read = read(data_read.fd, buff, 1024);
 		data_read.temp = ft_strjoin_free(data_read.temp, buff);
 		if (data_read.temp == NULL)
-			close_and_exit(&data_read);
+			close_and_exit(data, &data_read);
 		ft_bzero(buff, 1024);
 		if (data_read.b_read < 1024)
 			data_read.eof = 1;
 	}
-	close(data_read.fd);
-	map->input = data_read.temp;
+	if (data_read.fd >= 0)
+		close(data_read.fd);
+	data->map.input = data_read.temp;
 }

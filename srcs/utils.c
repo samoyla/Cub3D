@@ -6,11 +6,24 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:10:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/28 17:31:57 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/10/30 20:52:03 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void free_double_ptr_char(char **str)
+{
+	int i;
+
+	i = -1;
+	if (str != NULL)
+	{
+		while (str[++i])
+			free(str[i]);
+		free(str);
+	}
+}
 
 void	check_fd(int fd)
 {
@@ -18,18 +31,6 @@ void	check_fd(int fd)
 	{
 		perror("fd:");
 		exit(FAILURE);
-	}
-}
-
-void	print_tab(char	**tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i] != NULL)
-	{
-		printf("tab %s\n", tab[i]);
-		i++;
 	}
 }
 
