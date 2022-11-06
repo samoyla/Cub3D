@@ -6,13 +6,13 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:27:24 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/06 15:58:03 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 16:21:38 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void get_texture(t_data *data)
+static void	get_texture(t_data *data)
 {
 	int		i;
 	char	**wind_rose;
@@ -38,7 +38,7 @@ static void get_texture(t_data *data)
 		exit_free_destroy(data, "Problem in malloc\n", FAILURE);
 }
 
-static void get_color_values(t_data *data, char *str, char c)
+static void	get_color_values(t_data *data, char *str, char c)
 {
 	char	**rgb;
 
@@ -60,11 +60,10 @@ static void get_color_values(t_data *data, char *str, char c)
 	free_double_ptr_char(rgb);
 }
 
-static void get_color(t_data *data)
+static void	get_color(t_data *data)
 {
 	int		i;
 	char	**color_line;
-
 
 	i = -1;
 	while (data->map.decor[++i] && i < 6)
@@ -78,14 +77,16 @@ static void get_color(t_data *data)
 			get_color_values(data, color_line[1], 'C');
 		free_double_ptr_char(color_line);
 	}
-	data->map.floor = encode_rgb(data->map.f_red, data->map.f_green, data->map.f_blue);
-	data->map.ceilling = encode_rgb(data->map.c_red, data->map.c_green, data->map.c_blue);
+	data->map.floor = encode_rgb(data->map.f_red,
+			data->map.f_green, data->map.f_blue);
+	data->map.ceilling = encode_rgb(data->map.c_red,
+			data->map.c_green, data->map.c_blue);
 }
 
-static void get_map_size(t_data *data)
+static void	get_map_size(t_data *data)
 {
-	long y;
-	long x;
+	long	y;
+	long	x;
 
 	y = 0;
 	if (data->map.map[0])
@@ -104,11 +105,9 @@ static void get_map_size(t_data *data)
 	data->map.ysize = y;
 }
 
-void get_map(t_data *data)
+void	get_map(t_data *data)
 {
 	get_texture(data);
 	get_color(data);
 	get_map_size(data);
-	// if (data->map.decor != NULL)
-	// 	free_double_ptr_char(data->map.decor);
 }

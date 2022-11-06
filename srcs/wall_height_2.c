@@ -6,19 +6,21 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:06:53 by iguscett          #+#    #+#             */
-/*   Updated: 2022/10/30 22:48:31 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 16:45:45 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void update_ray_step(t_data *data, t_hcalc *st)
+void	update_ray_step(t_data *data, t_hcalc *st)
 {
-	data->player.step.x = absd((st->wall.x - data->player.rayp.x) /st->vangle.vx);
-	data->player.step.y = absd((st->wall.y - data->player.rayp.y) /st->vangle.vy);
+	data->player.step.x = absd((st->wall.x
+				- data->player.rayp.x) / st->vangle.vx);
+	data->player.step.y = absd((st->wall.y
+				- data->player.rayp.y) / st->vangle.vy);
 }
 
-void update_raypos_and_matrix_idx_x(t_data *data, t_hcalc *st)
+void	update_raypos_and_matrix_idx_x(t_data *data, t_hcalc *st)
 {
 	data->player.rayp.x += st->vangle.vx * data->player.step.x;
 	data->player.rayp.y += st->vangle.vy * data->player.step.x;
@@ -29,7 +31,7 @@ void update_raypos_and_matrix_idx_x(t_data *data, t_hcalc *st)
 	st->matrix.y = ceil(data->player.rayp.y) - 1;
 }
 
-void update_raypos_and_matrix_idx_y(t_data *data, t_hcalc *st)
+void	update_raypos_and_matrix_idx_y(t_data *data, t_hcalc *st)
 {
 	data->player.rayp.x += st->vangle.vx * data->player.step.y;
 	data->player.rayp.y += st->vangle.vy * data->player.step.y;
@@ -40,7 +42,7 @@ void update_raypos_and_matrix_idx_y(t_data *data, t_hcalc *st)
 	st->matrix.x = ceil(data->player.rayp.x) - 1;
 }
 
-void update_wall_value_and_idx_x(t_data *data, t_hcalc *st, int *wall, int i)
+void	update_wall_value_and_idx_x(t_data *data, t_hcalc *st, int *wall, int i)
 {
 	if (data->map.map[(int)st->matrix.y][(int)st->matrix.x] == '1')
 	{
@@ -56,7 +58,7 @@ void update_wall_value_and_idx_x(t_data *data, t_hcalc *st, int *wall, int i)
 		st->wall.x += 1;
 }
 
-void update_wall_value_and_idx_y(t_data *data, t_hcalc *st, int *wall, int i)
+void	update_wall_value_and_idx_y(t_data *data, t_hcalc *st, int *wall, int i)
 {
 	if (data->map.map[(int)st->matrix.y][(int)st->matrix.x] == '1')
 	{

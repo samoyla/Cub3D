@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:45:09 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 12:33:28 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/11/06 16:27:47 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	max_width(char **map)
 			size = ft_strlen(map[i]);
 		i++;
 	}
-	return (size);	
+	return (size);
 }
 
 char	*ft_strdup_space(char *s, int size)
 {
 	char	*dest;
-	int	i;
+	int		i;
 
 	i = 0;
 	dest = malloc(sizeof(char) * size + 1);
@@ -41,7 +41,6 @@ char	*ft_strdup_space(char *s, int size)
 	{
 		dest[i] = s[i];
 		i++;
-		
 	}
 	while (i < size)
 	{

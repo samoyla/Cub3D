@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_free_struct.c                                 :+:      :+:    :+:   */
+/*   exit_free_more.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 16:29:42 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/06 15:57:04 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 16:44:35 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void free_map_struct(t_map *map)
+void	free_map_struct(t_map *map)
 {
 	if (map->whole)
 		free_double_ptr_char(map->whole);
@@ -28,9 +28,8 @@ void free_map_struct(t_map *map)
 		free(map->we);
 }
 
-void free_pointers_map(t_data *data)
+void	free_pointers_map(t_data *data)
 {
-
 	free_double_ptr_char(data->map.whole);
 	free_double_ptr_char(data->map.map);
 	if (data->map.input)
@@ -46,7 +45,7 @@ void free_pointers_map(t_data *data)
 	free(data->map.decor);
 }
 
-void free_pointers_wall(t_data *data)
+void	free_pointers_wall(t_data *data)
 {
 	if (data->wall.wheight)
 		free(data->wall.wheight);
@@ -54,19 +53,4 @@ void free_pointers_wall(t_data *data)
 		free(data->wall.col);
 	if (data->wall.side)
 		free(data->wall.side);
-}
-
-void exit_and_free(t_data *data, char *err, int exit_code)
-{
-	if (exit_code == FAILURE)
-	{
-		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd(err, 2);
-	}
-	free_map_struct(&data->map);
-	free_pointers_map(data);
-	if (data->player.angles)
-		free(data->player.angles);
-	free_pointers_wall(data);
-	exit (exit_code);
 }

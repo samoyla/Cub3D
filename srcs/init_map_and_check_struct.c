@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:07:48 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/30 17:37:32 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 16:11:49 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ void	init_check(t_check *check)
 	check->ea = 0;
 }
 
-void init_map_and_check_struct(t_data *data, t_check *check)
+void	init_map_and_check_struct(t_data *data, t_check *check)
 {
+	data->fov = FOV_DEGREES * PI / 180;
+	data->half = (tan(data->fov * 0.5) * DIST);
+	data->max_pdist = data->half / sin(data->fov * 0.5);
 	init_map(&data->map);
 	init_check(check);
 }

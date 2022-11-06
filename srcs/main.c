@@ -6,11 +6,15 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/06 15:58:48 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 17:00:15 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+// check ALL MALLOCS
+// check map file, redo extensin checker
+//
 
 int	main(int argc, char **argv, char **env)
 {

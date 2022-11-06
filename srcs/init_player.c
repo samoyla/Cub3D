@@ -6,13 +6,13 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:36:16 by iguscett          #+#    #+#             */
-/*   Updated: 2022/11/06 15:58:31 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 17:16:50 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int is_player_init_pos(char c)
+int	is_player_init_pos(char c)
 {
 	if (c == 'N' || c == 'S'
 		|| c == 'E' || c == 'W')
@@ -20,7 +20,7 @@ int is_player_init_pos(char c)
 	return (0);
 }
 
-void set_player_angle(t_data *data, char c)
+void	set_player_angle(t_data *data, char c)
 {
 	if (c == 'S')
 		data->player.angle = data->player.angles[0];
@@ -34,10 +34,10 @@ void set_player_angle(t_data *data, char c)
 	data->player.v.vy = cos(data->player.angle);
 }
 
-void init_player(t_data *data)
+void	init_player(t_data *data)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	data->player.angles = malloc(sizeof(data->player.angles) *(NB_ANGLES));
 	if (data->player.angles == NULL)

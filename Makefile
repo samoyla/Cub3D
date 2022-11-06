@@ -6,7 +6,7 @@
 #    By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/11/06 14:16:49 by iguscett         ###   ########.fr        #
+#    Updated: 2022/11/06 17:00:14 by iguscett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ CSRCS		=	main.c \
 				get_and_analyze_map.c \
 				map_elements.c \
 				decor_analysis.c \
+				decor_analysis_more.c \
 				get_map.c \
 				init_player.c \
 				init_screen_and_hud.c \
@@ -39,8 +40,8 @@ CSRCS		=	main.c \
 				ray_tracing.c \
 				utils.c \
 				utils_math.c \
-				exit_free_struct.c \
 				exit_free_destroy.c \
+				exit_free_more.c \
 
 SRCS		=	$(addprefix $(SRCS_DIR), $(CSRCS))
 

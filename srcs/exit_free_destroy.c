@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 16:29:42 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/06 15:58:33 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 16:19:43 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	mlx_free_and_destroy(t_data *data)
 	}
 }
 
-void destroy_textures(t_data *data)
+void	destroy_textures(t_data *data)
 {
 	if (data->tex.no.img && data->mlx_ptr)
 	{
@@ -56,7 +56,7 @@ void destroy_textures(t_data *data)
 	}
 }
 
-void exit_free_destroy(t_data *data, char *err, int exit_code)
+void	exit_free_destroy(t_data *data, char *err, int exit_code)
 {
 	if (exit_code == FAILURE)
 	{

@@ -1,14 +1,14 @@
-/* ************************************************************************ */
-/*                                                                          */
-/*                                                       :::      ::::::::  */
-/*  read_input.c                                       :+:      :+:    :+:  */
-/*                                                   +:+ +:+         +:+    */
-/*  By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+       */
-/*                                               +#+#+#+#+#+   +#+          */
-/*  Created: 2022/10/09 18:18:24 by iguscett          #+#    #+#            */
-/*  Updated: 2022/10/21 16:07:17 by masamoil         ###   ########.fr      */
-/*                                                                          */
-/* ************************************************************************ */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_input.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/06 16:50:26 by iguscett          #+#    #+#             */
+/*   Updated: 2022/11/06 16:50:29 by iguscett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3d.h"
 
@@ -23,7 +23,6 @@ static char	*ft_strjoin_free(char *s1, char const *s2)
 {
 	char	*temp;
 	size_t	it;
-	size_t	it2;
 
 	it = 0;
 	while (s1 && s1[it])
@@ -37,10 +36,9 @@ static char	*ft_strjoin_free(char *s1, char const *s2)
 		temp[it] = s1[it];
 		it++;
 	}
-	it2 = -1;
-	while (s2[++it2])
+	while (*s2)
 	{
-		temp[it] = s2[it2];
+		temp[it] = *s2++;
 		it++;
 	}
 	temp[it] = '\0';
@@ -64,7 +62,8 @@ void	read_input(t_data *data, char **argv)
 	ft_init_data_read(&data_read);
 	data_read.fd = open(argv[1], O_RDONLY);
 	if (data_read.fd < 0)
-		exit_free_destroy(data, "Problem encountered while reading the file\n", FAILURE);
+		exit_free_destroy(data,
+			"Problem encountered while reading the file\n", FAILURE);
 	while (!data_read.eof)
 	{
 		data_read.b_read = read(data_read.fd, buff, 1024);

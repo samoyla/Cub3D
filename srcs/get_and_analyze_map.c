@@ -6,13 +6,13 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 10:32:36 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/06 15:58:10 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 16:19:00 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void get_whole_map(t_data *data, char **av)
+static void	get_whole_map(t_data *data, char **av)
 {
 	int		i;
 
@@ -44,7 +44,7 @@ int	check_line_space(char *str)
 	return (FAILURE);
 }
 
-void get_map_tex_and_colors(t_data *data, char *pathname)
+void	get_map_tex_and_colors(t_data *data, char *pathname)
 {
 	int	i;
 	int	j;
@@ -73,7 +73,8 @@ void get_map_tex_and_colors(t_data *data, char *pathname)
 	data->map.count = count;
 }
 
-void get_and_analyze_map(t_data *data, t_check *check, char *pathname, char **av)
+void	get_and_analyze_map(t_data *data,
+	t_check *check, char *pathname, char **av)
 {
 	get_whole_map(data, av);
 	get_map_tex_and_colors(data, pathname);

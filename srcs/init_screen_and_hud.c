@@ -6,15 +6,15 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:11:32 by iguscett          #+#    #+#             */
-/*   Updated: 2022/11/06 15:58:36 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 17:12:54 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void resize_width_height(t_data *data)
+void	resize_width_height(t_data *data)
 {
-	int height_backup;
+	int	height_backup;
 
 	data->mlx_ptr_size = NULL;
 	data->mlx_ptr_size = mlx_init();
@@ -40,24 +40,30 @@ void resize_width_height(t_data *data)
 	data->mlx_ptr_size = NULL;
 }
 
-void set_screen_lr_points(t_data *data)
+void	set_screen_lr_points(t_data *data)
 {
-	data->screen.pleft.x = data->player.pos.x + HALF;
+	data->screen.pleft.x = data->player.pos.x + data->half;
 	data->screen.pleft.y = data->player.pos.y + DIST;
-	data->screen.pright.x = data->player.pos.x - HALF;
+	data->screen.pright.x = data->player.pos.x - data->half;
 	data->screen.pright.y = data->player.pos.y + DIST;
 	z_rotation(data, &data->screen.pleft, data->player.angle);
 	z_rotation(data, &data->screen.pright, data->player.angle);
 }
 
-void set_triangle(t_data *data)
+void	set_triangle(t_data *data)
 {
-	data->hud.tri.p1.x_map = data->player.pos.x + 0.25 * sin(data->player.angle);
-	data->hud.tri.p1.y_map = data->player.pos.y + 0.25 * cos(data->player.angle);
-	data->hud.tri.p2.x_map = data->player.pos.x + 0.16667 * sin(PI * 0.25 - data->player.angle);
-	data->hud.tri.p2.y_map = data->player.pos.y - 0.16667 * cos(PI * 0.25 - data->player.angle);
-	data->hud.tri.p3.x_map = data->player.pos.x - 0.16667 * sin(PI * 0.25 + data->player.angle);
-	data->hud.tri.p3.y_map = data->player.pos.y - 0.16667 * cos(PI * 0.25 + data->player.angle);
+	data->hud.tri.p1.x_map = data->player.pos.x
+		+ 0.25 * sin(data->player.angle);
+	data->hud.tri.p1.y_map = data->player.pos.y
+		+ 0.25 * cos(data->player.angle);
+	data->hud.tri.p2.x_map = data->player.pos.x
+		+ 0.16667 * sin(PI * 0.25 - data->player.angle);
+	data->hud.tri.p2.y_map = data->player.pos.y
+		- 0.16667 * cos(PI * 0.25 - data->player.angle);
+	data->hud.tri.p3.x_map = data->player.pos.x
+		- 0.16667 * sin(PI * 0.25 + data->player.angle);
+	data->hud.tri.p3.y_map = data->player.pos.y
+		- 0.16667 * cos(PI * 0.25 + data->player.angle);
 	data->hud.tri.p1.x_hud = data->hud.tri.p1.x_map * data->hud.xt;
 	data->hud.tri.p1.y_hud = data->hud.tri.p1.y_map * data->hud.yt;
 	data->hud.tri.p2.x_hud = data->hud.tri.p2.x_map * data->hud.xt;
@@ -66,7 +72,7 @@ void set_triangle(t_data *data)
 	data->hud.tri.p3.y_hud = data->hud.tri.p3.y_map * data->hud.yt;
 }
 
-void set_hud(t_data *data)
+void	set_hud(t_data *data)
 {
 	if (data->map.xsize * data->height > data->map.ysize * data->width)
 	{
@@ -85,20 +91,21 @@ void set_hud(t_data *data)
 	data->player.posh.y = data->player.pos.y * data->hud.yt;
 }
 
-void init_screen_and_hud(t_data *data)
+void	init_screen_and_hud(t_data *data)
 {
-	double norm;
+	double	norm;
 
 	resize_width_height(data);
 	set_screen_lr_points(data);
-	data->screen.xincr = (HALF * 2) / data->width;
-	data->screen.xfull = HALF * 2;
-	data->screen.xhalf = HALF;
+	data->screen.xincr = (data->half * 2) / data->width;
+	data->screen.xfull = data->half * 2;
+	data->screen.xhalf = data->half;
 	data->screen.yfull = data->screen.xincr * data->height;
 	data->screen.yincr = data->screen.yfull / data->height;
 	data->screen.v.vx = (data->screen.pright.x - data->screen.pleft.x);
 	data->screen.v.vy = (data->screen.pright.y - data->screen.pleft.y);
-	norm = sqrt((data->screen.v.vx * data->screen.v.vx) + (data->screen.v.vy * data->screen.v.vy));
+	norm = sqrt((data->screen.v.vx * data->screen.v.vx)
+			+ (data->screen.v.vy * data->screen.v.vy));
 	data->screen.v.vx /= norm;
 	data->screen.v.vy /= norm;
 	data->wall.wheight = malloc(sizeof(data->wall.wheight) * data->width);

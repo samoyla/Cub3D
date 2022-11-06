@@ -6,15 +6,15 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:10:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/30 20:52:03 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 17:16:28 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void free_double_ptr_char(char **str)
+void	free_double_ptr_char(char **str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (str != NULL)
