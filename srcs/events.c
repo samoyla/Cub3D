@@ -6,204 +6,67 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 16:00:08 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/24 17:02:31 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 17:04:53 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void screen_points_update(t_data *data)
+void	update_p_clockwise(t_data *data, t_posi *p, int dir)
 {
-	double norm;
-
-	data->screen.pleft.x = data->player.pos.x + HALF;
-	data->screen.pleft.y = data->player.pos.y + DIST;
-	data->screen.pright.x = data->player.pos.x - HALF;
-	data->screen.pright.y = data->player.pos.y + DIST;
-	z_rotation(data, &data->screen.pleft, data->player.angle);
-	z_rotation(data, &data->screen.pright, data->player.angle);
-	data->screen.v.vx = data->screen.pright.x - data->screen.pleft.x;
-	data->screen.v.vy = data->screen.pright.y - data->screen.pleft.y;
-	norm = sqrt((data->screen.v.vx * data->screen.v.vx) + (data->screen.v.vy * data->screen.v.vy));
-	data->screen.v.vx /= norm;
-	data->screen.v.vy /= norm;
-	// printf("vx:%f vy:%f\n", data->screen.v.vx, data->screen.v.vy);
+	p->x = data->player.pos.x + dir * STEP * sin(data->player.angle);
+	p->y = data->player.pos.y + dir * STEP * cos(data->player.angle);
 }
 
-
-void z_angle_rotation(t_data *data, int key)
+void	update_p_counterclockwise(t_data *data, t_posi *p, int dir)
 {
-	int i;
-
-	i = 0;
-	while (i < NB_ANGLES && data->player.angle != data->player.angles[i])
-		i++;
-	if (key == XK_Left)
-	{
-		if (i == NB_ANGLES - 1)
-			data->player.angle = data->player.angles[0];
-		else
-			data->player.angle = data->player.angles[++i];
-	}
-	else if (key == XK_Right)
-	{
-		if (i == 0)
-			data->player.angle = data->player.angles[NB_ANGLES - 1];
-		else
-			data->player.angle = data->player.angles[--i];
-	}
-	data->player.v.vx = sin(data->player.angle);
-	data->player.v.vy = cos(data->player.angle);
-
-	// checker
-	data->player.check.x = data->player.pos.x + data->player.v.vx * DIST;
-	data->player.check.y = data->player.pos.y + data->player.v.vy * DIST;
+	p->x = data->player.pos.x
+		+ dir * STEP * sin(data->player.angle + PI / 2);
+	p->y = data->player.pos.y
+		+ dir * STEP * cos(data->player.angle + PI / 2);
 }
 
-void hud_points_update(t_data *data)
+void	move_player(t_data *data, int key)
 {
-	data->hud.tri.p1.x_hud = data->player.posh.x + 0.25 * sin(data->player.angle) * data->hud.xt;
-	data->hud.tri.p1.y_hud = data->player.posh.y + 0.25 * cos(data->player.angle) * data->hud.yt;
-	data->hud.tri.p2.x_hud = data->player.posh.x + 0.16667 * sin(PI * 0.25 - data->player.angle) * data->hud.xt;
-	data->hud.tri.p2.y_hud = data->player.posh.y - 0.16667 * cos(PI * 0.25 - data->player.angle) * data->hud.yt;
-	data->hud.tri.p3.x_hud = data->player.posh.x - 0.16667 * sin(PI * 0.25 + data->player.angle) * data->hud.xt;
-	data->hud.tri.p3.y_hud = data->player.posh.y - 0.16667 * cos(PI * 0.25 + data->player.angle) * data->hud.yt;
-}
-
-void z_rotation_player(t_data *data, int key)
-{
-	z_angle_rotation(data, key);
-	hud_points_update(data);
-	screen_points_update(data);
-}
-
-int is_pos_in_bounds(t_data *data, t_posi p)
-{
-	if ((int)p.x > data->map.xsize || (int)p.y > data->map.ysize)
-		return (0);
-	if (data->map.map[(int)p.y][(int)p.x] == '1')
-		return (0);
-	return (1);
-}
-
-int verify_min_dist(double d)
-{
-	if (d - MAX_PDIST <= 0)
-		return (0);
-	return (1);
-}
-
-int get_min_dist_to_wall(t_data *data, t_posi pcheck)
-{
-	if (abs_double(pcheck.x - ceil(pcheck.x)) > abs_double(pcheck.x - (ceil(pcheck.x) - 1)))
-	{
-		// printf("low x:%f y:%f\n", ceil(pcheck.x) - 2, ceil(pcheck.y)-1);
-		// printf("x:%f map:%c\n", abs_double(pcheck.x - (ceil(pcheck.x) - 1)), data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x) - 2]);
-		if (data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x) - 2] == '1')
-		{
-			if (!verify_min_dist(abs_double(pcheck.x - (ceil(pcheck.x) - 1))))
-				return (0);
-		}
-	}
-	else
-	{
-		if (data->map.map[(int)ceil(pcheck.y) - 1][(int)ceil(pcheck.x)] == '1')
-		{
-			if (!verify_min_dist(abs_double(pcheck.x - ceil(pcheck.x))))
-				return (0);
-		}
-	}
-	if (abs_double(pcheck.y - ceil(pcheck.y)) > abs_double(pcheck.y - (ceil(pcheck.y) - 1)))
-	{
-		// printf("\nldist y:%f\n", abs_double(pcheck.y - (ceil(pcheck.y) - 1)));
-		// printf("mapx:%f y:%f\n", ceil(pcheck.x) - 1, ceil(pcheck.y) - 2);
-		// printf("m:%c\n", data->map.map[(int)ceil(pcheck.y) - 2][(int)ceil(pcheck.x) - 1]);
-		if (data->map.map[(int)ceil(pcheck.y) - 2][(int)ceil(pcheck.x) - 1] == '1')
-		{
-			if (!verify_min_dist(abs_double(pcheck.y - (ceil(pcheck.y) - 1))))
-				return (0);
-		}
-	}
-	else
-	{
-		if (data->map.map[(int)ceil(pcheck.y)][(int)ceil(pcheck.x) - 1] == '1')
-		{
-			if (!verify_min_dist(abs_double(pcheck.y - ceil(pcheck.y))))
-				return (0);
-		}
-	}
-	return (1);
-}
-
-void move_player(t_data *data, int key)
-{
-	t_posi p;
-	t_posi pcheck;
-	int dir;
+	t_posi	p;
+	t_posi	pcheck;
+	int		dir;
 
 	dir = 1;
 	if (key == XK_s || key == XK_d)
 		dir = -1;
 	if (key == XK_w || key == XK_s)
-	{
-		pcheck.x = data->player.pos.x + dir * STEP * sin(data->player.angle); // Optimiser les collisions!!
-		pcheck.y = data->player.pos.y + dir * STEP * cos(data->player.angle);
-	}
+		update_p_clockwise(data, &pcheck, dir);
 	else
-	{
-		pcheck.x = data->player.pos.x + dir * (STEP + 0.1) * sin(data->player.angle + PI / 2);
-		pcheck.y = data->player.pos.y + dir * (STEP + 0.1) * cos(data->player.angle + PI / 2);
-	}
-	// printf("P:x:%f y:%f\n", data->player.pos.x, data->player.pos.y);
-	// printf("Pcheck:x:%f y:%f\n", pcheck.x, pcheck.y);
-	if (!get_min_dist_to_wall(data, pcheck))
-		return;
-	// if (!is_pos_in_bounds(data, pcheck))
-	// 	return;
+		update_p_counterclockwise(data, &pcheck, dir);
+	if (!is_move_valid(data, pcheck))
+		return ;
 	if (key == XK_w || key == XK_s)
-	{
-		p.x = data->player.pos.x + dir * STEP * sin(data->player.angle);
-		p.y = data->player.pos.y + dir * STEP * cos(data->player.angle);
-	}
+		update_p_clockwise(data, &p, dir);
 	else
-	{
-		p.x = data->player.pos.x + dir * STEP * sin(data->player.angle + PI / 2);
-		p.y = data->player.pos.y + dir * STEP * cos(data->player.angle + PI / 2);
-	}
+		update_p_counterclockwise(data, &p, dir);
 	data->player.pos.x = p.x;
 	data->player.pos.y = p.y;
 	data->player.posh.x = data->player.pos.x * data->hud.xt;
 	data->player.posh.y = data->player.pos.y * data->hud.yt;
 	hud_points_update(data);
 	screen_points_update(data);
-
-	// checker
-	// data->player.check.x = data->player.pos.x + data->player.v.vx * DIST;
-	// data->player.check.y = data->player.pos.y + data->player.v.vy * DIST;
 }
 
 int	handle_keypress(int key, t_data *data)
 {
 	if (key == XK_Escape)
 		ft_red_cross(data);
-	else if(key == XK_Left || key == XK_Right)
+	else if (key == XK_Left || key == XK_Right)
 		z_rotation_player(data, key);
-	else if(key == XK_w || key == XK_a
+	else if (key == XK_w || key == XK_a
 		|| key == XK_s || key == XK_d)
 		move_player(data, key);
-	else
-		printf("Key pressed:%d\n", key);
-
-	wall_distance(data);
-
-
+	get_wall_height(data);
 	return (0);
 }
 
 int	ft_red_cross(t_data *data)
 {
-	ft_free_n_destroy(data);
-	//free_tab(map->decor);
-	//free_tab(map->whole);
-	exit (0);
+	exit_free_destroy(data, NULL, SUCCESS);
 }

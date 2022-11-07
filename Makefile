@@ -6,7 +6,7 @@
 #    By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/10/20 17:41:44 by masamoil         ###   ########.fr        #
+#    Updated: 2022/11/06 17:00:14 by iguscett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,29 +14,35 @@ NAME		=	cub3D
 
 SRCS_DIR	=	srcs/
 
-CSRCS		=	cub3d.c \
-				check_map_file.c \
-				init.c \
-				utils.c \
-				events.c \
-				free.c \
-				draw.c \
-				get_map_info.c \
+CSRCS		=	main.c \
+				init_pointers.c \
+				init_map_and_check_struct.c \
+				get_and_analyze_map.c \
+				get_whole_map.c\
 				map_elements.c \
-				map_division.c \
-				decor.c \
+				decor_analysis.c \
+				decor_analysis_more.c \
+				get_map.c \
+				init_player.c \
+				init_screen_and_hud.c \
+				wall_height_1.c \
+				wall_height_2.c \
+				init_data_image_textures.c \
+				check_map_file.c \
+				events.c \
+				events_update_positions.c \
+				events_validate_move.c \
+				draw.c \
+				draw_hud.c \
 				map.c \
-				check_wind_rose.c\
-				check_color_values.c\
+				check_wind_rose_n_colors.c\
 				fill_map.c\
 				read_input.c\
-				resize_width_height.c \
-				map_size.c \
-				hud.c \
-				init_player.c \
-				set_screen_points.c \
-				wall_distance.c \
 				ray_tracing.c \
+				utils.c \
+				utils_math.c \
+				exit_free_destroy.c \
+				exit_free_more.c \
 
 SRCS		=	$(addprefix $(SRCS_DIR), $(CSRCS))
 
@@ -76,7 +82,6 @@ mlxlib:
 $(NAME):		$(OBJS)
 				@make -sC ./libft
 				@make -sC ./mlx
-				# @mv mlx/$(MLX) .
 				@$(CC) -I$(DEPS_DIR) $(CFLAGS) -Imlx $(OBJS) $(LIBFT) -o $(NAME) $(FL_MLX)
 
 clean:

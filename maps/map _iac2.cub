@@ -1,23 +1,16 @@
-NO ./texture/floor.xpm
-SO ./texture/wall.xpm   
-EA ./texture/floor.xpm
-WE ./texture/wall.xpm    
-F 220,100,0
-C 210,30,0
+NO ./texture/pavement.xpm
+SO ./texture/blue_coal.xpm
+EA ./texture/mud_wall.xpm
+WE ./texture/synthetic.xpm
+F 105,105,105
+C 192,192,192
 
 
 
 
 111111111111
-1000N0000001
+1000W0000001
 110001110001
 100000000001
-111111111111  
-100001111111
-100000000001
-100000000001
-100000111111111
-100000000000001
-111111111100001
-100000000000001
-111111111111111
+111111111111
+

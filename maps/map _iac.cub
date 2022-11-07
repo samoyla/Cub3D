@@ -1,20 +1,10 @@
 NO ./texture/blue_coal.xpm
-		
-SO ./texture/mud_wall.xpm  
-		
+SO ./texture/mud_wall.xpm
 EA ./texture/pavement.xpm
-   
-
 WE ./texture/psyche_wall.xpm
 F 220,100,0
-
-
 C 255,255,0
 
-
-
-11111
+111111
 100N01
 111111
-   
-11111
