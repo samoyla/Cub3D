@@ -19,7 +19,7 @@ int	check_line_space(char *str)
 	i = 0;
 	if (!str)
 		return (FAILURE);
-	while (str[i])
+	while (str && str[i])
 	{
 		if (str[i] > 32)
 			return (SUCCESS);
@@ -32,14 +32,14 @@ void	tab_decor(char *pathname, t_map *map)
 {
 	int	i;
 	int	j;
-	int end_of_whole;
-	
+	int	end_of_whole;
+
 	i = -1;
 	j = 0;
 	map->decor = ft_calloc(6 + 1, sizeof(char *));
 	if (map->decor == NULL)
 		return ;
-	while (map->whole[++i])
+	while (map-> whole && map->whole[++i])
 	{
 		if (check_line_space(map->whole[i]) == SUCCESS)
 		{
@@ -52,9 +52,8 @@ void	tab_decor(char *pathname, t_map *map)
 			else
 			{
 				map->index = i;
-				break;
-			}
-			
+				break ;
+			}		
 		}
 	}
 	//printf("index = %d\n", map->index);
@@ -64,7 +63,7 @@ void	tab_decor(char *pathname, t_map *map)
 	{
 		while(check_line_space(map->whole[map->index]) == FAILURE)
 			map->index++;
-		break;
+		break ;
 		//printf("index debut map =  %d\n", map->index);
 		map->index++;
 	}

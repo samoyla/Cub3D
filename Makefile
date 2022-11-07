@@ -26,7 +26,8 @@ CSRCS		=	cub3d.c \
 				map_division.c \
 				decor.c \
 				map.c \
-				check_wind_rose_n_colors.c\
+				check_wind_rose.c\
+				check_color_values.c\
 				fill_map.c\
 				read_input.c\
 				resize_width_height.c \

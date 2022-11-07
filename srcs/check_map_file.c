@@ -61,7 +61,6 @@ static int	check_ext(char *name)
 	return (SUCCESS);
 }
 
-
 int	check_file(char *s)
 {
 	if (if_dir(s) == FAILURE)

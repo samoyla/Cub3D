@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_wind_rose_n_colors.c                         :+:      :+:    :+:   */
+/*   check_wind_rose.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -69,36 +69,5 @@ int	check_windrose(t_check *check, char **split, t_map *map)
 		return (FAILURE);
 	}
 	close(fd);
-	return (SUCCESS);
-}
-
-int	check_nb(char **str, t_map *map)
-{
-	char	**split_nb;
-	int		i;
-
-	split_nb = ft_split(str[1], ',');
-	if (split_nb == NULL)
-		return (FAILURE);
-	i = -1;
-	while (split_nb[++i])
-	{
-		if (if_str_digit(split_nb[i]) == FAILURE
-			|| digit_size(split_nb[i]) == FAILURE)
-		{
-			free_tab(split_nb);
-			free_tab(str);
-			ft_putstr_fd("rgb problem\n", 2);
-			return (FAILURE);
-		}
-	}
-	if (i != 3)
-	{
-		ft_putstr_fd("format of rgb is incorrect\n", 2);
-		free_tab(split_nb);
-		free_tab(str);
-		return (FAILURE);
-	}
-	free_tab(split_nb);
 	return (SUCCESS);
 }

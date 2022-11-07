@@ -52,7 +52,7 @@ static int	check_input(char *str)
 {
 	int	i;
 	int	flag_start;
-	
+
 	i = 0;
 	flag_start = 0;
 	while (*str)
@@ -64,13 +64,13 @@ static int	check_input(char *str)
 			if (*str == '1')
 			{
 				flag_start = 1;
-				break;
+				break ;
 			}
 			else
-				break;
+				break ;
 		}
 		if (flag_start)
-			break;
+			break ;
 		while (*str && *str != '\n')
 			str++;
 		if (*str != '\0')
@@ -81,11 +81,11 @@ static int	check_input(char *str)
 	{
 		if (*str == '\n' && *(str + 1) && *(str + 1) == '\n' && if_n_end(str))
 		{
-		 	printf("Error\nempty horizontal lines in map\n");
-		 	return (FAILURE);
-		 }
-		 else
-		 	str++;
+			printf("Error\nempty horizontal lines in map\n");
+			return (FAILURE);
+		}
+		else
+			str++;
 	}
 	return (SUCCESS);
 }
@@ -96,6 +96,12 @@ void	tab_whole_map(t_map *map, char **av)
 
 	i = 0;
 	read_input(map, av);
+	printf("map->input = |%s|\n", map->input);
+	if (map->input == "" || !map->input)
+	{
+		ft_putstr_fd("The file is empty\n", 2);
+		exit(FAILURE);
+	}
 	if (check_input(map->input) == FAILURE)
 	{
 		free(map->input);
