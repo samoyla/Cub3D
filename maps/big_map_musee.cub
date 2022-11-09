@@ -1,8 +1,8 @@
-NO ./texture/wall.xpm
-SO ./texture/wall.xpm
+NO ./texture/musee_1.xpm
+SO ./texture/musee_2.xpm
 
-WE ./texture/wall.xpm
- 	 EA ./texture/wall.xpm  		 
+WE ./texture/musee_3.xpm
+ 	 EA ./texture/musee_4.xpm  		 
 
 F 255,255,0
 C 51,255,255
@@ -13,8 +13,6 @@ C 51,255,255
 1100000000000000000000000111
 1000000000000000000011111111
 111000000000111000000000001
-
-
 1000000000001 10000000000001
 1000000000001100000000000001
 1000000W00000000000000000001
