@@ -6,7 +6,7 @@
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:42:40 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/07 14:43:01 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/11/09 17:34:16 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,25 @@ static int	if_n_end(char *str)
 	return (SUCCESS);
 }
 
+static int	in_check_input(char *str)
+{
+	while (*str)
+	{
+		if (*str == '\n' && *(str + 1) && *(str + 1) == '\n' && if_n_end(str))
+		{
+			ft_putstr_fd("Error\nempty horizontal lines in map\n", 2);
+			return (FAILURE);
+		}
+		else
+			str++;
+	}
+	return (SUCCESS);
+}
+
 static int	check_input(char *str)
 {
-	int	i;
 	int	flag_start;
 
-	i = 0;
 	flag_start = 0;
 	while (*str)
 	{
@@ -62,16 +75,8 @@ static int	check_input(char *str)
 		if (*str != '\0')
 			str++;
 	}
-	while (*str)
-	{
-		if (*str == '\n' && *(str + 1) && *(str + 1) == '\n' && if_n_end(str))
-		{
-			ft_putstr_fd("Error\nempty horizontal lines in map\n", 2);
-			return (FAILURE);
-		}
-		else
-			str++;
-	}
+	if (in_check_input(str) == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
 }
 

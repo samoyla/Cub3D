@@ -15,12 +15,14 @@
 static void	get_texture(t_data *data)
 {
 	int		i;
+	char	*str;
 	char	**wind_rose;
 
 	i = -1;
 	while (data->map.decor[++i] && i < 6)
 	{
-		wind_rose = ft_split(data->map.decor[i], ' ');
+		str = ft_strtrim(data->map.decor[i], " \t\n\v\f\r");
+		wind_rose = ft_split(str, ' ');
 		if (wind_rose == NULL)
 			exit_free_destroy(data, "Problem in malloc\n", FAILURE);
 		if (ft_strncmp(wind_rose[0], "NO", 2) == 0)
@@ -32,6 +34,7 @@ static void	get_texture(t_data *data)
 		else if (ft_strncmp(wind_rose[0], "EA", 2) == 0)
 			data->map.ea = ft_strdup(wind_rose[1]);
 		free_double_ptr_char(wind_rose);
+		free(str);
 	}
 	if (data->map.no == NULL || data->map.so == NULL
 		|| data->map.ea == NULL || data->map.we == NULL)

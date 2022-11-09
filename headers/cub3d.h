@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/06 17:15:42 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/09 13:03:16 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef struct s_check
 	int			ea;
 }				t_check;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void		*img;
 	char		*addr;
@@ -114,7 +114,7 @@ typedef struct	s_img
 	double		y;
 }				t_img;
 
-typedef struct	s_imgs
+typedef struct s_imgs
 {
 	t_img		no;
 	t_img		ea;
@@ -288,12 +288,14 @@ void	ray_tracing(t_data *data);
 void	z_rotation(t_data *data, t_posi *p, double angle);
 void	get_wall_height(t_data *data);
 double	wall_boundary(double coord, double dir);
-int		encode_trgb(uint8_t transparency, uint8_t red, uint8_t green, uint8_t blue);
-int		create_trgb(unsigned char t, unsigned char r, unsigned char g, unsigned char b);
+int		encode_trgb(uint8_t transparency, uint8_t red,
+			uint8_t green, uint8_t blue);
+int		create_trgb(unsigned char t, unsigned char r,
+			unsigned char g, unsigned char b);
 
 //utils.c
 void	check_fd(int fd);
-void	print_tab(char	**tab);
+//void	print_tab(char	**tab);
 int		if_str_digit(char *s);
 int		digit_size(char *s);
 int		encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
