@@ -3,96 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   map_elements.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 16:07:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/20 17:59:11 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/11/06 16:36:05 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_line_space(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (FAILURE);
-	while (str[i])
-	{
-		if (str[i] > 32)
-			return (SUCCESS);
-		i++;
-	}
-	return (FAILURE);
-}
-
-void	tab_decor(char *pathname, t_map *map)
+int	tab_map(t_data *data, char *pathname)
 {
 	int	i;
 	int	j;
-	int	count;
-
-	i = 0;
-	j = -1;
-	count = 0;
-	map->decor = ft_calloc(6 + 1, sizeof(char *));
-	if (map->decor == NULL)
-		return ;
-	while (map->whole[i])
-	{
-		if (check_line_space(map->whole[i]) == SUCCESS)
-		{
-			if (++j <= 5)
-				map->decor[j] = ft_strdup(map->whole[i]);
-		}
-		else
-			count++;
-		i++;
-	}
-	map->count = count;
-	printf("map-count = %d\n", map->count);
-	//print_tab(map->decor);//supprimer
-}
-
-int	check_space(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] < 32)
-			return (FAILURE);
-		i++;
-	}
-	return (SUCCESS);
-}
-
-int	tab_map(char *pathname, t_map *map)
-{
-	int	i;
-	int	j;
-	int	size;
 	int	size_max;
 
 	i = 0;
-	j = 6;
-	size = map->size + j;
-	if (size == 0)
-		return (FAILURE);
-	size_max = max_width(&map->whole[j], map);
-	map->map = ft_calloc(size, sizeof(char *));
-	if (!map->map)
-		return (FAILURE);
-	while (map->whole[j] != NULL)
+	j = data->map.index;
+	if (j == 0)
+		exit_free_destroy(data, "Map does not exist\n", FAILURE);
+	size_max = max_width(&data->map.whole[j], data);
+	data->map.map = ft_calloc(data->map.count + 1, sizeof(char *));
+	if (data->map.map == NULL)
+		exit_free_destroy(data, "Problem in malloc\n", FAILURE);
+	while (data->map.whole[j] != NULL)
 	{
-		map->map[i] = ft_strdup_space(map->whole[j], size_max);
-			i++;
+		data->map.map[i++] = ft_strdup_space(data->map.whole[j], size_max);
+		if (data->map.map[i - 1] == NULL)
+			exit_free_destroy(data, "Problem in malloc\n", FAILURE);
 		j++;
 	}
-	//map->map[i] = 0;
-	print_tab(map->map);
+	data->map.map[i] = 0;
 	return (SUCCESS);
 }

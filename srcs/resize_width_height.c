@@ -34,8 +34,3 @@ void resize_width_height(t_data *data)
 		data->height = HEIGHT;
 	}
 }
-
-
-
-
-

@@ -6,13 +6,13 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:07:48 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/30 17:26:26 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 17:11:45 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void init_pointers_map(t_data *data)
+void	init_pointers_map(t_data *data)
 {
 	data->map.whole = NULL;
 	data->map.decor = NULL;
@@ -24,22 +24,21 @@ void init_pointers_map(t_data *data)
 	data->map.we = NULL;
 }
 
-void init_pointers_screen_img(t_data *data)
+void	init_pointers_screen_img(t_data *data)
 {
 	data->img.addr = NULL;
 	data->img.iaddr = NULL;
 	data->img.img = NULL;
 }
 
-void init_pointers_wall(t_data *data)
+void	init_pointers_wall(t_data *data)
 {
-	data->wall.texture = NULL;
 	data->wall.wheight = NULL;
 	data->wall.col = NULL;
 	data->wall.side = NULL;
 }
 
-void init_pointers_textures(t_data *data)
+void	init_pointers_textures(t_data *data)
 {
 	data->tex.no.addr = NULL;
 	data->tex.no.iaddr = NULL;

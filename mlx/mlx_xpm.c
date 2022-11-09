@@ -1,9 +1,9 @@
 /*
- ** xpm-read.c for MinilibX in 
- ** 
+ ** xpm-read.c for MinilibX in
+ **
  ** Made by Charlie Root
  ** Login   <ol@epitech.net>
- ** 
+ **
  ** Started on  Tue Dec 11 15:25:27 2001 olivier crouzet
  ** Last update Sat Oct  1 14:56:13 2005 Olivier Crouzet
  */
@@ -76,7 +76,7 @@ char	*mlx_int_static_line(char **xpm_data,int *pos,int size)
 			len = len2;
 	}
 	strlcpy_is_not_posix(copy, str, len2);
-	
+
 	return (copy);
 }
 
@@ -88,7 +88,7 @@ int	mlx_int_get_col_name(char *str,int size)
 	result = 0;
 	while (size--)
 		result = (result<<8)+*(str++);
-	
+
 	return (result);
 }
 
@@ -118,7 +118,7 @@ int	mlx_int_get_text_rgb(char *name, char *end)
 int	mlx_int_xpm_set_pixel(t_img *img, char *data, int opp, int col, int x)
 {
 	int	dec;
-	
+
 	dec = opp;
   	while (dec--)
     {
@@ -317,7 +317,7 @@ void	*mlx_xpm_file_to_image(t_xvar *xvar,char *file,int *width,int *height)
 						(ptr = mmap(0,size,PROT_WRITE|PROT_READ,MAP_PRIVATE,fd,0))==
 						(void *)MAP_FAILED)
 		{
-				if (fd>=0)
+				if (fd >= 0)
 						close(fd);
 				return ((void *)0);
 		}

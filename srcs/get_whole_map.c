@@ -1,46 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_map_info.c                                     :+:      :+:    :+:   */
+/*   get_whole_map.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 10:32:36 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/22 13:36:01 by masamoil         ###   ########.fr       */
+/*   Created: 2022/11/07 14:42:40 by masamoil          #+#    #+#             */
+/*   Updated: 2022/11/07 14:43:01 by masamoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	create_tab_elements(char *pathname, t_map *map, t_check *check, char **av)
-{
-	tab_whole_map(map, av);
-	tab_decor(pathname, map);
-	if (decor_analysis(map, check) == FAILURE)
-		return (FAILURE);
-	if (tab_map(pathname, map) == FAILURE)
-	{
-		ft_putstr_fd("Error\nmap doesn't exist\n", 2);
-		return (FAILURE);
-	}
-	if (map_analysis(map) == FAILURE)
-		return (FAILURE);
-	return (SUCCESS);
-}
-
-// char	*s_n_r(char *str, char c, char ac)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (str && str[i])
-// 	{
-// 		while (str[i] == c)
-// 			str[i] = ac;
-// 		i++;
-// 	}
-// 	return (str);
-// }
 
 static int	ft_whitespaces_no_n(char c)
 {
@@ -52,21 +22,22 @@ static int	ft_whitespaces_no_n(char c)
 
 static int	if_n_end(char *str)
 {
-	int i = 0;
-	while(str[i])
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
 		if (str[i] != '\n' && ft_whitespaces_no_n(str[i]) == FAILURE)
-			return(1);
-		i++; 
+			return (FAILURE);
+		i++;
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 static int	check_input(char *str)
 {
 	int	i;
 	int	flag_start;
-	int end;
 
 	i = 0;
 	flag_start = 0;
@@ -79,48 +50,48 @@ static int	check_input(char *str)
 			if (*str == '1')
 			{
 				flag_start = 1;
-				break;
+				break ;
 			}
 			else
-				break;
+				break ;
 		}
 		if (flag_start)
-			break;
+			break ;
 		while (*str && *str != '\n')
 			str++;
 		if (*str != '\0')
 			str++;
 	}
-	printf("flag_start = %d\n", flag_start);
 	while (*str)
 	{
 		if (*str == '\n' && *(str + 1) && *(str + 1) == '\n' && if_n_end(str))
 		{
-		 	printf("Error\nempty horizontal lines in map\n");
-		 	return (FAILURE);
-		 }
-		 else
-		 	str++;
+			ft_putstr_fd("Error\nempty horizontal lines in map\n", 2);
+			return (FAILURE);
+		}
+		else
+			str++;
 	}
 	return (SUCCESS);
 }
 
-void	tab_whole_map(t_map *map, char **av)
+void	get_whole_map(t_data *data, char **av)
 {
 	int		i;
 
 	i = 0;
-	read_input(map, av);
-	if (check_input(map->input) == FAILURE)
+	read_input(data, av);
+	if (check_input(data->map.input) == FAILURE)
 	{
-		free(map->input);
+		free(data->map.input);
 		exit (FAILURE);
 	}
-	map->whole = ft_split(map->input, '\n');
-	while (map->whole[i])
+	data->map.whole = ft_split(data->map.input, '\n');
+	if (data->map.whole == NULL)
+		exit_free_destroy(data, "Problem in malloc\n", FAILURE);
+	while (data->map.whole[i])
 		i++;
-	map->size = i;
-	printf("size of whole map = %d\n", map->size);
-	print_tab(map->whole);
-	free(map->input);
+	data->map.size = i;
+	free(data->map.input);
+	data->map.input = NULL;
 }

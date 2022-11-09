@@ -6,16 +6,16 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:13:30 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/28 17:56:16 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/06 16:29:09 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void hud_put_empty_square(t_data *data, int x, int y, int color)
+void	hud_put_empty_square(t_data *data, int x, int y, int color)
 {
-	int ix;
-	int iy;
+	int	ix;
+	int	iy;
 
 	ix = x * data->hud.xt;
 	while (ix < (x + 1) * data->hud.xt)
@@ -27,10 +27,10 @@ void hud_put_empty_square(t_data *data, int x, int y, int color)
 	}
 }
 
-void walls_edges(t_data *data, int x, int y, int color)
+void	walls_edges(t_data *data, int x, int y, int color)
 {
-	int ix;
-	int iy;
+	int	ix;
+	int	iy;
 
 	ix = x * data->hud.xt;
 	iy = y * data->hud.yt;
@@ -54,10 +54,10 @@ void walls_edges(t_data *data, int x, int y, int color)
 	}
 }
 
-void empty_spaces(t_data *data)
+void	empty_spaces(t_data *data)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = -1;
 	while (data->map.map[++y])
@@ -75,10 +75,10 @@ void empty_spaces(t_data *data)
 	}
 }
 
-void black_edges(t_data *data)
+void	black_edges(t_data *data)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = -1;
 	while (data->map.map[++y])
@@ -92,7 +92,7 @@ void black_edges(t_data *data)
 	}
 }
 
-void render_hud(t_data *data, int color)
+void	render_hud(t_data *data, int color)
 {
 	int	y;
 	int	x;
@@ -101,11 +101,9 @@ void render_hud(t_data *data, int color)
 	while (++y < data->hud.ysize)
 	{
 		x = -1;
-		// printf("hudxsize:%d\n", data->hud.xsize);
 		while (++x < data->hud.xsize)
 			img_pix_put(&data->img, x, y, color);
 	}
-	int k = -1;
 	empty_spaces(data);
 	black_edges(data);
 }

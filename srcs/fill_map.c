@@ -3,27 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   fill_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:45:09 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/18 12:33:28 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/11/06 16:27:47 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	max_width(char **mapi, t_map *map)
+int	max_width(char **mapi, t_data *data)
 {
 	int	i;
 	int	size;
 
 	i = 0;
 	if (!mapi[i])
-	{
-		ft_putstr_fd("map does not exist\n", 2);
-		free_map_struct(map);
-		exit (FAILURE);
-	}
+		exit_free_destroy(data, "Map does not exist\n", FAILURE);
 	size = ft_strlen(mapi[i]);
 	while (mapi[i])
 	{

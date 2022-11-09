@@ -1,6 +1,7 @@
 NO ./texture/blue_coal.xpm
 SO ./texture/mud_wall.xpm
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 EA ./texture/pavement.xpm
 
@@ -8,6 +9,9 @@ EA ./texture/pavement.xpm
 =======
 EA ./texture/pavement.xpm
 >>>>>>> iac
+=======
+EA ./texture/pavement.xpm
+>>>>>>> maryna
 WE ./texture/psyche_wall.xpm
 F 220,100,0
 C 255,255,0
