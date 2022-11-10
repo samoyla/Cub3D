@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_whole_map.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masamoil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:42:40 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/09 17:34:16 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/11/10 10:33:25 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,8 @@ static int	in_check_input(char *str)
 	return (SUCCESS);
 }
 
-static int	check_input(char *str)
+static int	check_input(char *str, int *flag_start)
 {
-	int	flag_start;
-
-	flag_start = 0;
 	while (*str)
 	{
 		while (*str && *str != '\n')
@@ -62,13 +59,13 @@ static int	check_input(char *str)
 				str++;
 			if (*str == '1')
 			{
-				flag_start = 1;
+				*flag_start = 1;
 				break ;
 			}
 			else
 				break ;
 		}
-		if (flag_start)
+		if (*flag_start)
 			break ;
 		while (*str && *str != '\n')
 			str++;
@@ -83,10 +80,12 @@ static int	check_input(char *str)
 void	get_whole_map(t_data *data, char **av)
 {
 	int		i;
+	int		flag_start;
 
 	i = 0;
+	flag_start = 0;
 	read_input(data, av);
-	if (check_input(data->map.input) == FAILURE)
+	if (check_input(data->map.input, &flag_start) == FAILURE)
 	{
 		free(data->map.input);
 		exit (FAILURE);

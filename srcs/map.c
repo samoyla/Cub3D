@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 17:44:54 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/06 16:28:18 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:11:52 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void	check_player(t_data *data)
 		}
 	}
 	if (nb_p != 1)
-		exit_free_destroy(data, "Two or more players on map\n", FAILURE);
+		exit_free_destroy(data, "Zero/more than 1 player on map\n", FAILURE);
 	if (nb_p == 1 && (check_if_inside(&data->map) == FAILURE))
 		exit_free_destroy(data,
 			"Wrong player position or map is open\n", FAILURE);

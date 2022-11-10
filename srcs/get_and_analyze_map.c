@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 10:32:36 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/09 16:38:42 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/11/10 10:35:25 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	get_map_tex_and_colors(t_data *data, char *pathname)
 	int	end_of_whole;
 
 	data->map.decor = ft_calloc(6 + 1, sizeof(char *));
-	data->map.decor[6] == NULL;
+	data->map.decor[6] = NULL;
 	if (data->map.decor == NULL)
 		exit_free_destroy(data, "Problem in malloc\n", FAILURE);
 	get_decor(data);

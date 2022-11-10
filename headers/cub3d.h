@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/09 13:03:16 by masamoil         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:00:45 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,10 +240,10 @@ void	read_input(t_data *data, char **argv);
 void	get_whole_map(t_data *data, char **av);
 void	get_map_tex_and_colors(t_data *data, char *pathname);
 void	decor_analysis(t_data *data, t_check *check);
-int		check_texture_lines(char **split, t_check *check);
+int		check_texture_lines(t_data *data, char **split, t_check *check);
 int		check_color_lines(char **split, t_check *check);
-int		check_decor_lines(char **split, t_check *check);
-int		split_condition(char **split, t_check *check);
+int		check_decor_lines(t_data *data, char **split, t_check *check);
+int		split_condition(t_data *data, char **split, t_check *check);
 int		check_space(char *str);
 int		tab_map(t_data *data, char *pathname);
 void	map_analysis(t_data *data);
@@ -264,7 +264,7 @@ int		check_line_space(char *str);
 int		check_space(char *str);
 int		check_doubles(t_check check);
 int		check_exist(t_check check);
-int		check_windrose(t_check *check, char **split);
+int		check_windrose(t_data *data, t_check *check, char **split);
 int		check_nb(char *str);
 int		max_width(char **mapi, t_data *data);
 char	*ft_strdup_space(char *s, int size);
@@ -295,7 +295,6 @@ int		create_trgb(unsigned char t, unsigned char r,
 
 //utils.c
 void	check_fd(int fd);
-//void	print_tab(char	**tab);
 int		if_str_digit(char *s);
 int		digit_size(char *s);
 int		encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
