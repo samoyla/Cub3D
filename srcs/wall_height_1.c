@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:06:53 by iguscett          #+#    #+#             */
-/*   Updated: 2022/11/06 16:24:01 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:16:37 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	init_start_and_ray_points(t_data *d, t_hcalc *st, int *wall, int i)
 	st->wall.y = wall_boundary(d->player.rayp.y, st->vangle.vy);
 }
 
-void	get_height(t_data *data, int i, t_vect *va)
+void	get_height(t_data *data, int i)
 {
 	double	ray_dist;
 
@@ -93,7 +93,7 @@ void	get_wall_height(t_data *data)
 				update_wall_value_and_idx_y(data, &st, &wall, i);
 			}
 		}
-		get_height(data, i, &st.vangle);
+		get_height(data, i);
 		get_column(data, i);
 	}
 }

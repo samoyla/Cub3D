@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/10 11:00:45 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:15:22 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,18 +234,17 @@ typedef struct s_data
 void	init_pointers(t_data *data);
 void	init_map_and_check_struct(t_data *data, t_check *check);
 void	check_nb_args_and_file(t_data *data, int argc, char **argv);
-void	get_and_analyze_map(t_data *data,
-			t_check *check, char *pathname, char **av);
+void	get_and_analyze_map(t_data *data, t_check *check, char **av);
 void	read_input(t_data *data, char **argv);
 void	get_whole_map(t_data *data, char **av);
-void	get_map_tex_and_colors(t_data *data, char *pathname);
+void	get_map_tex_and_colors(t_data *data);
 void	decor_analysis(t_data *data, t_check *check);
 int		check_texture_lines(t_data *data, char **split, t_check *check);
 int		check_color_lines(char **split, t_check *check);
 int		check_decor_lines(t_data *data, char **split, t_check *check);
 int		split_condition(t_data *data, char **split, t_check *check);
 int		check_space(char *str);
-int		tab_map(t_data *data, char *pathname);
+int		tab_map(t_data *data);
 void	map_analysis(t_data *data);
 void	get_map(t_data *data);
 void	init_player(t_data *data);

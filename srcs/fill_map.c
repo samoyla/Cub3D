@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:45:09 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/06 16:27:47 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:17:56 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	max_width(char **mapi, t_data *data)
 	size = ft_strlen(mapi[i]);
 	while (mapi[i])
 	{
-		if (size < ft_strlen(mapi[i]))
-			size = ft_strlen(mapi[i]);
+		if (size < (int)ft_strlen(mapi[i]))
+			size = (int)ft_strlen(mapi[i]);
 		i++;
 	}
 	return (size);

@@ -6,13 +6,13 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 16:07:11 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/06 16:36:05 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:15:24 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	tab_map(t_data *data, char *pathname)
+int	tab_map(t_data *data)
 {
 	int	i;
 	int	j;

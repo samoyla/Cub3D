@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 10:32:36 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/10 10:35:25 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:15:23 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	in_tex_and_colors(t_data *data)
 	}
 }
 
-void	get_map_tex_and_colors(t_data *data, char *pathname)
+void	get_map_tex_and_colors(t_data *data)
 {
 	int	end_of_whole;
 
@@ -78,12 +78,11 @@ void	get_map_tex_and_colors(t_data *data, char *pathname)
 	data->map.count = end_of_whole - data->map.index;
 }
 
-void	get_and_analyze_map(t_data *data,
-	t_check *check, char *pathname, char **av)
+void	get_and_analyze_map(t_data *data, t_check *check, char **av)
 {
 	get_whole_map(data, av);
-	get_map_tex_and_colors(data, pathname);
+	get_map_tex_and_colors(data);
 	decor_analysis(data, check);
-	tab_map(data, pathname);
+	tab_map(data);
 	map_analysis(data);
 }

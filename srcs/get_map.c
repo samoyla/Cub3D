@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:27:24 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/06 16:21:38 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:16:04 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ static void	get_map_size(t_data *data)
 		x = ft_strlen(data->map.map[0]);
 	while (data->map.map[(int)y])
 	{
-		if (ft_strlen(data->map.map[(int)y]) > x)
-			x = ft_strlen(data->map.map[y]);
+		if ((long)ft_strlen(data->map.map[(int)y]) > x)
+			x = (long)ft_strlen(data->map.map[y]);
 		y++;
 		if (y > INT_MAX)
 			exit_free_destroy(data, "Map too big\n", FAILURE);

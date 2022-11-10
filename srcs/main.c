@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 15:03:16 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/06 17:00:15 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:15:24 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **env)
 		exit_free_destroy(&data, "env doesn't exist\n", FAILURE);
 	init_map_and_check_struct(&data, &check);
 	check_nb_args_and_file(&data, argc, argv);
-	get_and_analyze_map(&data, &check, argv[1], argv);
+	get_and_analyze_map(&data, &check, argv);
 	get_map(&data);
 	init_player(&data);
 	init_screen_and_hud(&data);

@@ -6,7 +6,7 @@
 #    By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/11/10 10:34:35 by iguscett         ###   ########.fr        #
+#    Updated: 2022/11/10 11:15:20 by iguscett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ MLXFLAGS	=	-I/usr/include -Imlx -O3
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 				@mkdir -p $(OBJS_DIR)
-				@$(CC) -g $(MLXFLAGS) -I$(DEPS_DIR) -c -o $@ $<
+				@$(CC) -g $(CFLAGS) $(MLXFLAGS) -I$(DEPS_DIR) -c -o $@ $<
 
 all:			$(NAME)
 

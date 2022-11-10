@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:13:30 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/06 17:22:00 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:17:33 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	}
 }
 
-double	sign(t_data *data, t_posi p, t_hpt pa, t_hpt pb)
+double	sign(t_posi p, t_hpt pa, t_hpt pb)
 {
 	double	a;
 	double	b;
@@ -47,9 +47,9 @@ int	is_in_triangle(t_data *data, t_posi p)
 	int		has_neg;
 	int		has_pos;
 
-	a = sign(data, p, data->hud.tri.p1, data->hud.tri.p2);
-	b = sign(data, p, data->hud.tri.p2, data->hud.tri.p3);
-	c = sign(data, p, data->hud.tri.p3, data->hud.tri.p1);
+	a = sign(p, data->hud.tri.p1, data->hud.tri.p2);
+	b = sign(p, data->hud.tri.p2, data->hud.tri.p3);
+	c = sign(p, data->hud.tri.p3, data->hud.tri.p1);
 	has_neg = 0;
 	if ((a < 0) || (b < 0) || (c < 0))
 		has_neg = 1;
@@ -63,8 +63,6 @@ int	is_in_triangle(t_data *data, t_posi p)
 
 void	render_player(t_data *data, int color)
 {
-	double	x_init;
-	double	y_init;
 	t_posi	p;
 
 	p.x = data->player.pos.x * data->hud.xt - 0.25 * data->hud.xt -1;
