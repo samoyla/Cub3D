@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 13:26:26 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/10 11:15:22 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:21:02 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,14 +249,6 @@ void	map_analysis(t_data *data);
 void	get_map(t_data *data);
 void	init_player(t_data *data);
 void	init_screen_and_hud(t_data *data);
-
-void	update_ray_step(t_data *data, t_hcalc *st);
-void	update_raypos_and_matrix_idx_x(t_data *data, t_hcalc *st);
-void	update_raypos_and_matrix_idx_y(t_data *data, t_hcalc *st);
-void	update_wall_value_and_idx_x(t_data *data,
-			t_hcalc *st, int *wall, int i);
-void	update_wall_value_and_idx_y(t_data *data,
-			t_hcalc *st, int *wall, int i);
 void	init_data_image_textures(t_data *data, char *name);
 int		map_size(char *pathname);
 int		check_line_space(char *str);
@@ -268,21 +260,28 @@ int		check_nb(char *str);
 int		max_width(char **mapi, t_data *data);
 char	*ft_strdup_space(char *s, int size);
 void	init_textures(t_data *data);
+
+// ****************************************************	//
+// SET RAYTRACING										//
+// ****************************************************	//
+void	update_ray_step(t_data *data, t_hcalc *st);
+void	update_raypos_and_matrix_idx_x(t_data *data, t_hcalc *st);
+void	update_raypos_and_matrix_idx_y(t_data *data, t_hcalc *st);
+void	update_wall_value_and_idx_x(t_data *data,
+			t_hcalc *st, int *wall, int i);
+void	update_wall_value_and_idx_y(t_data *data,
+			t_hcalc *st, int *wall, int i);
 void	set_hud(t_data *data);
 void	hud_put_empty_square(t_data *data, int x, int y, int color);
 void	walls_edges(t_data *data, int x, int y, int color);
 void	empty_spaces(t_data *data);
 void	black_edges(t_data *data);
 void	render_hud(t_data *data, int color);
-
-//events
 void	screen_points_update(t_data *data);
 void	z_angle_rotation(t_data *data, int key);
 void	hud_points_update(t_data *data);
 void	z_rotation_player(t_data *data, int key);
 int		is_move_valid(t_data *data, t_posi pcheck);
-
-// Ray tracing
 void	ray_tracing(t_data *data);
 void	z_rotation(t_data *data, t_posi *p, double angle);
 void	get_wall_height(t_data *data);
@@ -291,8 +290,15 @@ int		encode_trgb(uint8_t transparency, uint8_t red,
 			uint8_t green, uint8_t blue);
 int		create_trgb(unsigned char t, unsigned char r,
 			unsigned char g, unsigned char b);
+int		render(t_data *data);
+void	img_pix_put(t_img *img, int x, int y, int color);
+void	render_background(t_data *data, int color);
+int		handle_keypress(int keysem, t_data *data);
+int		ft_red_cross(t_data *data);
 
-//utils.c
+// ****************************************************	//
+// UTILS												//
+// ****************************************************	//
 void	check_fd(int fd);
 int		if_str_digit(char *s);
 int		digit_size(char *s);
@@ -301,18 +307,11 @@ double	norm_vector(t_vect v);
 double	norm_two_points(t_posi p1, t_posi p2);
 double	absd(double a);
 
-//MLX
-//events.c
-int		handle_keypress(int keysem, t_data *data);
-int		ft_red_cross(t_data *data);
-//free.c
+// ****************************************************	//
+// FREE AND EXIT										//
+// ****************************************************	//
 void	ft_free_n_destroy(t_data *data);
 void	free_map_struct(t_map *map);
-//draw.c
-int		render(t_data *data);
-void	img_pix_put(t_img *img, int x, int y, int color);
-void	render_background(t_data *data, int color);
-
 void	exit_free_destroy(t_data *data, char *err, int exit_code);
 void	free_pointers_map(t_data *data);
 void	free_pointers_wall(t_data *data);
