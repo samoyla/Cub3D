@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 15:12:05 by masamoil          #+#    #+#             */
-/*   Updated: 2022/11/06 17:24:14 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/10 10:59:25 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	split_and_check(t_data *data, char **str, t_check *check)
 	free(*str);
 	if (split == NULL)
 		exit_free_destroy(data, "Problem in malloc\n", FAILURE);
-	if (split_condition(split, check) == FAILURE)
+	if (split_condition(data, split, check) == FAILURE)
 	{
 		free_double_ptr_char(split);
 		exit_free_destroy(data, "Wrong decor setting\n", FAILURE);

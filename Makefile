@@ -6,7 +6,7 @@
 #    By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/02 12:34:59 by masamoil          #+#    #+#              #
-#    Updated: 2022/11/06 17:00:14 by iguscett         ###   ########.fr        #
+#    Updated: 2022/11/10 10:34:35 by iguscett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ LIBFT		=	./libft/libft.a
 
 MLX			=	libmlx.dylib
 
-CC			=	gcc
+CC			=	clang
 
 RM			=	rm -f
 

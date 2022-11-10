@@ -6,7 +6,7 @@
 /*   By: iguscett <iguscett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 16:00:08 by masamoil          #+#    #+#             */
-/*   Updated: 2022/10/28 19:04:51 by iguscett         ###   ########.fr       */
+/*   Updated: 2022/11/10 10:39:10 by iguscett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ int	handle_keypress(int key, t_data *data)
 int	ft_red_cross(t_data *data)
 {
 	exit_free_destroy(data, NULL, SUCCESS);
+	return (0);
 }
