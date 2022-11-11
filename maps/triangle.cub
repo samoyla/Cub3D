@@ -1,8 +1,8 @@
-NO ./texture/wall.xpm
-SO ./texture/wall.xpm
+NO ./texture/wall_city.xpm
+SO ./texture/wall_orange.xpm
 
-WE ./texture/wall.xpm
-EA ./texture/wall.xpm
+WE ./texture/brick_wall.xpm
+EA ./texture/city_wall.xpm
 
 F 255,255,0
 C 51,255,255

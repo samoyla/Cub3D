@@ -1,7 +1,7 @@
-NO ./texture/pavement.xpm
-SO ./texture/blue_coal.xpm
-EA ./texture/mud_wall.xpm
-WE ./texture/synthetic.xpm
+NO ./texture/musee_1.xpm
+SO ./texture/musee_2.xpm
+EA ./texture/musee_3.xpm
+WE ./texture/musee_4.xpm
 F 105,105,105
 C 192,192,192
 
@@ -12,24 +12,14 @@ C 192,192,192
 1000W0000001
 110001110001
 100000000001
-<<<<<<< HEAD
-<<<<<<< HEAD
-111111111111  
+100011111111  
 100001111111
 100000000001
-   
-      
 100000000001
 100000111111111
 100000000000001
 111111111100001
 100000000000001
 111111111111111
-=======
 111111111111
-
->>>>>>> iac
-=======
-111111111111
-
->>>>>>> maryna
+11111111111
