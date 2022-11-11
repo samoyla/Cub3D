@@ -58,7 +58,7 @@ static void	empty_file(ssize_t	b_read)
 {
 	if (b_read == 0)
 	{
-		ft_putstr_fd("File is empty\n", 2);
+		ft_putstr_fd("Error\nFile is empty\n", 2);
 		exit (FAILURE);
 	}
 }

@@ -12,10 +12,6 @@
 
 #include "cub3d.h"
 
-// check ALL MALLOCS
-// check map file, redo extensin checker
-//
-
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;

@@ -64,7 +64,7 @@ CC			=	clang
 
 RM			=	rm -f
 
-CFLAGS		=	-Wall -Wextra -Werror -g
+CFLAGS		=	-Wall -Wextra -Werror
 
 FL_MLX		=	-ldl -lmlx -Lmlx -lm -lXext -lX11 -lz
 
@@ -97,32 +97,3 @@ fclean:			clean
 re:				fclean all
 
 .PHONY:			all clean fclean re
-
-
-
-
-
-
-
-
-# all : ${NAME}
-
-# ${NAME} : ${OBJS}
-# 	make -C ./Libft
-# 	make -s -C ./mlx
-# 	${CC} ${CFLAGS} -Imlx ${SRCS} ${INCLUDES} -o ${NAME} ${FL_MLX}
-
-# %.o:%.c
-# 	${CC} ${CFLAGS} -Imlx -Ibass -o $@ -c $<
-
-# clean :
-# 	${RM} ${OBJS}
-# 	make clean -C ./Libft
-
-# fclean : clean
-# 	${RM} ${NAME}
-# 	make fclean -C ./Libft
-
-# re : fclean all
-
-# .PHONY : clean fclean re
